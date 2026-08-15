@@ -300,50 +300,105 @@
     <rect width="100%" height="100%" fill="url(#motes)"/>
   </svg>
 
-  <!-- treeline and a lone Tarnished, looking up at it -->
+  <!-- dead wood, broken stone, and a lone Tarnished beneath it all -->
   <svg class="skyline" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#16332f"/><stop offset="1" stop-color="#0b1e1c"/>
+      <linearGradient id="ridgeFar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1a3b36"/><stop offset="1" stop-color="#0d2220"/>
       </linearGradient>
-      <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#0a1a19"/><stop offset="1" stop-color="#050f0e"/>
+      <linearGradient id="ridgeMid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0e2422"/><stop offset="1" stop-color="#08211f"/>
       </linearGradient>
+      <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"   stop-color="#7fb3a6" stop-opacity="0"/>
+        <stop offset=".45" stop-color="#7fb3a6" stop-opacity=".16"/>
+        <stop offset="1"   stop-color="#7fb3a6" stop-opacity="0"/>
+      </linearGradient>
+
+      <!-- a bare, gnarled tree; branches fork twice and taper -->
+      <g id="treeA" fill="none" stroke-linecap="round">
+        <path d="M0 0 C -4 -34 3 -60 -1 -92" stroke-width="10"/>
+        <path d="M-1 -62 C -16 -73 -23 -90 -30 -105" stroke-width="5.5"/>
+        <path d="M-1 -70 C 13 -80 21 -96 27 -112" stroke-width="5"/>
+        <path d="M-30 -105 C -36 -113 -44 -117 -52 -122" stroke-width="3"/>
+        <path d="M-30 -105 C -27 -118 -24 -127 -21 -137" stroke-width="3"/>
+        <path d="M27 -112 C 33 -120 41 -124 49 -128" stroke-width="2.8"/>
+        <path d="M27 -112 C 24 -124 21 -133 19 -142" stroke-width="2.8"/>
+        <path d="M-1 -92 C -5 -108 -1 -120 -3 -134" stroke-width="4.2"/>
+        <path d="M-3 -134 C -9 -143 -15 -148 -21 -154" stroke-width="2.4"/>
+        <path d="M-3 -134 C 4 -143 9 -149 14 -156" stroke-width="2.4"/>
+        <path d="M-21 -137 C -25 -145 -29 -149 -33 -153" stroke-width="1.6"/>
+        <path d="M19 -142 C 17 -150 15 -155 13 -161" stroke-width="1.6"/>
+      </g>
+
+      <!-- squatter, wind-bent -->
+      <g id="treeB" fill="none" stroke-linecap="round">
+        <path d="M0 0 C 6 -26 -2 -46 6 -70" stroke-width="8.5"/>
+        <path d="M3 -48 C -10 -56 -18 -66 -25 -78" stroke-width="4.6"/>
+        <path d="M6 -70 C 18 -80 26 -88 36 -96" stroke-width="4.2"/>
+        <path d="M-25 -78 C -31 -84 -38 -87 -45 -90" stroke-width="2.6"/>
+        <path d="M-25 -78 C -24 -88 -22 -95 -20 -103" stroke-width="2.6"/>
+        <path d="M36 -96 C 43 -101 50 -103 57 -105" stroke-width="2.4"/>
+        <path d="M36 -96 C 35 -105 34 -111 33 -118" stroke-width="2.4"/>
+        <path d="M6 -70 C 3 -84 6 -94 4 -106" stroke-width="3.4"/>
+        <path d="M4 -106 C -1 -114 -5 -118 -9 -123" stroke-width="2"/>
+        <path d="M4 -106 C 9 -113 13 -117 17 -122" stroke-width="2"/>
+      </g>
+
+      <!-- broken arch, the bones of something older -->
+      <g id="ruin" fill="none" stroke-linecap="butt">
+        <path d="M0 0 L0 -108 L14 -108 L14 0 Z" stroke-width="0" fill="currentColor"/>
+        <path d="M74 0 L74 -96 L88 -96 L88 0 Z" stroke-width="0" fill="currentColor"/>
+        <path d="M0 -108 C 6 -140 34 -152 52 -146 L52 -132 C 36 -137 18 -128 14 -108 Z" fill="currentColor"/>
+        <path d="M88 -96 C 86 -118 76 -128 66 -132 L66 -146 C 82 -142 96 -126 100 -100 Z" fill="currentColor"/>
+      </g>
     </defs>
 
     <!-- distant ridge -->
-    <path fill="url(#far)" opacity=".85" d="M0 300 L120 236 L210 272 L330 198 L430 258 L540 214 L650 268
-      L760 220 L880 266 L990 210 L1110 262 L1220 228 L1320 268 L1400 240 L1400 420 L0 420 Z"/>
+    <path fill="url(#ridgeFar)" opacity=".7" d="M0 292 L118 226 L206 262 L326 190 L428 250 L536 206
+      L648 260 L758 212 L876 258 L988 202 L1108 254 L1218 220 L1318 260 L1400 232 L1400 420 L0 420 Z"/>
+    <rect x="0" y="248" width="1400" height="86" fill="url(#mist)"/>
 
-    <!-- conifer treeline -->
-    <g fill="url(#near)">
-      <path d="M60 420 L60 330 L44 330 L74 276 L104 330 L88 330 L88 420 Z"/>
-      <path d="M150 420 L150 344 L136 344 L164 292 L192 344 L178 344 L178 420 Z"/>
-      <path d="M246 420 L246 322 L228 322 L262 262 L296 322 L278 322 L278 420 Z"/>
-      <path d="M348 420 L348 350 L334 350 L362 300 L390 350 L376 350 L376 420 Z"/>
-      <path d="M452 420 L452 332 L434 332 L468 270 L502 332 L484 332 L484 420 Z"/>
-      <path d="M566 420 L566 346 L552 346 L580 296 L608 346 L594 346 L594 420 Z"/>
-      <path d="M668 420 L668 326 L650 326 L684 264 L718 326 L700 326 L700 420 Z"/>
-      <path d="M790 420 L790 348 L776 348 L804 298 L832 348 L818 348 L818 420 Z"/>
-      <path d="M892 420 L892 330 L874 330 L908 268 L942 330 L924 330 L924 420 Z"/>
-      <path d="M1006 420 L1006 350 L992 350 L1020 300 L1048 350 L1034 350 L1034 420 Z"/>
-      <path d="M1104 420 L1104 324 L1086 324 L1120 262 L1154 324 L1136 324 L1136 420 Z"/>
-      <path d="M1226 420 L1226 346 L1212 346 L1240 296 L1268 346 L1254 346 L1254 420 Z"/>
-      <path d="M1330 420 L1330 332 L1312 332 L1346 270 L1380 332 L1362 332 L1362 420 Z"/>
-      <rect x="0" y="386" width="1400" height="34"/>
+    <!-- mid ridge -->
+    <path fill="url(#ridgeMid)" opacity=".9" d="M0 332 L96 300 L192 326 L300 288 L404 322 L516 296
+      L628 330 L742 294 L860 328 L972 292 L1090 326 L1200 298 L1310 330 L1400 306 L1400 420 L0 420 Z"/>
+
+    <!-- ruins, mid distance -->
+    <g color="#071b19" opacity=".9">
+      <use href="#ruin" transform="translate(150 372) scale(.72)"/>
+      <use href="#ruin" transform="translate(1092 376) scale(.6) scale(-1 1)"/>
+    </g>
+    <rect x="0" y="330" width="1400" height="70" fill="url(#mist)" opacity=".7"/>
+
+    <!-- the dead wood -->
+    <g stroke="#04100f" fill="none">
+      <use href="#treeA" transform="translate(70 402) scale(1.05)"/>
+      <use href="#treeB" transform="translate(212 402) scale(.9)"/>
+      <use href="#treeA" transform="translate(322 402) scale(.72) scale(-1 1)"/>
+      <use href="#treeB" transform="translate(452 402) scale(1.12)"/>
+      <use href="#treeA" transform="translate(568 402) scale(.85)"/>
+      <use href="#treeB" transform="translate(848 402) scale(.78) scale(-1 1)"/>
+      <use href="#treeA" transform="translate(958 402) scale(1.15)"/>
+      <use href="#treeB" transform="translate(1104 402) scale(.95)"/>
+      <use href="#treeA" transform="translate(1236 402) scale(.8) scale(-1 1)"/>
+      <use href="#treeB" transform="translate(1352 402) scale(1.05)"/>
     </g>
 
-    <!-- the Tarnished, cloaked, sword grounded -->
-    <g fill="#04100f">
-      <path d="M700 396 L700 352 Q694 346 694 336 Q694 322 706 318 Q702 308 706 300
+    <!-- ground -->
+    <path fill="#04100f" d="M0 392 C 180 384 320 398 520 392 C 700 386 880 400 1060 392
+      C 1220 385 1320 396 1400 390 L1400 420 L0 420 Z"/>
+
+    <!-- the Tarnished, cloaked, sword grounded, looking up -->
+    <g fill="#020a09">
+      <path d="M700 398 L700 352 Q694 346 694 336 Q694 322 706 318 Q702 308 706 300
                Q710 292 720 292 Q730 292 734 300 Q738 308 734 318 Q746 322 746 336
-               Q746 346 740 352 L740 396 Z"/>
+               Q746 346 740 352 L740 398 Z"/>
       <path d="M720 268 Q712 268 710 276 Q708 286 712 292 Q716 296 720 296
                Q724 296 728 292 Q732 286 730 276 Q728 268 720 268 Z"/>
-      <path d="M745 300 L751 300 L751 398 L745 398 Z"/>
-      <path d="M739 306 L757 306 L757 311 L739 311 Z"/>
-      <path d="M694 352 Q676 372 672 398 L700 398 Z"/>
-      <path d="M746 352 Q764 372 768 398 L740 398 Z"/>
+      <path d="M745 300 L750 300 L750 399 L745 399 Z"/>
+      <path d="M739 306 L757 306 L757 310 L739 310 Z"/>
+      <path d="M694 352 Q674 374 670 399 L700 399 Z"/>
+      <path d="M746 352 Q766 374 770 399 L740 399 Z"/>
     </g>
   </svg>
 
