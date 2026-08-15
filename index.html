@@ -9,202 +9,268 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#efe6d2; --paper-hi:#f7f1e2; --card:#faf6ea;
-    --ink:#2b2318; --ink-soft:#5c5142; --ink-faint:#8a7f6c;
-    --gold:#9a742a; --gold-hi:#c39b45; --rule:#d9cbaa; --rule-soft:#e6dcc4;
-    --green:#4e6f3e; --green-hi:#eaf0e2;
-    --red:#9a3d28; --red-hi:#f6e8e2;
+    --paper:#efe7d6; --paper-2:#f6f0e2; --card:#fdfaf2; --card-2:#f8f2e4;
+    --ink:#241d14; --ink-2:#584d3d; --ink-3:#8d8271;
+    --gold:#9c7628;
+    --line:#ded0b2; --line-2:#ebe1cb;
+    --boss:#9c3b26; --boss-bg:#fbeae4;
+    --item:#8a6a1f; --item-bg:#f9f0d9;
+    --puzzle:#2c6a63; --puzzle-bg:#e4f1ef;
+    --final:#5a4383; --final-bg:#efeaf7;
+    --ok:#4c6d3c; --ok-bg:#eaf1e3;
+    --shadow:0 1px 2px rgba(60,45,20,.05), 0 10px 28px -12px rgba(60,45,20,.18);
+    --shadow-lift:0 2px 4px rgba(60,45,20,.06), 0 18px 40px -16px rgba(60,45,20,.28);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
     background:
-      radial-gradient(900px 500px at 50% 0%, #f7f1e2 0%, rgba(247,241,226,0) 70%),
-      radial-gradient(700px 600px at 100% 100%, #e6dbc0 0%, rgba(230,219,192,0) 60%),
+      radial-gradient(1100px 620px at 50% -8%, #fbf6ea 0%, rgba(251,246,234,0) 62%),
+      radial-gradient(760px 700px at 108% 106%, #e3d7ba 0%, rgba(227,215,186,0) 58%),
+      radial-gradient(600px 520px at -8% 88%, #e7dcc2 0%, rgba(231,220,194,0) 58%),
       var(--paper);
     background-attachment:fixed;
     color:var(--ink); font-family:'EB Garamond',Georgia,serif; font-size:17px; line-height:1.6;
-    padding:38px 18px 80px; min-height:100vh;
+    padding:0 18px 90px; min-height:100vh; position:relative;
   }
-  .wrap{max-width:760px;margin:0 auto}
+  .erdtree{position:fixed;right:-90px;bottom:-70px;width:520px;height:520px;opacity:.055;pointer-events:none;z-index:0}
+  .wrap{max-width:820px;margin:0 auto;position:relative;z-index:1}
 
   /* ── masthead ────────────────────────────────────────── */
-  header{text-align:center;margin-bottom:34px}
-  .crest{font-size:15px;color:var(--gold);letter-spacing:.5em;margin-bottom:14px}
-  h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,6vw,44px);letter-spacing:.06em;
-    color:var(--ink);line-height:1.15}
-  .status{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--ink-faint);margin-top:12px}
-  .status b{color:var(--gold);font-weight:600}
-  .rule{display:flex;align-items:center;gap:14px;margin:26px 0}
-  .rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
-  .rule span{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  header{text-align:center;padding:46px 0 22px}
+  .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+  .orn i{display:block;width:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .orn i:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+  .orn span{color:var(--gold);font-size:13px;letter-spacing:.1em}
+  h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(32px,6.5vw,50px);letter-spacing:.08em;line-height:1.1}
+  .tagline{font-style:italic;color:var(--ink-3);margin-top:10px;font-size:16.5px}
+
+  /* ── stat strip ──────────────────────────────────────── */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 34px}
+  @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 12px;text-align:center;
+    box-shadow:var(--shadow)}
+  .stat .n{font-family:'Cinzel',serif;font-size:25px;font-weight:600;color:var(--ink);line-height:1.2}
+  .stat .n small{font-size:14px;color:var(--ink-3);font-weight:400}
+  .stat .k{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);margin-top:5px}
+  .stat .track{height:3px;border-radius:2px;background:var(--line-2);margin-top:9px;overflow:hidden}
+  .stat .track i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#d8b45c);width:0;transition:width .4s ease}
 
   /* ── time picker ─────────────────────────────────────── */
-  .times{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
-  @media(max-width:640px){.times{grid-template-columns:repeat(4,1fr)}}
-  .times button{font-family:'Cinzel',serif;font-size:13px;font-weight:500;letter-spacing:.04em;cursor:pointer;
-    background:var(--card);color:var(--ink-soft);border:1px solid var(--rule);border-radius:3px;padding:14px 2px;
+  .dial{background:linear-gradient(170deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:14px;
+    padding:24px 26px 20px;box-shadow:var(--shadow-lift)}
+  .dial .q{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    text-align:center}
+  .dial .big{font-family:'Cinzel',serif;font-size:clamp(30px,7vw,42px);font-weight:600;text-align:center;
+    line-height:1.15;margin:6px 0 16px}
+  .slot{position:relative;padding:0 4px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:3px;
+    background:linear-gradient(90deg,var(--gold) 0%,var(--gold) var(--pct,50%),var(--line) var(--pct,50%),var(--line) 100%);
+    outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f0dca8,#9c7628);border:2px solid #fdfaf2;cursor:pointer;
+    box-shadow:0 2px 8px rgba(90,66,20,.4)}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f0dca8,#9c7628);border:2px solid #fdfaf2;cursor:pointer}
+  .ticks{display:flex;justify-content:space-between;margin-top:12px}
+  .ticks button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;color:var(--ink-3);background:none;
+    border:none;cursor:pointer;padding:5px 2px;flex:1;transition:color .15s ease}
+  .ticks button:hover{color:var(--gold)}
+  .ticks button.on{color:var(--ink);font-weight:600}
+
+  /* ── section heads ───────────────────────────────────── */
+  .shead{display:flex;align-items:baseline;gap:12px;margin:38px 0 14px}
+  .shead h2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+  .shead .hint{font-size:15px;color:var(--ink-3);font-style:italic;margin-left:auto;text-align:right}
+
+  /* ── prep ────────────────────────────────────────────── */
+  .prep{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 20px;box-shadow:var(--shadow)}
+  .chk{display:flex;gap:13px;align-items:flex-start;cursor:pointer;padding:12px 0;font-size:16.5px;color:var(--ink-2);
+    border-bottom:1px solid var(--line-2)}
+  .prep .chk:last-child{border-bottom:none}
+  .chk input{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+    border:1.5px solid var(--gold);border-radius:5px;background:transparent;cursor:pointer;position:relative;
+    transition:all .15s ease}
+  .chk input:checked{background:var(--gold);border-color:var(--gold)}
+  .chk input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#fdfaf2;font-size:13px;font-weight:700}
+  .chk input:checked ~ .ct{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
+  .ct b{color:var(--ink);font-weight:600}
+  .ct .for{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);margin-top:3px}
+
+  /* ── stops ───────────────────────────────────────────── */
+  .stop{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;
+    box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease}
+  .stop:hover{box-shadow:var(--shadow-lift)}
+  .stop.open{border-color:var(--gold)}
+  .stop.fin{opacity:.55}
+  .row{display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;user-select:none}
+  .idx{font-family:'Cinzel',serif;font-weight:600;font-size:14px;flex:0 0 auto;width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;background:var(--card-2);color:var(--ink-2);border:1px solid var(--line)}
+  .stop.fin .idx{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
+  .rmid{flex:1;min-width:0}
+  .rname{font-family:'Cinzel',serif;font-size:17.5px;font-weight:500;line-height:1.3}
+  .stop.fin .rname{text-decoration:line-through;text-decoration-color:var(--line);color:var(--ink-3)}
+  .rsub{font-size:14.5px;color:var(--ink-3);margin-top:2px}
+  .tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;
+    border-radius:20px;flex:0 0 auto;font-weight:600}
+  .tag.boss{background:var(--boss-bg);color:var(--boss)}
+  .tag.item{background:var(--item-bg);color:var(--item)}
+  .tag.puzzle{background:var(--puzzle-bg);color:var(--puzzle)}
+  .tag.final{background:var(--final-bg);color:var(--final)}
+  .dur{font-family:'Cinzel',serif;font-size:12.5px;color:var(--ink-3);flex:0 0 auto;min-width:52px;text-align:right}
+  .car{color:var(--ink-3);font-size:11px;transition:transform .22s ease;flex:0 0 auto}
+  .stop.open .car{transform:rotate(180deg)}
+  @media(max-width:560px){
+    .row{flex-wrap:wrap;gap:9px 12px}
+    .rmid{flex:1 0 60%}
+    .dur{min-width:0}
+  }
+
+  .body{display:none;padding:2px 18px 18px;border-top:1px solid var(--line-2)}
+  .stop.open .body{display:block}
+  .blk{margin-top:16px}
+  .blk .bh{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:7px}
+  .start{background:linear-gradient(100deg,var(--card-2),var(--card));border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:9px;padding:14px 16px}
+  .start .sv{font-family:'Cinzel',serif;font-size:21px;font-weight:600;line-height:1.25}
+  .start .sa{font-size:14.5px;color:var(--ink-3);margin-top:5px}
+  .li{font-size:16.5px;color:var(--ink-2);margin:7px 0;padding-left:20px;position:relative}
+  .li::before{content:"";position:absolute;left:2px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--line)}
+  .li b{color:var(--ink);font-weight:600}
+  .li.miss::before{background:var(--item)}
+  .li.fight::before{background:var(--boss)}
+  .li.warn{color:var(--boss)}
+  .li.warn::before{background:var(--boss)}
+  .out{margin-top:16px;background:var(--ok-bg);border-radius:9px;padding:13px 16px;font-size:16px;color:var(--ok)}
+  .out .oh{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ok);opacity:.75;margin-bottom:4px}
+  .out b{font-weight:600}
+  .mark{margin-top:16px;width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    cursor:pointer;padding:14px;border-radius:9px;background:var(--ink);color:var(--paper-2);border:1px solid var(--ink);
     transition:all .18s ease}
-  .times button:hover{border-color:var(--gold-hi);color:var(--ink)}
-  .times button.on{background:var(--ink);color:var(--paper-hi);border-color:var(--ink);font-weight:600}
+  .mark:hover{background:#3a2f21}
+  .mark.undo{background:transparent;color:var(--ink-3);border-color:var(--line)}
+  .mark.undo:hover{color:var(--gold);border-color:var(--gold)}
 
-  /* ── bring ───────────────────────────────────────────── */
-  .bring{margin-top:26px;border:1px solid var(--rule);border-radius:3px;background:var(--card);padding:18px 20px}
-  .bring .lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.26em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:10px}
-  .check{display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:5px 0;font-size:16.5px;color:var(--ink-soft)}
-  .check input{appearance:none;-webkit-appearance:none;flex:0 0 17px;width:17px;height:17px;margin-top:4px;
-    border:1px solid var(--gold);border-radius:2px;background:transparent;cursor:pointer;position:relative}
-  .check input:checked{background:var(--gold)}
-  .check input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    color:var(--paper-hi);font-size:12px;font-weight:700}
-  .check input:checked ~ span{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--rule)}
-  .check span b{color:var(--ink);font-weight:600}
-
-  /* ── the plan ────────────────────────────────────────── */
-  .sum{text-align:center;font-size:17px;color:var(--ink-soft);margin:24px 0 4px;font-style:italic}
-  .sum b{color:var(--ink);font-style:normal;font-weight:600}
-  .sum .no{color:var(--red)}
-
-  .stop{background:var(--card);border:1px solid var(--rule);border-radius:3px;margin-top:16px;
-    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 2px 10px rgba(80,64,32,.06)}
-  .stop.done{opacity:.6;background:transparent}
-  .stophead{display:flex;gap:16px;align-items:flex-start;padding:20px 22px 0}
-  .num{font-family:'Cinzel',serif;font-weight:600;font-size:15px;color:var(--gold);flex:0 0 auto;
-    width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
-  .stop.done .num{color:var(--green);border-color:var(--green)}
-  .stopmeta{flex:1;min-width:0}
-  .stopname{font-family:'Cinzel',serif;font-size:19px;font-weight:500;line-height:1.25;color:var(--ink)}
-  .stop.done .stopname{text-decoration:line-through;text-decoration-color:var(--rule);color:var(--ink-faint)}
-  .stopwhen{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--ink-faint);margin-top:5px}
-
-  .warp{margin:18px 22px 0;padding:16px 18px;background:var(--paper-hi);border-left:2px solid var(--gold);border-radius:2px}
-  .warp .k{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);display:block}
-  .warp .v{font-family:'Cinzel',serif;font-size:21px;font-weight:500;color:var(--ink);display:block;margin-top:4px;line-height:1.25}
-
-  .lines{padding:14px 22px 0}
-  .ln{font-size:16.5px;color:var(--ink-soft);margin:8px 0;padding-left:19px;position:relative}
-  .ln::before{content:"—";position:absolute;left:0;color:var(--rule);}
-  .ln b{color:var(--ink);font-weight:600}
-  .ln.warn{color:var(--red)}
-  .ln.warn::before{content:"!";font-family:'Cinzel',serif;color:var(--red);font-weight:700}
-
-  .more{margin:14px 22px 0;border-top:1px solid var(--rule-soft);padding-top:2px}
-  .moretoggle{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--ink-faint);background:none;border:none;cursor:pointer;padding:10px 0;width:100%;text-align:left}
-  .moretoggle:hover{color:var(--gold)}
-  .morebody{display:none;padding-bottom:6px}
-  .more.open .morebody{display:block}
-  .more.open .moretoggle{color:var(--gold)}
-  .sub{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--gold);margin:14px 0 6px}
-  .earn{margin:14px 22px 0;font-size:15.5px;color:var(--green);font-style:italic;
-    background:var(--green-hi);border-radius:2px;padding:10px 14px}
-  .earn b{font-style:normal;font-weight:600}
-
-  .act{padding:16px 22px 20px}
-  .act button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-    width:100%;padding:14px;border-radius:3px;transition:all .18s ease;
-    background:transparent;color:var(--ink-soft);border:1px solid var(--rule)}
-  .act button:hover{border-color:var(--green);color:var(--green)}
-  .act button.undo{border-color:var(--rule);color:var(--ink-faint)}
-  .act button.undo:hover{border-color:var(--gold);color:var(--gold)}
+  /* ── locked / next up ────────────────────────────────── */
+  .locked{border:1px dashed var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;
+    display:flex;align-items:center;gap:14px;background:transparent;cursor:pointer}
+  .locked:hover{border-color:var(--gold)}
+  .locked .idx{background:transparent;color:var(--ink-3);border-style:dashed}
+  .locked .rname{color:var(--ink-3);font-size:16.5px}
+  .locked .need{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);margin-left:auto;text-align:right;flex:0 0 auto}
 
   /* ── reference ───────────────────────────────────────── */
-  .ref{margin-top:44px}
-  .reftog{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);
-    background:none;border:none;cursor:pointer;padding:12px;width:100%;text-align:center}
-  .reftog:hover{color:var(--gold)}
+  .ref{margin-top:40px}
+  .reftog{width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink-3);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px;cursor:pointer;
+    box-shadow:var(--shadow);transition:all .18s ease}
+  .reftog:hover{color:var(--gold);border-color:var(--gold)}
   .refbody{display:none;margin-top:12px}
   .ref.open .refbody{display:block}
-  .ref.open .reftog{color:var(--gold)}
-  .panel{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:20px 22px;margin-bottom:16px}
-  .panel h3{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);
-    margin-bottom:14px}
-  .sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 20px}
-  @media(max-width:660px){.sliders{grid-template-columns:repeat(2,1fr)}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:12px;
+    box-shadow:var(--shadow)}
+  .panel h3{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:15px}
+  .sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:15px 20px}
+  @media(max-width:620px){.sliders{grid-template-columns:repeat(2,1fr)}}
   .sl .lab{display:flex;justify-content:space-between;align-items:baseline;font-family:'Cinzel',serif;font-size:9.5px;
-    letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase}
-  .sl .lab b{font-size:16px;color:var(--ink);font-weight:600}
-  .sl.cap .lab b{color:var(--green)}
-  .sl.floor .lab b{color:var(--ink-faint)}
-  .sl.unk .lab b{color:var(--red)}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;border-radius:2px;
-    background:var(--rule);outline:none;margin-top:8px}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;
-    background:var(--gold);border:none;cursor:pointer}
-  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--gold);border:none;cursor:pointer}
-  .derived{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule-soft)}
-  .derived div{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
-  .derived div b{display:block;font-size:20px;color:var(--ink);font-weight:600;letter-spacing:0;margin-top:2px}
-  .tips{margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-soft)}
-  .tips p{font-size:16px;color:var(--ink-soft);margin:7px 0;padding-left:19px;position:relative}
-  .tips p::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:9px;top:5px}
+    letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
+  .sl .lab b{font-size:17px;color:var(--ink);font-weight:600}
+  .sl.cap .lab b{color:var(--ok)} .sl.floor .lab b{color:var(--ink-3)} .sl.unk .lab b{color:var(--boss)}
+  .sl input[type=range]{height:3px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold) var(--pct,50%),var(--line) var(--pct,50%),var(--line) 100%)}
+  .sl input[type=range]::-webkit-slider-thumb{width:15px;height:15px;border-width:1.5px}
+  .sl input[type=range]::-moz-range-thumb{width:15px;height:15px;border-width:1.5px}
+  .derived{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px;padding-top:15px;border-top:1px solid var(--line-2)}
+  .derived div{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .derived div b{display:block;font-size:21px;color:var(--ink);font-weight:600;letter-spacing:0;margin-top:2px}
+  .tips{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-2)}
+  .tips p{font-size:16px;color:var(--ink-2);margin:8px 0;padding-left:20px;position:relative}
+  .tips p::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:8px;top:6px}
   .tips p b{color:var(--ink);font-weight:600}
-
   table{width:100%;border-collapse:collapse;font-size:15.5px}
-  th{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase;
-    text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);font-weight:500}
-  td{padding:9px 8px;border-bottom:1px solid var(--rule-soft);color:var(--ink-soft);vertical-align:top}
+  th{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.16em;color:var(--ink-3);text-transform:uppercase;
+    text-align:left;padding:8px;border-bottom:1px solid var(--line);font-weight:500}
+  td{padding:10px 8px;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
   td b{color:var(--ink);font-weight:600}
-  .req{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;white-space:nowrap;color:var(--ink-faint)}
-  .yes{color:var(--green);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em}
-  .near{color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em}
-  .nope{color:var(--ink-faint);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em}
+  .req{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;white-space:nowrap;color:var(--ink-3)}
+  .yes{color:var(--ok);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em}
+  .near{color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em}
+  .nope{color:var(--ink-3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em}
   .tblwrap{overflow-x:auto}
 
-  .foot{display:flex;gap:10px;justify-content:center;margin-top:30px;flex-wrap:wrap}
-  .foot button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-    background:none;color:var(--ink-faint);border:1px solid var(--rule);border-radius:3px;padding:10px 18px}
-  .foot button:hover{color:var(--gold);border-color:var(--gold-hi)}
-  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:var(--ink);color:var(--paper-hi);
-    font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;padding:13px 24px;border-radius:3px;
-    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:50}
+  .foot{display:flex;gap:10px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+  .foot button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+    background:none;color:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:11px 20px}
+  .foot button:hover{color:var(--gold);border-color:var(--gold)}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:var(--ink);color:var(--paper-2);
+    font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;padding:14px 26px;border-radius:9px;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:60}
   .toast.show{opacity:1}
-  textarea{width:100%;height:170px;margin-top:14px;background:var(--paper-hi);color:var(--ink);border:1px solid var(--rule);
-    border-radius:3px;padding:13px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;display:none}
+  textarea{width:100%;height:170px;margin-top:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;display:none}
   textarea.show{display:block}
-  .colophon{text-align:center;margin-top:34px;font-size:14px;color:var(--ink-faint);font-style:italic}
-  .colophon a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--rule)}
+  .colophon{text-align:center;margin-top:30px;font-size:14px;color:var(--ink-3);font-style:italic}
+  .colophon a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line)}
 </style>
 </head>
 <body>
+
+<svg class="erdtree" viewBox="0 0 200 200" aria-hidden="true">
+  <g fill="none" stroke="#6b4f18" stroke-width="1.6" stroke-linecap="round">
+    <path d="M100 190 L100 96"/>
+    <path d="M100 128 Q76 112 62 78 M100 128 Q124 112 138 78"/>
+    <path d="M100 108 Q82 94 72 62 M100 108 Q118 94 128 62"/>
+    <path d="M100 150 Q80 138 68 110 M100 150 Q120 138 132 110"/>
+    <path d="M100 96 Q92 70 96 40 M100 96 Q108 70 104 40"/>
+    <path d="M72 62 Q66 44 70 26 M128 62 Q134 44 130 26"/>
+    <path d="M62 78 Q52 58 54 38 M138 78 Q148 58 146 38"/>
+  </g>
+  <circle cx="100" cy="70" r="58" fill="#8a6a1f" opacity=".18"/>
+</svg>
+
 <div class="wrap">
 
   <header>
-    <div class="crest">❦</div>
+    <div class="orn"><i></i><span>❦</span><i></i></div>
     <h1>Tonight's Run</h1>
-    <div class="status">Level <b>129</b> · <b id="tro">30</b> of 42 · <b id="left">~10 hrs</b> remaining</div>
+    <div class="tagline">Pick your time. Get your route.</div>
   </header>
 
-  <div class="rule"><span>How long have you got</span></div>
-
-  <div class="times">
-    <button type="button" data-t="30">30m</button>
-    <button type="button" data-t="45">45m</button>
-    <button type="button" data-t="60">1 hr</button>
-    <button type="button" data-t="90">1½ hr</button>
-    <button type="button" data-t="120">2 hr</button>
-    <button type="button" data-t="150">2½ hr</button>
-    <button type="button" data-t="180">3 hr</button>
-    <button type="button" data-t="300">5 hr+</button>
+  <div class="stats">
+    <div class="stat"><div class="n" id="st-tro">30<small> / 42</small></div><div class="k">Trophies</div>
+      <div class="track"><i id="bar-tro"></i></div></div>
+    <div class="stat"><div class="n" id="st-hrs">13<small> hrs</small></div><div class="k">Left to play</div>
+      <div class="track"><i id="bar-hrs"></i></div></div>
+    <div class="stat"><div class="n" id="st-stops">11</div><div class="k">Stops remaining</div>
+      <div class="track"><i id="bar-stops"></i></div></div>
+    <div class="stat"><div class="n" id="st-boss">4</div><div class="k">Bosses left</div>
+      <div class="track"><i id="bar-boss"></i></div></div>
   </div>
 
-  <div class="sum" id="sum"></div>
-  <div class="bring" id="bring" style="display:none">
-    <div class="lbl">Sort this at a grace first</div>
-    <div id="bringlist"></div>
+  <div class="dial">
+    <div class="q">How long have you got?</div>
+    <div class="big" id="bigtime">1½ hours</div>
+    <div class="slot"><input type="range" id="dial" min="0" max="7" step="1" value="3" aria-label="Session length"></div>
+    <div class="ticks" id="ticks"></div>
   </div>
 
+  <div id="prepwrap" style="display:none">
+    <div class="shead"><h2>Before you load in</h2><div class="hint">Sort these first — each one saves a wasted trip</div></div>
+    <div class="prep" id="prep"></div>
+  </div>
+
+  <div class="shead"><h2>The run</h2><div class="hint" id="runhint"></div></div>
   <div id="stops"></div>
+  <div id="locked"></div>
 
   <div class="ref" id="ref">
-    <div class="rule"><span>❦</span></div>
     <button class="reftog" id="reftog" type="button">Build, stats &amp; weapons ▾</button>
     <div class="refbody">
-
       <div class="panel">
         <h3>The build</h3>
         <div class="sliders">
@@ -222,24 +288,19 @@
           <div class="sl unk"><div class="lab"><span>Flasks ?</span><b id="v-flask">10</b></div><input type="range" id="s-flask" min="4" max="14" value="10" aria-label="Flasks"></div>
         </div>
         <div class="derived">
-          <div>Level<b id="d-lvl">129</b></div>
-          <div>Next level<b id="d-cost">~108k</b></div>
-          <div>Spent<b id="d-pts">120</b></div>
+          <div>Level<b id="d-lvl">129</b></div><div>Next level<b id="d-cost">~108k</b></div><div>Points spent<b id="d-pts">120</b></div>
         </div>
         <div class="tips" id="tips"></div>
       </div>
-
       <div class="panel">
-        <h3>Weapons you could actually use</h3>
-        <div class="tblwrap"><table id="alt-tbl">
-          <thead><tr><th>Weapon</th><th>Requires</th><th></th></tr></thead><tbody></tbody></table></div>
+        <h3>Weapons you could use</h3>
+        <div class="tblwrap"><table id="alt-tbl"><thead><tr><th>Weapon</th><th>Requires</th><th></th></tr></thead><tbody></tbody></table></div>
         <div class="tips" style="margin-top:18px">
           <p><b>+2 Faith</b> unlocks the Eclipse Shotel already in your box.</p>
-          <p><b>+4 Strength</b> unlocks Hand of Malenia — 16 STR / 48 DEX, and your Dex is 60. It is what the banked Ancient Dragon stone was for.</p>
-          <p><b>Bleed:</b> full on Malenia and Loretta, half on Mohg, <b>useless on Radagon and the Elden Beast</b> — and you fight those three times.</p>
+          <p><b>+4 Strength</b> unlocks Hand of Malenia — your Dex is already past its requirement.</p>
+          <p><b>Bleed:</b> full on Malenia and Loretta, half on Mohg, <b>useless on Radagon and the Elden Beast</b>.</p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -248,7 +309,6 @@
     <button type="button" id="reset">Reset</button>
   </div>
   <textarea id="dump" readonly></textarea>
-
   <div class="colophon">Earlier campaign — <a href="capital.html">Altus and the road to Morgott</a></div>
 </div>
 
@@ -257,323 +317,349 @@
 <script>
 (function(){
   "use strict";
-  var KEY = 'er-platinum-v2';
-  var state = {};
-  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ state = {}; }
-  function persist(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  var KEY='er-platinum-v2', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  function persist(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
   function on(id){ return !!state[id]; }
-  function set(id,v){ state[id] = !!v; }
+  function set(id,v){ state[id]=!!v; }
 
-  /* ══ the route ══
-     `lines` is what you need standing at the grace. `more` is everything
-     else — hidden until asked for, so the card stays glanceable. */
-  var ROUTE = [
-    { s:'1', mins:60, name:'The Golden Order Greatsword', where:'Consecrated Snowfield', ids:['r1'],
-      warp:'Grand Lift of Rold',
-      lines:['At the lift choose <b>“Hoist secret medallion”</b> — not “Hoist medallion”.',
-             'Through the Hidden Path, then <b>west along the cliffs</b> to the Cave of the Forlorn.'],
-      bring:['Two Stonesword Keys'],
-      more:['Light every grace you pass — stops 5 and 6 both warp back into this region, and this is the trip that unlocks them.',
-            '<b>Yelough Anix Tunnel</b> especially: that is where Mohgwyn starts.',
-            'The snowstorm hides everything. Hug the cliff line and you cannot get lost.'],
-      earn:'Closes Legendary Armaments — a trophy from one pickup.' },
+  var PRESETS=[30,45,60,90,120,150,180,300];
+  var LABELS=['30m','45m','1h','1½h','2h','2½h','3h','5h+'];
+  var BIG=['30 minutes','45 minutes','1 hour','1½ hours','2 hours','2½ hours','3 hours','5 hours or more'];
 
-    { s:'2', mins:30, name:'Stars of Ruin', where:'Sellia Hideaway, Caelid', ids:['r2'],
-      warp:'Sellia, Town of Sorcery',
-      lines:['Cave mouth in the <b>west</b> of town, behind an illusory wall.',
-             'Master Lusat is behind a sealed door deep inside.'],
-      bring:['Sellian Sealbreaker — without it the door will not open'],
-      more:['Hit walls that look wrong; the hideaway is built on illusory walls throughout.',
-            'If the Sealbreaker is not in Key Items, skip this stop entirely — the trip is wasted without it.'],
-      earn:'Legendary spells to 6 of 7.' },
+  /* ══ the route ══ */
+  var ROUTE=[
+    { s:'1', mins:60, type:'item', name:'The Golden Order Greatsword', where:'Consecrated Snowfield', ids:['r1'],
+      start:'Grand Lift of Rold',
+      startNote:'You have used this lift before, so it is already on your map.',
+      way:['At the lift choose <b>“Hoist secret medallion”</b> — <em>not</em> “Hoist medallion”. Wrong prompt sends you back to the Mountaintops.',
+           'Walk through the Hidden Path, then head <b>west along the cliffs</b> to the Cave of the Forlorn.'],
+      miss:['Light <b>every</b> grace you pass — stops 5 and 6 both warp back here, and this is the trip that unlocks them.',
+            '<b>Yelough Anix Tunnel</b> especially. That grace is where Mohgwyn begins.'],
+      prep:['Two Stonesword Keys'],
+      out:'<b>Legendary Armaments</b> complete — a trophy from a single pickup.' },
 
-    { s:'3', mins:20, name:'Elden Stars', where:'Deeproot Depths', ids:['r3'],
-      warp:'Great Waterfall Crest',
-      lines:['<b>Check your inventory before you travel</b> — you may already have this.',
-             'If not: on a corpse along the roots, near the giant ants.'],
-      bring:[],
-      more:['The ledger says missing, the 13 August session says collected. Twenty minutes if it is real, zero if it is not.'],
-      earn:'With Stars of Ruin, closes Legendary Sorceries.' },
+    { s:'2', mins:30, type:'item', name:'Stars of Ruin', where:'Sellia Hideaway, Caelid', ids:['r2'],
+      start:'Sellia, Town of Sorcery',
+      startNote:'You farmed sorcerers here in July, so this should be lit.',
+      way:['Find the cave mouth in the <b>west</b> of town, behind an illusory wall.',
+           'Master Lusat sits behind a sealed door deep inside.'],
+      miss:['The hideaway is built on illusory walls throughout. Hit anything that looks wrong.'],
+      prep:['Check Key Items for the <b>Sellian Sealbreaker</b> — without it the door will not open'],
+      out:'Legendary spells to <b>6 of 7</b>.' },
 
-    { s:'4', mins:30, name:'Ancient Dragon Knight Kristoff', where:"Sainted Hero's Grave, Altus", ids:['r4'],
-      warp:'Rampartside Path',
-      lines:['The grave is <b>west</b> of the grace, with a Black Knife Assassin on the door.',
-             'Inside, enemies take no damage until they wander into the statues’ light.'],
-      bring:['Two Stonesword Keys'],
-      more:['If Rampartside Path is not lit, warp to Outer Wall Battleground and ride north-west.',
-            'Boss is the Ancient Hero of Zamor — fast, aggressive, bleeds well.'],
-      earn:'Legendary ashes to 5 of 6.' },
+    { s:'3', mins:20, type:'item', name:'Elden Stars', where:'Deeproot Depths', ids:['r3'],
+      start:'Great Waterfall Crest',
+      startNote:'You cleared Fortissax down here, so several graces are lit.',
+      way:['On a corpse along the roots, near the giant ants.'],
+      miss:[],
+      prep:['Check your inventory for <b>Elden Stars</b> — the 13 Aug session may already have picked it up'],
+      out:'With Stars of Ruin, closes <b>Legendary Sorceries</b>.' },
 
-    { s:'5', mins:75, name:'Mohg, Lord of Blood', where:'Mohgwyn Palace', ids:['r5'],
-      warp:'Yelough Anix Tunnel',
-      lines:['Head <b>north-west</b>, aim for the large tree on the horizon.',
-             'A Sanguine Noble attacks — that means you are close. Then look <b>below the cliffs</b> for the portal.'],
-      bring:['Purifying Crystal Tear in the physick'],
-      more:['The Tear cancels his Nihil ritual outright. Without it, Nihil is three scripted near-deaths you must heal through.',
-            'Bleed works at half rate here. He is weak to plain physical, which your katanas already are.',
-            'The sleeping birds are the best rune farm in the game if Mind needs funding.'],
-      earn:'Shardbearer Mohg, his Great Rune, and the Shadow of the Erdtree entry.' },
+    { s:'4', mins:30, type:'item', name:'Ancient Dragon Knight Kristoff', where:"Sainted Hero's Grave, Altus", ids:['r4'],
+      start:'Rampartside Path',
+      startNote:'Not lit? Warp to Outer Wall Battleground and ride north-west.',
+      way:['The grave sits <b>west</b> of the grace, with a Black Knife Assassin on the door.',
+           'Inside, enemies take no damage until they wander into the statues’ light circles.'],
+      miss:['The boss is the Ancient Hero of Zamor — fast, aggressive, and bleeds well.'],
+      prep:['Two Stonesword Keys'],
+      out:'Legendary ashes to <b>5 of 6</b>.' },
 
-    { s:'6', mins:30, name:'Ordina — the four seals', where:'Consecrated Snowfield, north', ids:['r6'],
-      warp:'Consecrated Snowfield',
-      lines:['Ride <b>north</b> past the frozen ravine and keep going.',
-             'Light all four seals. <b>Sneak — do not fight.</b>'],
-      bring:["Sentry's Torch, if you have one"],
-      more:['The Torch reveals the invisible assassins and turns a nightmare into a chore.',
-            'The north-east seal is the one that kills people.'],
-      earn:'No trophy — but it opens roughly four hours: the Haligtree, Elphael, Malenia and two collection trophies. The best half hour left on the board.' },
+    { s:'5', mins:75, type:'boss', name:'Mohg, Lord of Blood', where:'Mohgwyn Palace', ids:['r5'],
+      start:'Yelough Anix Tunnel',
+      startNote:'In the Consecrated Snowfield — you light this during stop 1.',
+      way:['Head <b>north-west</b> and aim for the large tree on the horizon.',
+           'A Sanguine Noble attacks — that means you are close. Then look <b>below the cliffs</b> for the portal.'],
+      miss:['The sleeping birds here are the best rune farm in the game, if Mind needs funding.'],
+      fight:['<b>Nihil</b> is the fight: three scripted near-deaths. The Purifying Tear cancels it outright.',
+             'Bleed lands at <b>half rate</b>. He is weak to plain physical, which your katanas already are.'],
+      prep:['Check your physick holds the <b>Purifying Crystal Tear</b>'],
+      out:'<b>Shardbearer Mohg</b>, his Great Rune, and the Shadow of the Erdtree entry.' },
 
-    { s:'7', mins:90, name:'Loretta, Knight of the Haligtree', where:"Miquella's Haligtree", ids:['r7'],
-      warp:'The Ordina waygate',
-      lines:['Light the first Haligtree grace, then work down through the branches.',
-             'Same moveset you beat at Caria Manor, with bigger numbers.'],
-      bring:[],
-      more:['The branch-walking over open void kills more players than she does. Walk the drops.',
-            'She is a mounted caster who wants distance. Close it and stay closed. Bleeds normally.'],
-      earn:'One trophy.' },
+    { s:'6', mins:30, type:'puzzle', name:'Ordina — the four seals', where:'Consecrated Snowfield, north', ids:['r6'],
+      start:'Consecrated Snowfield',
+      startNote:'Lit during stop 1. Skip stop 1 and you cannot reach this.',
+      way:['Ride <b>north</b> past the frozen ravine and keep going.',
+           'Light all four seals while invisible assassins hunt you. <b>Sneak — do not fight.</b>'],
+      miss:['The north-east seal is the one that kills people.'],
+      prep:["Sentry's Torch, if you have one — it reveals the invisible assassins"],
+      out:'No trophy, but it opens <b>four hours</b>: the Haligtree, Elphael, Malenia and two collection trophies. The best half hour left.' },
 
-    { s:'8', mins:120, name:'Elphael', where:'Brace of the Haligtree', ids:['r8a','r8b','r8c'],
-      warp:'Prayer Room',
-      lines:['Three things: <b>Marika’s Soreseal</b>, <b>Dragoncrest Greatshield</b>, <b>Cleanrot Knight Finlay</b>.',
-             'Two hours of scarlet rot. <b>Count your boluses before you warp.</b>'],
-      bring:['Preserving Boluses — as many as you can craft'],
-      more:['Both talismans are easy to walk past on a rot-panicked run.',
-            'Going in short on boluses turns two hours into three.'],
-      earn:'Closes Legendary Talismans and Legendary Ashen Remains. Two trophies in one area.' },
+    { s:'7', mins:90, type:'boss', name:'Loretta, Knight of the Haligtree', where:"Miquella's Haligtree", ids:['r7'],
+      start:'The Ordina waygate',
+      startNote:'Once through, Haligtree Town becomes a normal warp target.',
+      way:['Light the first Haligtree grace, then work down through the branches.'],
+      miss:['The branch-walking over open void kills more players than she does. Walk the drops.'],
+      fight:['Same moveset you beat at Caria Manor, with bigger numbers.',
+             'A mounted caster who wants distance — close it and stay closed. Bleeds normally.'],
+      prep:[],
+      out:'One trophy.' },
 
-    { s:'9', mins:180, name:'Malenia, Blade of Miquella', where:'Elphael', ids:['r9'],
-      warp:'Drainage Channel',
-      lines:['<b>Your best matchup in the game</b> — low bleed resistance, and procs outpace her healing.',
-             'Buff first, <em>then</em> summon. Waterfowl Dance wants distance, not rolls.'],
-      bring:['Full flasks','A Rune Arc'],
-      more:['She heals on every hit she lands — on you, your Mimic, even your block. Passivity loses this fight.',
-            'Not a levelling problem. Every other wall bent to being over-levelled; she will not.',
-            'Her drop is the Hand of Malenia: 16 STR / 48 DEX. You are four points of Strength short.'],
-      earn:'Shardbearer Malenia — the last real difficulty on the run.' },
+    { s:'8', mins:120, type:'item', name:'Elphael — three pickups', where:'Brace of the Haligtree', ids:['r8a','r8b','r8c'],
+      start:'Prayer Room',
+      startNote:'Elphael’s first grace, reached by descending the Haligtree.',
+      way:['Collect <b>Marika’s Soreseal</b>, the <b>Dragoncrest Greatshield</b>, and <b>Cleanrot Knight Finlay</b>.',
+           'Two hours of scarlet rot from end to end.'],
+      miss:['Both talismans are easy to walk past on a rot-panicked run.',
+            'Short on boluses turns this into a three-hour area.'],
+      prep:['Craft <b>Preserving Boluses</b> — as many as you can carry'],
+      out:'Closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b>. Two trophies in one area.' },
 
-    { s:'10', mins:45, name:'Godfrey, and Hoarah Loux', where:'Leyndell, Ashen Capital', ids:['r10'],
-      warp:'Erdtree Sanctuary',
-      lines:['Gideon first — no trophy, but he blocks the road.',
-             'Then Godfrey, who throws off the armour and starts wrestling.'],
-      bring:[],
-      more:['Gideon casts the spells of every boss you have killed, which is now a long list.',
-            'Hoarah Loux grabs. His grabs punish greed, not aggression — finish the combo, then move.'],
-      earn:'One trophy. Do it after Malenia.' },
+    { s:'9', mins:180, type:'boss', name:'Malenia, Blade of Miquella', where:'Elphael', ids:['r9'],
+      start:'Drainage Channel',
+      startNote:'The last grace before her fog gate.',
+      way:['Buff first, <em>then</em> summon — the Mimic copies whatever is active.'],
+      miss:['Her drop is the Hand of Malenia: 16 STR / 48 DEX. You are four points of Strength short of using it.'],
+      fight:['<b>Your best matchup in the game.</b> Low bleed resistance, and procs outpace her healing.',
+             '<b>Waterfowl Dance</b> wants distance, not rolls. Run from the first flurry, dodge the last two.',
+             'She heals on every hit she lands — on you, your Mimic, even your block. Passivity loses.',
+             'Not a levelling problem. Every other wall bent to being over-levelled; she will not.'],
+      prep:['Top up flasks','Carry a Rune Arc'],
+      out:'<b>Shardbearer Malenia</b> — the last real difficulty on the run.' },
 
-    { s:'11', mins:120, name:'The three endings', where:'Fractured Marika', ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g'],
-      warp:'Fractured Marika',
-      lines:['<b>Confirm 39 of 42 have popped before you fight the Elden Beast.</b>',
-             'Auto-sync <b>off</b>, manual backup, then: Frenzied Flame → restore → Age of the Stars → restore → Age of Fracture.'],
-      bring:['A USB stick or PS Plus cloud slot','Two uninterrupted hours'],
-      warn:['Radagon and the Elden Beast are <b>immune to bleed</b> and every other status. You fight them three times.'],
-      more:['Frenzied Flame goes first deliberately: it is the ending that locks the others, so take it when a restore is guaranteed to follow.',
-            'Auto-sync stays off until all three have popped. It overwrites the backup silently — the usual way this fails.',
-            'Rest at Fractured Marika and do not touch the remains until you have decided which ending you are taking.',
-            'Radagon has no fire resistance. The Elden Beast resists holy heavily.'],
-      earn:'The last four trophies, including the platinum.' }
+    { s:'10', mins:45, type:'boss', name:'Godfrey, and Hoarah Loux', where:'Leyndell, Ashen Capital', ids:['r10'],
+      start:'Erdtree Sanctuary',
+      startNote:'The room where you fought the Golden Shade.',
+      way:['Gideon stands in the road first, then Godfrey.'],
+      miss:[],
+      fight:['Gideon carries no trophy but casts the spells of every boss you have killed.',
+             'Hoarah Loux grabs. His grabs punish greed, not aggression — finish the combo, then move.'],
+      prep:[],
+      out:'One trophy. Do this <b>after</b> Malenia.' },
+
+    { s:'11', mins:120, type:'final', name:'The three endings', where:'Fractured Marika', ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g'],
+      start:'Fractured Marika',
+      startNote:'The final grace, immediately before Radagon.',
+      way:['Frenzied Flame → restore → Age of the Stars → restore → Age of Fracture.',
+           'Rest at the grace and <b>do not touch the remains</b> until you have chosen.'],
+      miss:['Frenzied Flame goes first deliberately — it is the ending that locks the others, so take it when a restore is guaranteed to follow.'],
+      fight:['Radagon and the Elden Beast are <b>immune to bleed</b> and every other status. You fight them three times.',
+             'Radagon has no fire resistance. The Elden Beast resists holy heavily.'],
+      warn:['Confirm <b>39 of 42</b> have popped before you fight the Elden Beast.',
+            'Auto-sync stays <b>off</b> until all three endings pop — it overwrites the backup silently.'],
+      prep:['Turn PS5 <b>auto-sync off</b>','Have a USB stick or PS Plus cloud slot ready'],
+      out:'The last <b>four trophies</b>, including the platinum.' }
   ];
-  function isDone(o){ return o.ids.every(on); }
+  function fin(o){ return o.ids.every(on); }
 
-  /* trophies: 30 banked, plus what completing each stop delivers */
-  function trophyCount(){
-    var n = 30, R = {};
-    ROUTE.forEach(function(o){ R[o.s] = isDone(o); });
-    if (R['1']) n++;                    /* Legendary Armaments  */
-    if (R['2'] && R['3']) n++;          /* Legendary Sorceries  */
-    if (R['4'] && R['8']) n++;          /* Legendary Ashes      */
-    if (R['8']) n++;                    /* Legendary Talismans  */
-    ['5','7','9','10'].forEach(function(k){ if (R[k]) n++; });
-    if (on('r11d')) n++; if (on('r11e')) n++; if (on('r11f')) n++; if (on('r11g')) n++;
-    return Math.min(n, 42);
+  function trophies(){
+    var n=30, R={}; ROUTE.forEach(function(o){ R[o.s]=fin(o); });
+    if(R['1'])n++; if(R['2']&&R['3'])n++; if(R['4']&&R['8'])n++; if(R['8'])n++;
+    ['5','7','9','10'].forEach(function(k){ if(R[k])n++; });
+    ['r11d','r11e','r11f','r11g'].forEach(function(k){ if(on(k))n++; });
+    return Math.min(n,42);
   }
+  function fmt(m){ if(m<60) return m+' min'; var h=Math.floor(m/60), r=m%60; return h+(r?'½':'')+' hr'+(h>1||r?'s':''); }
+  function clock(m){ var h=Math.floor(m/60), r=m%60; return h+':'+(r<10?'0':'')+r; }
 
-  function fmt(m){
-    if (m < 60) return m + ' min';
-    var h = Math.floor(m/60), r = m%60;
-    return h + (r ? '½' : '') + ' hr' + (h > 1 || r ? 's' : '');
+  var dial=document.getElementById('dial');
+  if('dialIdx' in state) dial.value=state.dialIdx;
+  function mins(){ return PRESETS[parseInt(dial.value,10)]; }
+
+  document.getElementById('ticks').innerHTML=LABELS.map(function(l,i){
+    return '<button type="button" data-i="'+i+'">'+l+'</button>'; }).join('');
+
+  function paintDial(){
+    var i=parseInt(dial.value,10);
+    dial.style.setProperty('--pct',(i/7*100)+'%');
+    document.getElementById('bigtime').textContent=BIG[i];
+    document.querySelectorAll('#ticks button').forEach(function(b){
+      b.classList.toggle('on',parseInt(b.dataset.i,10)===i); });
   }
-  function clock(m){ var h=Math.floor(m/60), r=m%60; return h + ':' + (r<10?'0':'') + r; }
-
-  var slides = Array.prototype.slice.call(document.querySelectorAll('input[type=range]'));
-  slides.forEach(function(s){
-    if (('sl-'+s.id) in state) s.value = state['sl-'+s.id];
-    s.addEventListener('input', function(){ state['sl-'+s.id] = s.value; refresh(); });
-  });
-  function num(id){ return parseInt(document.getElementById(id).value, 10); }
-  var TIME = state['sl-time'] ? parseInt(state['sl-time'],10) : 90;
 
   /* ══ render ══ */
   function render(){
-    document.querySelectorAll('.times button').forEach(function(b){
-      b.classList.toggle('on', parseInt(b.dataset.t,10) === TIME); });
-
-    var budget = TIME, picked = [], skipped = [], anyLeft = 0;
+    paintDial();
+    var budget=mins(), picked=[], skipped=[], left=0, bossLeft=0;
     ROUTE.forEach(function(o){
-      if (isDone(o)) return;
-      anyLeft++;
-      if (o.mins <= budget) { budget -= o.mins; picked.push(o); } else skipped.push(o);
+      if(fin(o)) return;
+      left+=o.mins; if(o.type==='boss') bossLeft++;
+      if(o.mins<=budget){ budget-=o.mins; picked.push(o); } else skipped.push(o);
     });
 
-    /* keep anything finished tonight on screen so Undo stays reachable */
-    var shown = picked.slice();
-    ROUTE.forEach(function(o){ if (isDone(o) && state['plan-'+o.s] && shown.indexOf(o) < 0) shown.push(o); });
-    shown.sort(function(a,b){ return ROUTE.indexOf(a) - ROUTE.indexOf(b); });
+    var shown=picked.slice();
+    ROUTE.forEach(function(o){ if(fin(o)&&state['plan-'+o.s]&&shown.indexOf(o)<0) shown.push(o); });
+    shown.sort(function(a,b){ return ROUTE.indexOf(a)-ROUTE.indexOf(b); });
 
-    var sum = document.getElementById('sum');
-    if (!anyLeft) sum.innerHTML = '<b>The route is finished.</b>';
-    else if (!picked.length) {
-      var sh = skipped.reduce(function(a,b){ return b.mins < a.mins ? b : a; }, skipped[0]);
-      sum.innerHTML = '<span class="no">Nothing fits in ' + TIME + ' minutes.</span> Shortest left is <b>' + sh.name + '</b>, ' + fmt(sh.mins) + '.';
-    } else {
-      sum.innerHTML = '<b>' + picked.length + (picked.length === 1 ? ' stop' : ' stops') + '</b>, about <b>' + fmt(TIME - budget) + '</b> of play' +
-        (budget >= 15 ? ' with ' + budget + ' min spare' : '') + '.';
-    }
+    /* stats strip */
+    var t=trophies(), stopsLeft=ROUTE.filter(function(o){ return !fin(o); }).length;
+    document.getElementById('st-tro').innerHTML=t+'<small> / 42</small>';
+    document.getElementById('bar-tro').style.width=(t/42*100)+'%';
+    document.getElementById('st-hrs').innerHTML=left?Math.round(left/60)+'<small> hrs</small>':'0';
+    document.getElementById('bar-hrs').style.width=((800-left)/800*100)+'%';
+    document.getElementById('st-stops').textContent=stopsLeft;
+    document.getElementById('bar-stops').style.width=((11-stopsLeft)/11*100)+'%';
+    document.getElementById('st-boss').textContent=bossLeft;
+    document.getElementById('bar-boss').style.width=((4-bossLeft)/4*100)+'%';
 
-    /* pre-flight, deduplicated across the whole evening */
-    var need = [];
-    picked.forEach(function(o){ (o.bring||[]).forEach(function(b){ if (need.indexOf(b) < 0) need.push(b); }); });
-    var bringBox = document.getElementById('bring');
-    if (need.length) {
-      bringBox.style.display = '';
-      document.getElementById('bringlist').innerHTML = need.map(function(b,i){
-        var id = 'pf' + b.replace(/[^a-z]/gi,'').slice(0,14);
-        return '<label class="check"><input type="checkbox" data-pf="'+id+'"'+(on(id)?' checked':'')+'><span>'+b+'</span></label>';
-      }).join('');
-      bringBox.querySelectorAll('[data-pf]').forEach(function(c){
-        c.addEventListener('change', function(){ set(c.dataset.pf, c.checked); persist(); });
-      });
-    } else bringBox.style.display = 'none';
+    /* prep */
+    var need=[];
+    picked.forEach(function(o){ (o.prep||[]).forEach(function(p){
+      if(!need.some(function(x){ return x.t===p; })) need.push({t:p,for:o.name}); }); });
+    var pw=document.getElementById('prepwrap');
+    if(need.length){
+      pw.style.display='';
+      document.getElementById('prep').innerHTML=need.map(function(p){
+        var id='pf'+p.t.replace(/[^a-z]/gi,'').slice(0,16);
+        return '<label class="chk"><input type="checkbox" data-pf="'+id+'"'+(on(id)?' checked':'')+
+               '><span class="ct">'+p.t+'<span class="for">for '+p.for+'</span></span></label>'; }).join('');
+      document.querySelectorAll('[data-pf]').forEach(function(c){
+        c.addEventListener('change',function(){ set(c.dataset.pf,c.checked); persist(); }); });
+    } else pw.style.display='none';
 
-    var t = 0;
-    document.getElementById('stops').innerHTML = shown.map(function(o, i){
-      var d = isDone(o), start = t; t += o.mins;
-      var openMore = !!state['more-'+o.s];
-      return '<div class="stop'+(d?' done':'')+'">' +
-        '<div class="stophead"><div class="num">'+(i+1)+'</div><div class="stopmeta">' +
-          '<div class="stopname">'+o.name+'</div>' +
-          '<div class="stopwhen">'+o.where+' · '+fmt(o.mins)+' · '+clock(start)+'–'+clock(t)+'</div>' +
-        '</div></div>' +
-        '<div class="warp"><span class="k">Fast travel to</span><span class="v">'+o.warp+'</span></div>' +
-        '<div class="lines">' +
-          o.lines.map(function(l){ return '<div class="ln">'+l+'</div>'; }).join('') +
-          (o.warn||[]).map(function(l){ return '<div class="ln warn">'+l+'</div>'; }).join('') +
-        '</div>' +
-        (o.earn ? '<div class="earn">'+o.earn+'</div>' : '') +
-        (o.more && o.more.length ?
-          '<div class="more'+(openMore?' open':'')+'" data-more="'+o.s+'">' +
-            '<button class="moretoggle" type="button">'+(openMore?'▾ Less':'▸ More detail')+'</button>' +
-            '<div class="morebody">' + o.more.map(function(l){ return '<div class="ln">'+l+'</div>'; }).join('') + '</div>' +
-          '</div>' : '') +
-        '<div class="act"><button type="button" class="'+(d?'undo':'')+'" data-act="'+o.s+'">' +
-          (d ? '↺ Undo' : 'Mark done') + '</button></div>' +
-      '</div>';
+    /* run hint */
+    var hint=document.getElementById('runhint');
+    if(!stopsLeft) hint.textContent='All done.';
+    else if(!picked.length) hint.textContent='Nothing fits — drag the dial up';
+    else hint.innerHTML=picked.length+(picked.length===1?' stop':' stops')+' · '+fmt(mins()-budget)+' of play'+
+      (budget>=15?' · '+budget+' min spare':'');
+
+    /* stops */
+    var run=0;
+    document.getElementById('stops').innerHTML=shown.map(function(o,i){
+      var d=fin(o), st=run; run+=o.mins;
+      var open=!!state['open-'+o.s];
+      return '<div class="stop'+(d?' fin':'')+(open?' open':'')+'" data-s="'+o.s+'">'+
+        '<div class="row"><div class="idx">'+(d?'✓':i+1)+'</div>'+
+          '<div class="rmid"><div class="rname">'+o.name+'</div>'+
+            '<div class="rsub">'+o.where+' · '+clock(st)+'–'+clock(run)+'</div></div>'+
+          '<span class="tag '+o.type+'">'+(o.type==='final'?'Endings':o.type)+'</span>'+
+          '<span class="dur">'+fmt(o.mins)+'</span><span class="car">▾</span></div>'+
+        '<div class="body">'+
+          '<div class="blk"><div class="bh">Start at</div>'+
+            '<div class="start"><div class="sv">'+o.start+'</div><div class="sa">'+o.startNote+'</div></div></div>'+
+          (o.way&&o.way.length?'<div class="blk"><div class="bh">Along the way</div>'+
+            o.way.map(function(l){ return '<div class="li">'+l+'</div>'; }).join('')+'</div>':'')+
+          (o.miss&&o.miss.length?'<div class="blk"><div class="bh">Don’t miss</div>'+
+            o.miss.map(function(l){ return '<div class="li miss">'+l+'</div>'; }).join('')+'</div>':'')+
+          (o.fight&&o.fight.length?'<div class="blk"><div class="bh">The fight</div>'+
+            o.fight.map(function(l){ return '<div class="li fight">'+l+'</div>'; }).join('')+'</div>':'')+
+          (o.warn&&o.warn.length?'<div class="blk"><div class="bh" style="color:var(--boss)">Do not skip</div>'+
+            o.warn.map(function(l){ return '<div class="li warn">'+l+'</div>'; }).join('')+'</div>':'')+
+          '<div class="out"><div class="oh">You finish with</div>'+o.out+'</div>'+
+          '<button type="button" class="mark'+(d?' undo':'')+'" data-act="'+o.s+'">'+(d?'↺ Undo':'Mark done')+'</button>'+
+        '</div></div>';
     }).join('');
 
-    document.querySelectorAll('[data-more]').forEach(function(m){
-      m.querySelector('.moretoggle').addEventListener('click', function(){
-        state['more-'+m.dataset.more] = m.classList.toggle('open'); persist(); render();
+    /* what more time would add */
+    var lk=document.getElementById('locked');
+    if(skipped.length && picked.length){
+      var nxt=skipped[0], short=nxt.mins-budget;
+      var bump=PRESETS.filter(function(p){ return p>=mins()-budget+nxt.mins; })[0];
+      lk.innerHTML='<div class="locked" data-bump="'+(bump||300)+'">'+
+        '<div class="idx">+</div><div class="rmid"><div class="rname">'+nxt.name+'</div>'+
+        '<div class="rsub">'+nxt.where+' · '+fmt(nxt.mins)+'</div></div>'+
+        '<div class="need">'+short+' min more<br>tap to add</div></div>';
+      var el=lk.querySelector('.locked');
+      if(el) el.addEventListener('click',function(){
+        var target=parseInt(el.dataset.bump,10);
+        dial.value=PRESETS.indexOf(target)>=0?PRESETS.indexOf(target):7;
+        state.dialIdx=dial.value; refresh();
       });
+    } else lk.innerHTML='';
+
+    document.querySelectorAll('.stop .row').forEach(function(r){
+      r.addEventListener('click',function(){
+        var c=r.closest('.stop'); state['open-'+c.dataset.s]=c.classList.toggle('open'); persist(); });
     });
     document.querySelectorAll('[data-act]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var o = ROUTE.filter(function(x){ return x.s === b.dataset.act; })[0];
-        var mark = !isDone(o);
-        o.ids.forEach(function(id){ set(id, mark); });
-        if (mark) state['plan-'+o.s] = true; else delete state['plan-'+o.s];
+      b.addEventListener('click',function(ev){
+        ev.stopPropagation();
+        var o=ROUTE.filter(function(x){ return x.s===b.dataset.act; })[0];
+        var mark=!fin(o);
+        o.ids.forEach(function(id){ set(id,mark); });
+        if(mark){ state['plan-'+o.s]=true; state['open-'+o.s]=false; } else delete state['plan-'+o.s];
         refresh();
       });
     });
-
-    document.getElementById('tro').textContent = trophyCount();
-    var left = ROUTE.filter(function(o){ return !isDone(o); }).reduce(function(a,o){ return a+o.mins; },0);
-    document.getElementById('left').textContent = left ? '~' + Math.round(left/60) + ' hrs' : 'none';
   }
 
   /* ══ build panel ══ */
-  var STATS = ['s-vig','s-mind','s-end','s-str','s-dex','s-int','s-fai','s-arc'];
-  var SIGNED = {'s-main':1,'s-off':1,'s-mimic':1};
-  function level(){ var n=0; STATS.forEach(function(i){ n+=num(i); }); return {lvl:9+(n-88), spent:n-88}; }
-  function cost(t){ return t<12?0:Math.round(0.02*t*t*t + 3.06*t*t + 105.6*t - 895); }
-
-  var ALTS = [
-    {n:'Uchigatana ×2',             r:{str:11,dex:15}},
-    {n:'Godskin Peeler',            r:{str:9,dex:17}},
-    {n:'Twinblade',                 r:{str:10,dex:19}},
-    {n:"Scavenger's Curved Sword",  r:{str:10,dex:14}},
-    {n:'Hookclaws',                 r:{str:8,dex:16}},
-    {n:'Eclipse Shotel',            r:{str:12,dex:16,fai:10}},
-    {n:'Hand of Malenia',           r:{str:16,dex:48}},
-    {n:'Rivers of Blood',           r:{str:12,dex:18,arc:20}}
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.sl input[type=range]'));
+  slides.forEach(function(s){
+    if(('sl-'+s.id) in state) s.value=state['sl-'+s.id];
+    s.addEventListener('input',function(){ state['sl-'+s.id]=s.value; refresh(); });
+  });
+  function num(id){ return parseInt(document.getElementById(id).value,10); }
+  var STATS=['s-vig','s-mind','s-end','s-str','s-dex','s-int','s-fai','s-arc'];
+  var SIGNED={'s-main':1,'s-off':1,'s-mimic':1};
+  function lvl(){ var n=0; STATS.forEach(function(i){ n+=num(i); }); return {l:9+(n-88), sp:n-88}; }
+  function cost(t){ return t<12?0:Math.round(0.02*t*t*t+3.06*t*t+105.6*t-895); }
+  var ALTS=[
+    {n:'Uchigatana ×2',r:{str:11,dex:15}},{n:'Godskin Peeler',r:{str:9,dex:17}},
+    {n:'Twinblade',r:{str:10,dex:19}},{n:"Scavenger's Curved Sword",r:{str:10,dex:14}},
+    {n:'Hookclaws',r:{str:8,dex:16}},{n:'Eclipse Shotel',r:{str:12,dex:16,fai:10}},
+    {n:'Hand of Malenia',r:{str:16,dex:48}},{n:'Rivers of Blood',r:{str:12,dex:18,arc:20}}
   ];
-
   function paintBuild(){
     slides.forEach(function(s){
-      var o = document.getElementById('v-' + s.id.slice(2));
-      if (o) o.textContent = (SIGNED[s.id] ? '+' : '') + s.value;
+      var o=document.getElementById('v-'+s.id.slice(2));
+      if(o) o.textContent=(SIGNED[s.id]?'+':'')+s.value;
+      var mn=parseInt(s.min,10), mx=parseInt(s.max,10);
+      s.style.setProperty('--pct',((s.value-mn)/(mx-mn)*100)+'%');
     });
-    var L = level();
-    document.getElementById('d-lvl').textContent = L.lvl;
-    document.getElementById('d-pts').textContent = L.spent;
-    document.getElementById('d-cost').textContent = '~' + Math.round(cost(L.lvl+1)/1000) + 'k';
-    document.getElementById('s-vig').parentNode.classList.toggle('cap', num('s-vig') >= 60);
-    document.getElementById('s-dex').parentNode.classList.toggle('cap', num('s-dex') >= 80);
+    var L=lvl();
+    document.getElementById('d-lvl').textContent=L.l;
+    document.getElementById('d-pts').textContent=L.sp;
+    document.getElementById('d-cost').textContent='~'+Math.round(cost(L.l+1)/1000)+'k';
+    document.getElementById('s-vig').parentNode.classList.toggle('cap',num('s-vig')>=60);
+    document.getElementById('s-dex').parentNode.classList.toggle('cap',num('s-dex')>=80);
 
-    var mind=num('s-mind'), end=num('s-end'), str=num('s-str'), fai=num('s-fai'), flask=num('s-flask'), tip=[];
-    if (mind < 25) tip.push('<b>Mind '+mind+' → 25.</b> Unsheathe costs FP every use — this is the build’s real constraint now.');
-    else if (end < 50) tip.push('<b>Endurance '+end+' → 50.</b> Longer chains before you are stranded mid-combo.');
-    else if (num('s-dex') < 80) tip.push('<b>Dex '+num('s-dex')+' → 80</b>, the last Keen breakpoint.');
-    else tip.push('Spending plan complete. Overflow anywhere.');
-    if (fai < 10) tip.push('Two points of Faith unlocks the <b>Eclipse Shotel</b> you already own.');
-    if (str < 16) tip.push('Four points of Strength unlocks <b>Hand of Malenia</b>.');
-    if (flask < 12) tip.push('Flasks recorded at '+flask+' and unverified since July — the largest lever left for Malenia.');
-    document.getElementById('tips').innerHTML = tip.map(function(x){ return '<p>'+x+'</p>'; }).join('');
+    var mind=num('s-mind'),end=num('s-end'),str=num('s-str'),fai=num('s-fai'),fl=num('s-flask'),tip=[];
+    if(mind<25) tip.push('<b>Mind '+mind+' → 25.</b> Unsheathe costs FP every use — the build’s real constraint now.');
+    else if(end<50) tip.push('<b>Endurance '+end+' → 50.</b> Longer chains before you are stranded mid-combo.');
+    else if(num('s-dex')<80) tip.push('<b>Dex '+num('s-dex')+' → 80</b>, the last Keen breakpoint.');
+    else tip.push('Spending plan complete — overflow anywhere.');
+    if(fai<10) tip.push('Two points of Faith unlocks the <b>Eclipse Shotel</b> you already own.');
+    if(str<16) tip.push('Four points of Strength unlocks <b>Hand of Malenia</b>.');
+    if(fl<12) tip.push('Flasks at '+fl+', unverified since July — the largest lever left for Malenia.');
+    document.getElementById('tips').innerHTML=tip.map(function(x){ return '<p>'+x+'</p>'; }).join('');
 
-    var cur = {str:num('s-str'),dex:num('s-dex'),int:num('s-int'),fai:num('s-fai'),arc:num('s-arc')};
-    document.querySelector('#alt-tbl tbody').innerHTML = ALTS.map(function(w){
-      var gap = [];
-      Object.keys(w.r).forEach(function(k){ if (w.r[k] - cur[k] > 0) gap.push('+' + (w.r[k]-cur[k]) + ' ' + k.toUpperCase()); });
-      var req = Object.keys(w.r).map(function(k){ return k.toUpperCase()+' '+w.r[k]; }).join(' · ');
-      var v = !gap.length ? '<span class="yes">✓ can use</span>'
-            : '<span class="'+(gap.length===1?'near':'nope')+'">'+gap.join(', ')+'</span>';
+    var cur={str:num('s-str'),dex:num('s-dex'),int:num('s-int'),fai:num('s-fai'),arc:num('s-arc')};
+    document.querySelector('#alt-tbl tbody').innerHTML=ALTS.map(function(w){
+      var gap=[]; Object.keys(w.r).forEach(function(k){ if(w.r[k]-cur[k]>0) gap.push('+'+(w.r[k]-cur[k])+' '+k.toUpperCase()); });
+      var req=Object.keys(w.r).map(function(k){ return k.toUpperCase()+' '+w.r[k]; }).join(' · ');
+      var v=!gap.length?'<span class="yes">✓ can use</span>'
+        :'<span class="'+(gap.length===1?'near':'nope')+'">'+gap.join(', ')+'</span>';
       return '<tr><td><b>'+w.n+'</b></td><td class="req">'+req+'</td><td>'+v+'</td></tr>';
     }).join('');
   }
 
   /* ══ chrome ══ */
-  document.querySelectorAll('.times button').forEach(function(b){
-    b.addEventListener('click', function(){ TIME = parseInt(b.dataset.t,10); state['sl-time'] = TIME; refresh(); });
+  dial.addEventListener('input',function(){ state.dialIdx=dial.value; refresh(); });
+  document.getElementById('ticks').addEventListener('click',function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    dial.value=b.dataset.i; state.dialIdx=dial.value; refresh();
   });
-  var ref = document.getElementById('ref');
-  if (state['ref-open']) ref.classList.add('open');
-  document.getElementById('reftog').addEventListener('click', function(){
-    state['ref-open'] = ref.classList.toggle('open'); persist();
-    this.textContent = ref.classList.contains('open') ? 'Build, stats & weapons ▴' : 'Build, stats & weapons ▾';
+  var ref=document.getElementById('ref');
+  if(state['ref-open']) ref.classList.add('open');
+  document.getElementById('reftog').addEventListener('click',function(){
+    state['ref-open']=ref.classList.toggle('open'); persist();
+    this.textContent=ref.classList.contains('open')?'Build, stats & weapons ▴':'Build, stats & weapons ▾';
   });
-
   function summary(){
-    var L = level(), o = [];
-    o.push('ELDEN RING — Level ' + L.lvl + ', ' + trophyCount() + '/42');
+    var L=lvl(),o=[];
+    o.push('ELDEN RING — Level '+L.l+', '+trophies()+'/42');
     o.push('VIG '+num('s-vig')+' MND '+num('s-mind')+' END '+num('s-end')+' STR '+num('s-str')+
            ' DEX '+num('s-dex')+' INT '+num('s-int')+' FAI '+num('s-fai')+' ARC '+num('s-arc'));
     o.push('Uchigatana +'+num('s-main')+'/+'+num('s-off')+', Mimic +'+num('s-mimic')+', '+num('s-flask')+' flasks');
-    o.push('');
-    o.push('LEFT TO DO');
-    ROUTE.forEach(function(r){ if (!isDone(r)) o.push('  ☐ '+r.s+'. '+r.name+' — '+r.where+' ('+r.mins+' min, warp '+r.warp+')'); });
-    var d = ROUTE.filter(isDone);
-    if (d.length) { o.push(''); o.push('DONE'); d.forEach(function(r){ o.push('  ✓ '+r.s+'. '+r.name); }); }
+    o.push(''); o.push('LEFT TO DO');
+    ROUTE.forEach(function(r){ if(!fin(r)) o.push('  ☐ '+r.s+'. '+r.name+' — '+r.where+' ('+r.mins+' min, start at '+r.start+')'); });
+    var d=ROUTE.filter(fin);
+    if(d.length){ o.push(''); o.push('DONE'); d.forEach(function(r){ o.push('  ✓ '+r.s+'. '+r.name); }); }
     return o.join('\n');
   }
-  document.getElementById('copy').addEventListener('click', function(){
-    var txt = summary(), ta = document.getElementById('dump'); ta.value = txt;
-    var t = document.getElementById('toast');
-    function ok(){ t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1700); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(txt).then(ok, function(){ ta.classList.add('show'); ta.select(); });
-    } else { ta.classList.add('show'); ta.select(); try { document.execCommand('copy'); ok(); } catch(e){} }
+  document.getElementById('copy').addEventListener('click',function(){
+    var txt=summary(), ta=document.getElementById('dump'); ta.value=txt;
+    var t=document.getElementById('toast');
+    function ok(){ t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },1700); }
+    if(navigator.clipboard&&navigator.clipboard.writeText)
+      navigator.clipboard.writeText(txt).then(ok,function(){ ta.classList.add('show'); ta.select(); });
+    else { ta.classList.add('show'); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} }
   });
-  document.getElementById('reset').addEventListener('click', function(){
-    if (!confirm('Clear everything saved on this device?')) return;
-    try { localStorage.removeItem(KEY); } catch(e){} location.reload();
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Clear everything saved on this device?')) return;
+    try{ localStorage.removeItem(KEY); }catch(e){} location.reload();
   });
 
   function refresh(){ paintBuild(); render(); persist(); }
