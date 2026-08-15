@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Long Road to Platinum — Leyndell to the Elden Beast</title>
+<title>Twelve Trophies Left — The Haligtree Run</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
   :root{
     --ink:#100d08; --gold:#d9b45a; --gold-bright:#f2dc94; --parch:#cdba8e;
     --parch-dim:#8f8464; --line:#3a3120; --red:#d98a68; --rune:#8fd0c8; --danger:#c97b6a;
-    --green:#9fc98f; --violet:#b8a1e3;
+    --green:#9fc98f; --violet:#b8a1e3; --amber:#e0a951;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
@@ -20,22 +20,25 @@
     padding:32px 20px 64px; min-height:100vh;
   }
   .wrap{max-width:1180px;margin:0 auto}
-  header{text-align:center;margin-bottom:28px}
+  header{text-align:center;margin-bottom:26px}
   .eyebrow{font-family:'Cinzel',serif;letter-spacing:.42em;text-transform:uppercase;font-size:11px;color:var(--parch-dim);margin-bottom:14px}
   h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,5vw,44px);color:var(--gold-bright);text-shadow:0 0 24px rgba(217,180,90,.35);letter-spacing:.02em;line-height:1.1}
-  .sub{color:var(--parch-dim);font-style:italic;font-size:16px;margin-top:10px;max-width:660px;margin-left:auto;margin-right:auto}
+  .sub{color:var(--parch-dim);font-style:italic;font-size:16px;margin-top:10px;max-width:680px;margin-left:auto;margin-right:auto}
   .ledger{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
   .ledger span{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--green);border:1px solid #3a5230;border-radius:20px;padding:3px 12px}
+  .stamp{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:var(--parch-dim);margin-top:12px;text-transform:uppercase}
 
   /* ── console ─────────────────────────────────────────── */
   .console{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;margin-bottom:26px;box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5)}
+    padding:20px 22px;margin-bottom:22px;box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5)}
   .console h2{font-family:'Cinzel',serif;color:var(--gold);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-    margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-  .sliders{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 22px}
-  @media(max-width:760px){.sliders{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:440px){.sliders{grid-template-columns:1fr}}
-  .sl{display:flex;flex-direction:column;gap:2px}
+    margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .console .note{font-size:13.5px;color:var(--parch-dim);font-style:italic;margin:10px 0 14px}
+  .sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 22px}
+  @media(max-width:900px){.sliders{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:660px){.sliders{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:420px){.sliders{grid-template-columns:1fr}}
+  .sl{display:flex;flex-direction:column;gap:2px;position:relative}
   .sl .lab{display:flex;justify-content:space-between;align-items:baseline;font-family:'Cinzel',serif;font-size:10px;
     letter-spacing:.12em;color:var(--parch-dim);text-transform:uppercase}
   .sl .lab b{font-size:15px;color:var(--gold-bright);font-weight:600}
@@ -46,9 +49,15 @@
   .sl input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold-bright);
     border:2px solid #7a5c1c;cursor:pointer}
   .sl.capped .lab b{color:var(--green)}
+  .sl.unverified .lab{color:var(--danger)}
+  .sl.unverified .lab::after{content:" ?";color:var(--danger);font-weight:700}
+  .sl.floor .lab b{color:var(--parch-dim)}
 
-  /* info buttons + tooltips */
-  .sl{position:relative}
+  .derived{display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .derived .d{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;color:var(--parch-dim);text-transform:uppercase}
+  .derived .d b{display:block;font-size:21px;color:var(--gold-bright);font-weight:700;letter-spacing:0}
+  .derived .d.warn b{color:var(--danger)}
+
   .info{font-family:'Cinzel',serif;font-size:9px;font-weight:700;line-height:1;cursor:pointer;
     width:14px;height:14px;padding:0;margin-left:5px;border-radius:50%;vertical-align:baseline;
     background:none;color:var(--parch-dim);border:1px solid #5a4a20;transition:all .15s ease}
@@ -65,7 +74,7 @@
   .tip .when{display:block;margin-top:7px;padding-top:7px;border-top:1px solid #3a3120;
     font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
   .sl.pinned .tip,.sl.hovered .tip{opacity:1;visibility:visible;transform:translateY(0)}
-  @media(max-width:440px){.tip{left:-6px;right:-6px}}
+  @media(max-width:420px){.tip{left:-6px;right:-6px}}
 
   .advice{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
   .advice .aline{font-size:14.5px;color:#d4c193;padding-left:22px;position:relative;margin:5px 0}
@@ -75,8 +84,17 @@
   .advice .aline.good{color:var(--green)}
   .advice .aline.good::before{content:"✓";color:var(--green)}
 
+  /* ── planner ─────────────────────────────────────────── */
+  .planner{background:linear-gradient(160deg,#141b16,#0a0d0b);border:1px solid #3a5230;border-radius:14px;
+    padding:18px 22px;margin-bottom:22px}
+  .planner h2{font-family:'Cinzel',serif;color:var(--green);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .planner .prow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .planner .prow .sl{flex:1;min-width:200px}
+  .planner .out{font-size:14.5px;color:#c9d8c0;flex:2;min-width:240px}
+  .planner .out b{color:var(--green)}
+
   /* ── progress ────────────────────────────────────────── */
-  .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
   @media(max-width:640px){.progress{grid-template-columns:1fr}}
   .pcard{background:rgba(217,180,90,.06);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center}
   .pcard .k{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:var(--parch-dim);text-transform:uppercase}
@@ -84,53 +102,34 @@
   .bar{height:6px;border-radius:4px;background:#2a2416;overflow:hidden;margin-top:8px}
   .bar i{display:block;height:100%;background:linear-gradient(90deg,#c79a3a,#f2dc94);width:0;transition:width .3s ease}
 
-  /* ── layout ──────────────────────────────────────────── */
-  .layout{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;margin-top:8px}
-  @media(max-width:920px){.layout{grid-template-columns:1fr}}
-  .mapcard{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);border-radius:14px;padding:14px;
-    box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5);align-self:start;position:sticky;top:16px}
-  @media(max-width:920px){.mapcard{position:static}}
-  svg{width:100%;height:auto;display:block}
-  .region-label{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;fill:var(--parch);text-transform:uppercase}
-  .region-label.dim{fill:var(--parch-dim);font-size:10px}
-  .wp{cursor:pointer}
-  .wp circle.node{transition:r .15s ease}
-  .wp:hover circle.node{r:17}
-  .wp.lit circle.node{filter:url(#glow);stroke:#fff}
-  .wp text{font-family:'Cinzel',serif;font-weight:700;font-size:12px;fill:var(--ink);pointer-events:none}
-  .hint{text-align:center;color:var(--parch-dim);font-size:13px;font-style:italic;margin-top:8px}
-
+  /* ── route ───────────────────────────────────────────── */
   .panel h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;
-    margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-  .step{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px;
-    background:linear-gradient(160deg,rgba(24,18,9,.6),rgba(13,10,5,.6));transition:border-color .2s ease}
-  .step.active{border-color:var(--gold)}
+    margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .panel .lede{font-size:14.5px;color:var(--parch-dim);font-style:italic;margin:10px 0 16px}
+  .step{border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin-bottom:13px;
+    background:linear-gradient(160deg,rgba(24,18,9,.6),rgba(13,10,5,.6));transition:border-color .2s ease,opacity .2s ease}
   .step.next{border-color:var(--green)}
-  .step.next .t::after{content:"  ◄ YOU ARE HERE";font-size:11px;letter-spacing:.14em;color:var(--green)}
-  .step.complete{border-color:#3a5230;opacity:.62}
-  .step.complete .t::after{content:"  ✓ CLEARED";font-size:11px;letter-spacing:.14em;color:var(--green)}
-  .step .n{font-family:'Cinzel',serif;color:var(--gold-bright);font-weight:700;font-size:12px;letter-spacing:.12em;cursor:pointer}
-  .step .t{font-family:'Cinzel',serif;color:var(--parch);font-size:17px;margin:2px 0 8px;cursor:pointer}
-  .step p{font-size:15px;color:#b7a982;margin-bottom:8px}
-  .brief{background:rgba(217,180,90,.08);border:1px solid #4a3f22;border-radius:8px;padding:8px 12px;margin:8px 0 10px;font-size:14.5px;color:#d4c193}
-  .brief b{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--gold-bright)}
-  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
-  @media(max-width:480px){.stats{grid-template-columns:repeat(3,1fr)}}
-  .stat{background:rgba(217,180,90,.06);border:1px solid var(--line);border-radius:8px;padding:6px 4px;text-align:center}
-  .stat .k{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;color:var(--parch-dim);text-transform:uppercase}
-  .stat .v{font-family:'Cinzel',serif;font-size:15px;color:var(--gold-bright);font-weight:600}
+  .step.next .t::after{content:"  ◄ NEXT";font-size:11px;letter-spacing:.14em;color:var(--green)}
+  .step.complete{border-color:#3a5230;opacity:.55}
+  .step.complete .t::after{content:"  ✓ DONE";font-size:11px;letter-spacing:.14em;color:var(--green)}
+  .step.toolong{opacity:.34}
+  .step.fits{border-color:var(--green);box-shadow:0 0 0 1px rgba(159,201,143,.25)}
+  .step .n{font-family:'Cinzel',serif;color:var(--gold-bright);font-weight:700;font-size:11.5px;letter-spacing:.12em;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .step .n .mins{color:var(--rune)}
+  .step .t{font-family:'Cinzel',serif;color:var(--parch);font-size:17px;margin:3px 0 8px}
   .row{font-size:14.5px;color:#b7a982;margin:4px 0;padding-left:22px;position:relative}
   .row::before{position:absolute;left:0;top:1px;font-size:13px}
   .row.item::before{content:"◆";color:var(--green)}
   .row.enemy::before{content:"☠";color:var(--danger)}
   .row.ash::before{content:"❖";color:var(--violet)}
-  .row.farm::before{content:"◉";color:var(--rune)}
+  .row.gate::before{content:"⚿";color:var(--amber)}
+  .row.unlock::before{content:"➔";color:var(--rune)}
   .row.grace::before{content:"⚑";color:var(--gold-bright)}
-  .row.quest::before{content:"✧";color:var(--violet)}
-  .row.grace{color:#d4c193}
   .row b{color:var(--parch);font-weight:500}
+  .row.unlock{color:#a8cdc7}
 
-  /* ── checkable tasks ─────────────────────────────────── */
+  /* ── tasks ───────────────────────────────────────────── */
   .task{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#b7a982;margin:6px 0;cursor:pointer;
     padding:5px 8px;border-radius:7px;transition:background .15s ease}
   .task:hover{background:rgba(217,180,90,.05)}
@@ -142,28 +141,34 @@
   .task input:checked ~ span{color:var(--parch-dim);text-decoration:line-through;text-decoration-color:#5a4a20}
   .task span b{color:var(--parch);font-weight:500}
   .task .tro{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;color:var(--gold);border:1px solid #5a4a20;
-    border-radius:10px;padding:1px 7px;margin-left:6px;white-space:nowrap;vertical-align:middle}
+    border-radius:10px;padding:1px 7px;margin-left:6px;white-space:nowrap}
+  .task .tro.q{color:var(--danger);border-color:#6a3020}
   .task input:checked ~ span .tro{color:var(--parch-dim);border-color:#3a3120}
 
-  .section{margin-top:28px;border-radius:14px;padding:24px 26px;background:linear-gradient(160deg,#161006,#0c0904);border:1px solid var(--line)}
+  .section{margin-top:26px;border-radius:14px;padding:22px 24px;background:linear-gradient(160deg,#161006,#0c0904);border:1px solid var(--line)}
   .section h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
-  .section .lede{font-size:14.5px;color:var(--parch-dim);font-style:italic;margin-bottom:16px}
-  .section ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px 30px}
+  .section .lede{font-size:14.5px;color:var(--parch-dim);font-style:italic;margin-bottom:14px}
+  .section ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px 30px}
   @media(max-width:720px){.section ul{grid-template-columns:1fr}}
   .section li{font-size:15px;color:#b7a982;padding-left:20px;position:relative}
   .section li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:12px;top:3px}
   .section li b{color:var(--parch);font-weight:500}
   .section.danger{border-color:#6a3020;background:linear-gradient(160deg,#1a0d08,#0c0904)}
   .section.danger h2{color:var(--danger)}
-
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 26px}
+  .section.verify{border-color:#4a5a2a;background:linear-gradient(160deg,#141a0c,#0a0c06)}
+  .section.verify h2{color:var(--green)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
   @media(max-width:720px){.cols{grid-template-columns:1fr}}
   .grp{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--gold-bright);text-transform:uppercase;
-    margin:16px 0 4px;grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:5px}
+    margin:15px 0 3px;grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:5px}
+  .grp span{color:var(--parch-dim);letter-spacing:.06em}
+  details.earned{margin-top:14px}
+  details.earned summary{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--parch-dim);
+    text-transform:uppercase;cursor:pointer;padding:8px 0}
+  details.earned summary:hover{color:var(--gold)}
 
-  /* ── export ──────────────────────────────────────────── */
-  .exportbar{position:sticky;bottom:0;margin-top:30px;background:linear-gradient(160deg,#1c1509,#0d0a05);
-    border:1px solid var(--gold);border-radius:14px;padding:16px 20px;display:flex;gap:14px;align-items:center;
+  .exportbar{position:sticky;bottom:0;margin-top:28px;background:linear-gradient(160deg,#1c1509,#0d0a05);
+    border:1px solid var(--gold);border-radius:14px;padding:15px 20px;display:flex;gap:12px;align-items:center;
     flex-wrap:wrap;justify-content:space-between;box-shadow:0 -8px 40px rgba(0,0,0,.7)}
   .exportbar .txt{font-size:14px;color:var(--parch-dim);flex:1;min-width:200px}
   .btn{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
@@ -176,10 +181,10 @@
     font-family:'Cinzel',serif;font-size:12px;letter-spacing:.12em;padding:12px 22px;border-radius:8px;font-weight:700;
     opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:50}
   .toast.show{opacity:1}
-  textarea.dump{width:100%;height:170px;margin-top:12px;background:#0a0805;color:var(--parch);border:1px solid var(--line);
+  textarea.dump{width:100%;height:180px;margin-top:12px;background:#0a0805;color:var(--parch);border:1px solid var(--line);
     border-radius:8px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;display:none}
   textarea.dump.show{display:block}
-  footer{text-align:center;margin-top:36px;color:var(--parch-dim);font-size:13px;font-style:italic}
+  footer{text-align:center;margin-top:34px;color:var(--parch-dim);font-size:13px;font-style:italic}
   footer a{color:var(--gold);text-decoration:none;border-bottom:1px solid #5a4a20}
 </style>
 </head>
@@ -187,398 +192,375 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Campaign the Second</div>
-    <h1>The Long Road to Platinum</h1>
-    <div class="sub">From the root pit beneath Leyndell to the Elden Beast — every remaining trophy, in the order that costs the least backtracking. Thirty-three to go.</div>
+    <div class="eyebrow">The last campaign</div>
+    <h1>Twelve Trophies Left</h1>
+    <div class="sub">Both katanas are maxed, the Erdtree is ash, and thirty of forty-two have popped. What remains is one snowfield, one blood swamp, one impossible woman, and a save-file protocol.</div>
     <div class="ledger">
-      <span>SAMURAI · DUAL KEEN UCHI</span><span>DEX 40 ✓</span><span>MIMIC +4</span><span>RADAHN: FIRST TRY</span><span>9 / 42 EARNED</span>
+      <span>LVL 129</span><span>+25 / +25 KEEN</span><span>MIMIC +10</span><span>VIG 60 · DEX 60 · END 40</span><span>30 / 42</span>
     </div>
+    <div class="stamp">Synced 14 August 2026 · ~10 hrs of route, plus however long Malenia takes</div>
   </header>
 
   <!-- ══ CONSOLE ══ -->
   <div class="console">
-    <h2>The Runebook — set your current state</h2>
+    <h2>The Runebook</h2>
+    <div class="note">Level is <em>derived</em> from the eight stats, not stored — so it can never drift out of sync again. Red labels are values the sync could not confirm; correct them and they turn gold.</div>
     <div class="sliders">
 
       <div class="sl">
-        <div class="lab"><span>Level <button type="button" class="info" aria-label="What is Level?">i</button></span> <b id="v-lvl">78</b></div>
-        <input type="range" id="s-lvl" min="40" max="180" value="78" aria-label="Character level">
-        <div class="tip" role="tooltip">Not a stat in itself — just the running total of every point you've spent. Each level costs more runes than the last, so the real question is never <em>whether</em> to level, it's <b>where the point goes</b>.
-          <span class="when">Spend order: Vigor → 60, Endurance → 30, then anywhere</span></div>
+        <div class="lab"><span>Vigor <button type="button" class="info" aria-label="About Vigor">i</button></span> <b id="v-vig">60</b></div>
+        <input type="range" id="s-vig" min="10" max="99" value="60" aria-label="Vigor">
+        <div class="tip" role="tooltip"><b>Hit points.</b> Soft caps at 40 and again at 60 — you are exactly on the second cap, where each further point is worth roughly 6 HP.
+          <span class="when">Hard stop. Do not spend here again.</span></div>
       </div>
 
       <div class="sl">
-        <div class="lab"><span>Main hand <button type="button" class="info" aria-label="What is weapon upgrade level?">i</button></span> <b id="v-main">+16</b></div>
-        <input type="range" id="s-main" min="0" max="25" value="16" aria-label="Main hand upgrade level">
-        <div class="tip" role="tooltip">Your main Uchigatana's <b>upgrade level</b>, raised with Smithing Stones at Hewg. This is the single biggest damage lever in the game — far bigger than character level. Stones [1]–[8] carry you to +24; the last step needs one <b>Ancient Dragon Smithing Stone</b>.
-          <span class="when">+25 is its own trophy — God-Slaying Armament</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Offhand <button type="button" class="info" aria-label="What is the offhand level?">i</button></span> <b id="v-off">+13</b></div>
-        <input type="range" id="s-off" min="0" max="25" value="13" aria-label="Offhand upgrade level">
-        <div class="tip" role="tooltip">Your second katana's upgrade level. Powerstancing swings <b>both</b> weapons, so every L1 chain deals damage from each one — an offhand lagging several levels behind is a quiet, permanent DPS loss.
-          <span class="when">Keep it within ~2 levels of the main hand</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Vigor <button type="button" class="info" aria-label="What is Vigor?">i</button></span> <b id="v-vig">49</b></div>
-        <input type="range" id="s-vig" min="10" max="99" value="49" aria-label="Vigor">
-        <div class="tip" role="tooltip"><b>Hit points</b> — the most valuable stat in the game for nearly every build. It soft caps at 40 and again at 60; points past 60 barely register on the bar.
-          <span class="when">50 before Morgott · 60 before the Haligtree</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Endurance <button type="button" class="info" aria-label="What is Endurance?">i</button></span> <b id="v-end">20</b></div>
-        <input type="range" id="s-end" min="10" max="99" value="20" aria-label="Endurance">
-        <div class="tip" role="tooltip"><b>Stamina</b> (attacks, rolls, sprinting) and <b>equip load</b> (how heavy you can dress while still medium-rolling). For dual katanas it's the stat that decides whether you can finish an L1 chain <em>and</em> still dodge out of it.
-          <span class="when">25–30 is plenty — more only if you wear heavy armour</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Dexterity <button type="button" class="info" aria-label="What is Dexterity?">i</button></span> <b id="v-dex">40</b></div>
-        <input type="range" id="s-dex" min="10" max="99" value="40" aria-label="Dexterity">
-        <div class="tip" role="tooltip">Scales <b>Keen</b> weapons — your entire damage model. Returns fall off a cliff at 40, which is why the plan called it finished forever. Anything above 40 is runes that should have gone to Vigor.
-          <span class="when">40 and done · Rennala refunds overspend for a Larval Tear</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Mind <button type="button" class="info" aria-label="What is Mind?">i</button></span> <b id="v-mind">11</b></div>
+        <div class="lab"><span>Mind <button type="button" class="info" aria-label="About Mind">i</button></span> <b id="v-mind">11</b></div>
         <input type="range" id="s-mind" min="10" max="99" value="11" aria-label="Mind">
-        <div class="tip" role="tooltip"><b>FP</b>, which fuels Ashes of War. Matters more to you than it looks — <b>Unsheathe costs FP every use</b>. At 11 you get very few casts per blue flask. Your Mimic costs HP, not FP, so it's unaffected either way.
-          <span class="when">15–20 if you ever run dry mid-boss · otherwise ignore</span></div>
+        <div class="tip" role="tooltip"><b>FP — and your build's actual constraint.</b> Unsheathe costs FP every use, and 11 Mind buys very few casts per blue flask. This is now the top of the spending queue, above Endurance and Dex.
+          <span class="when">Priority 1 · take it to 25</span></div>
       </div>
 
       <div class="sl">
-        <div class="lab"><span>Flask charges <button type="button" class="info" aria-label="What are flask charges?">i</button></span> <b id="v-flask">10</b></div>
+        <div class="lab"><span>Endurance <button type="button" class="info" aria-label="About Endurance">i</button></span> <b id="v-end">40</b></div>
+        <input type="range" id="s-end" min="10" max="99" value="40" aria-label="Endurance">
+        <div class="tip" role="tooltip"><b>Stamina and equip load.</b> Governs how long an L1 chain can run before you are stranded mid-combo, and whether you still medium-roll in your current armour.
+          <span class="when">Priority 2 · 40 → 50</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Dexterity <button type="button" class="info" aria-label="About Dexterity">i</button></span> <b id="v-dex">60</b></div>
+        <input type="range" id="s-dex" min="10" max="99" value="60" aria-label="Dexterity">
+        <div class="tip" role="tooltip"><b>Scales Keen weapons.</b> The old plan stopped at 40; you have since pushed past it. The next meaningful breakpoint is 80, after which it is genuinely finished.
+          <span class="when">Priority 3 · 60 → 80</span></div>
+      </div>
+
+      <div class="sl floor">
+        <div class="lab"><span>Strength <button type="button" class="info" aria-label="About Strength">i</button></span> <b id="v-str">12</b></div>
+        <input type="range" id="s-str" min="8" max="99" value="12" aria-label="Strength">
+        <div class="tip" role="tooltip"><b>Samurai class floor, and correctly untouched.</b> Keen affinity scales Strength at close to zero. An earlier note claimed the Samurai floor was 15 — that was wrong; it is 12 STR and 15 DEX.
+          <span class="when">Never spend here</span></div>
+      </div>
+
+      <div class="sl floor">
+        <div class="lab"><span>Intelligence <button type="button" class="info" aria-label="About Intelligence">i</button></span> <b id="v-int">9</b></div>
+        <input type="range" id="s-int" min="8" max="99" value="9" aria-label="Intelligence">
+        <div class="tip" role="tooltip"><b>Class floor.</b> The legendary sorceries only need to be <em>acquired</em>, never cast, so the collection trophy costs you nothing here.
+          <span class="when">Never spend here</span></div>
+      </div>
+
+      <div class="sl floor">
+        <div class="lab"><span>Faith <button type="button" class="info" aria-label="About Faith">i</button></span> <b id="v-fai">8</b></div>
+        <input type="range" id="s-fai" min="8" max="99" value="8" aria-label="Faith">
+        <div class="tip" role="tooltip"><b>Class floor.</b> Same logic as Intelligence — the legendary incantations count as owned the moment they enter your inventory.
+          <span class="when">Never spend here</span></div>
+      </div>
+
+      <div class="sl floor">
+        <div class="lab"><span>Arcane <button type="button" class="info" aria-label="About Arcane">i</button></span> <b id="v-arc">8</b></div>
+        <input type="range" id="s-arc" min="8" max="99" value="8" aria-label="Arcane">
+        <div class="tip" role="tooltip"><b>Class floor.</b> Arcane raises bleed build-up, which is tempting on a dual-katana build — but Keen scaling is Dex-driven and a respec toward Arcane would cost more than it returns this late.
+          <span class="when">Not worth switching to now</span></div>
+      </div>
+
+      <div class="sl capped">
+        <div class="lab"><span>Main hand <button type="button" class="info" aria-label="About main hand upgrade">i</button></span> <b id="v-main">+25</b></div>
+        <input type="range" id="s-main" min="0" max="25" value="25" aria-label="Main hand upgrade level">
+        <div class="tip" role="tooltip"><b>Maxed.</b> Keen Uchigatana +25, carrying Unsheathe. God-Slaying Armament already popped. Note both katanas are regular-path weapons — the banked Ancient Dragon <em>Somber</em> stone cannot touch them.
+          <span class="when">Finished · save the Somber stone for Hand of Malenia</span></div>
+      </div>
+
+      <div class="sl capped">
+        <div class="lab"><span>Offhand <button type="button" class="info" aria-label="About offhand upgrade">i</button></span> <b id="v-off">+25</b></div>
+        <input type="range" id="s-off" min="0" max="25" value="25" aria-label="Offhand upgrade level">
+        <div class="tip" role="tooltip"><b>Also maxed</b>, carrying Bloody Slash mostly to hold the Keen affinity. Powerstance damage comes off both blades, so having them level is the whole point.
+          <span class="when">Finished</span></div>
+      </div>
+
+      <div class="sl capped">
+        <div class="lab"><span>Mimic Tear <button type="button" class="info" aria-label="About the Mimic Tear">i</button></span> <b id="v-mimic">+10</b></div>
+        <input type="range" id="s-mimic" min="0" max="10" value="10" aria-label="Mimic Tear upgrade level">
+        <div class="tip" role="tooltip"><b>Maximum.</b> It copies your gear and stats at the moment of summoning, so it is now a level-129 samurai with two +25 katanas. Buff first, summon second — it copies active buffs too.
+          <span class="when">Finished · matters most against Malenia</span></div>
+      </div>
+
+      <div class="sl unverified">
+        <div class="lab"><span>Flask charges <button type="button" class="info" aria-label="About flask charges">i</button></span> <b id="v-flask">10</b></div>
         <input type="range" id="s-flask" min="4" max="14" value="10" aria-label="Flask charges">
-        <div class="tip" role="tooltip">Total Crimson + Cerulean, raised by <b>Golden Seeds</b> at any grace. Usually a bigger survivability gain than more Vigor — it's more <em>total</em> healing rather than a bigger bar. Sacred Tears make each sip heal harder.
-          <span class="when">12–14 before the Haligtree</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Mimic Tear <button type="button" class="info" aria-label="What is the Mimic Tear level?">i</button></span> <b id="v-mimic">+4</b></div>
-        <input type="range" id="s-mimic" min="0" max="10" value="4" aria-label="Mimic Tear upgrade level">
-        <div class="tip" role="tooltip">Your spirit summon's upgrade level, fed <b>Ghost Glovewort</b> to Roderika. It also copies your current gear and stats, so every weapon upgrade strengthens it for free.
-          <span class="when">+8 before Act III · Glovewort [5]+ litters Ainsel &amp; Deeproot</span></div>
+        <div class="tip" role="tooltip"><b>Not confirmed by the sync</b> — last recorded as ~10 back in July, and you have crossed two regions of Golden Seeds since. Flask count is the single largest lever still available for Malenia.
+          <span class="when">Check at a grace · 12–14 before Elphael</span></div>
       </div>
 
     </div>
+
+    <div class="derived">
+      <div class="d">Derived level<b id="d-lvl">129</b></div>
+      <div class="d">Points spent<b id="d-pts">120</b></div>
+      <div class="d">Next level costs<b id="d-cost">~108k</b></div>
+      <div class="d" id="d-check">Formula check<b>✓ matches 129</b></div>
+    </div>
+
     <div class="advice" id="advice"></div>
+  </div>
+
+  <!-- ══ PLANNER ══ -->
+  <div class="planner">
+    <h2>Session planner — how long have you got?</h2>
+    <div class="prow">
+      <div class="sl">
+        <div class="lab"><span>Minutes available</span> <b id="v-time">90</b></div>
+        <input type="range" id="s-time" min="15" max="300" step="15" value="90" aria-label="Minutes available this session">
+      </div>
+      <div class="out" id="plan-out"></div>
+    </div>
   </div>
 
   <!-- ══ PROGRESS ══ -->
   <div class="progress">
-    <div class="pcard"><div class="k">Trophies</div><div class="v"><span id="p-tro">9</span> / 42</div><div class="bar"><i id="b-tro"></i></div></div>
-    <div class="pcard"><div class="k">Route tasks</div><div class="v"><span id="p-task">0</span> / <span id="p-tasktot">0</span></div><div class="bar"><i id="b-task"></i></div></div>
-    <div class="pcard"><div class="k">Current act</div><div class="v" id="p-act" style="font-size:17px;padding-top:6px">I · Leyndell</div></div>
+    <div class="pcard"><div class="k">Trophies</div><div class="v"><span id="p-tro">30</span> / 42</div><div class="bar"><i id="b-tro"></i></div></div>
+    <div class="pcard"><div class="k">Route objectives</div><div class="v"><span id="p-obj">0</span> / <span id="p-objtot">11</span></div><div class="bar"><i id="b-obj"></i></div></div>
+    <div class="pcard"><div class="k">Time remaining</div><div class="v" id="p-time">~8.5 hrs</div><div class="bar"><i id="b-time"></i></div></div>
   </div>
 
-  <div class="layout">
-    <div class="mapcard">
-      <svg viewBox="0 0 720 560" role="img" aria-label="Endgame route map from Leyndell to Farum Azula">
-        <defs>
-          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="5" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <linearGradient id="routeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#f2dc94"/><stop offset="1" stop-color="#c79a3a"/>
-          </linearGradient>
-          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-            <path d="M0 0 L10 5 L0 10 z" fill="#e8cd80"/>
-          </marker>
-          <radialGradient id="erdtree" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="frenzy" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stop-color="#e8b45a" stop-opacity=".55"/><stop offset="1" stop-color="#e8b45a" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+  <!-- ══ ROUTE ══ -->
+  <div class="panel">
+    <h2>The Remaining Route</h2>
+    <div class="lede">Ordered so the cheap collection-closers come first and the skill wall comes last. Every objective shows what it costs in minutes and what finishing it unlocks — because a thirty-minute puzzle that opens four hours of content should not sort next to a thirty-minute errand that opens nothing.</div>
 
-        <!-- surface landmass -->
-        <path d="M50 250 Q120 190 250 178 Q400 165 540 190 Q640 210 660 265 Q672 320 640 355 Q560 392 420 396 Q260 400 140 372 Q56 345 50 250 Z"
-              fill="#181510" stroke="#3a3120" stroke-width="1.5"/>
-        <text class="region-label dim" x="150" y="230" text-anchor="middle">Liurnia · Altus</text>
-
-        <!-- mountaintops shelf -->
-        <path d="M400 120 Q500 78 620 92 Q684 104 690 155 Q694 200 650 214 Q540 232 452 210 Q396 190 400 120 Z"
-              fill="rgba(160,190,210,.07)" stroke="#3a4750" stroke-width="1.2"/>
-        <text class="region-label" x="556" y="150" text-anchor="middle">Mountaintops</text>
-        <text class="region-label dim" x="470" y="106" text-anchor="middle">Snowfield</text>
-
-        <!-- underground -->
-        <path d="M80 430 Q220 400 380 412 Q520 424 600 452 Q640 470 620 505 Q500 536 330 530 Q170 524 92 496 Q62 470 80 430 Z"
-              fill="rgba(140,110,200,.07)" stroke="#3d3352" stroke-width="1.2"/>
-        <text class="region-label" x="250" y="470" text-anchor="middle">The Underground</text>
-        <text class="region-label dim" x="470" y="500" text-anchor="middle">Lake of Rot · Deeproot</text>
-
-        <!-- erdtree + leyndell -->
-        <circle cx="330" cy="272" r="60" fill="url(#erdtree)"/>
-        <path d="M330 306 L330 244 M330 258 Q310 242 301 216 M330 258 Q350 242 359 216 M330 278 Q313 267 306 250 M330 278 Q347 267 354 250"
-              stroke="#f2dc94" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <text class="region-label" x="330" y="335" text-anchor="middle">Leyndell</text>
-
-        <!-- farum azula -->
-        <circle cx="628" cy="392" r="46" fill="rgba(200,160,220,.06)" stroke="#4a3a58" stroke-width="1.2" stroke-dasharray="4 6"/>
-        <text class="region-label dim" x="628" y="396" text-anchor="middle">Farum</text>
-        <text class="region-label dim" x="628" y="410" text-anchor="middle">Azula</text>
-
-        <circle cx="150" cy="330" r="26" fill="url(#frenzy)"/>
-        <text class="region-label dim" x="150" y="352" text-anchor="middle">Volcano Manor</text>
-
-        <!-- route legs -->
-        <path d="M330 300 Q300 340 240 356" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-        <path d="M240 356 Q180 386 200 430" fill="none" stroke="url(#routeGrad)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 7" marker-end="url(#arrow)"/>
-        <path d="M200 430 Q330 470 430 452" fill="none" stroke="url(#routeGrad)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 7" marker-end="url(#arrow)"/>
-        <path d="M430 452 Q470 380 452 300" fill="none" stroke="url(#routeGrad)" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrow)"/>
-        <path d="M452 300 Q490 240 520 200" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-        <path d="M560 178 Q620 210 622 350" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
-        <path d="M600 400 Q450 400 360 330" fill="none" stroke="#c97b6a" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 8" marker-end="url(#arrow)"/>
-
-        <!-- waypoints -->
-        <g class="wp" data-step="1"><circle class="node" cx="330" cy="272" r="14" fill="var(--gold-bright)" stroke="#7a5c1c" stroke-width="2"/><text x="330" y="277" text-anchor="middle">I</text></g>
-        <g class="wp" data-step="2"><circle class="node" cx="200" cy="430" r="14" fill="var(--violet)" stroke="#4a3a68" stroke-width="2"/><text x="200" y="435" text-anchor="middle">II</text></g>
-        <g class="wp" data-step="3"><circle class="node" cx="520" cy="200" r="14" fill="var(--rune)" stroke="#2f5a54" stroke-width="2"/><text x="520" y="205" text-anchor="middle">III</text></g>
-        <g class="wp" data-step="4"><circle class="node" cx="628" cy="392" r="14" fill="var(--gold-bright)" stroke="#7a5c1c" stroke-width="2"/><text x="628" y="397" text-anchor="middle">IV</text></g>
-        <g class="wp" data-step="5"><circle class="node" cx="360" cy="330" r="14" fill="var(--red)" stroke="#6a3020" stroke-width="2"/><text x="360" y="335" text-anchor="middle">V</text></g>
-      </svg>
-      <div class="hint">Solid gold is riding; dotted is underground or lift travel. The red leg is the return to a burned capital. Tap a numeral to jump to its act.</div>
+    <div class="step" data-step="1" data-min="60">
+      <div class="n"><span>01 · CONSECRATED SNOWFIELD</span><span class="mins">~60 min</span></div>
+      <div class="t">The Golden Order Greatsword</div>
+      <label class="task"><input type="checkbox" data-id="r1"><span>Ride the Snowfield to the <b>Cave of the Forlorn</b> and take the <b>Golden Order Greatsword</b>.</span></label>
+      <div class="row gate"><b>Gate:</b> already open — both Haligtree Medallion halves are held. Hold the medallion at the Grand Lift of Rold rather than pressing the obvious prompt.</div>
+      <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Armaments</b> outright — 9 of 9. One trophy from one pickup.</div>
+      <div class="row item">The snowstorm kills navigation. Ride the left-hand cliff edge and you cannot get lost.</div>
     </div>
 
-    <div class="panel">
-      <h2>Five Acts to the Platinum</h2>
+    <div class="step" data-step="2" data-min="30">
+      <div class="n"><span>02 · SELLIA HIDEAWAY, CAELID</span><span class="mins">~30 min</span></div>
+      <div class="t">Stars of Ruin</div>
+      <label class="task"><input type="checkbox" data-id="r2"><span>Reach <b>Master Lusat</b> in his sealed cell and take <b>Stars of Ruin</b>.</span></label>
+      <div class="row gate"><b>Gate:</b> needs the <b>Sellian Sealbreaker</b> from Sellen's questline. Check your Key Items tab before travelling — without it the cell will not open and the trip is wasted.</div>
+      <div class="row unlock"><b>Unlocks:</b> one of the two remaining legendary spells.</div>
+      <div class="row item">The hideaway is the illusory-wall cave behind Sellia. Hit walls that look wrong.</div>
+    </div>
 
-      <!-- ═══ ACT I ═══ -->
-      <div class="step next" data-step="1">
-        <div class="n">ACT I · FINISH THE CAPITAL · ~3-4 hrs</div>
-        <div class="t">Leyndell, While It Still Stands</div>
-        <div class="brief"><b>START:</b> the root pit at Avenue Balcony, where you are now. <b>DO:</b> take the city's trophies and its sewer before anyone burns anything. <b>DONE WHEN:</b> Morgott falls and you hold the Rold Medallion.</div>
-        <div class="stats">
-          <div class="stat"><div class="k">Level</div><div class="v">78-82</div></div>
-          <div class="stat"><div class="k">Weapon</div><div class="v">+17/+14</div></div>
-          <div class="stat"><div class="k">Vigor</div><div class="v">50</div></div>
-          <div class="stat"><div class="k">Dex</div><div class="v">40 ✓</div></div>
-          <div class="stat"><div class="k">End</div><div class="v">20-23</div></div>
-        </div>
-        <label class="task"><input type="checkbox" data-id="a1-treespirit"><span><b>Ulcerated Tree Spirit</b> in the root pit — the Golden Seed you're already committed to. Belly, L1, respect the mouth-lunge.</span></label>
-        <label class="task"><input type="checkbox" data-id="a1-gransax"><span>Grab the <b>Bolt of Gransax</b> — the giant spear embedded in the ruined avenue, reachable along its shaft. <span class="tro">LEGENDARY 1/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a1-church"><span>Descend to <b>Lower Capital Church</b>, then climb to <b>Erdtree Sanctuary</b>. Light everything.</span></label>
-        <label class="task"><input type="checkbox" data-id="a1-godfrey"><span><b>Godfrey, Golden Shade</b> — the warm-up lord. Jump the stomp shockwaves, don't roll them. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a1-sewer"><span>Enter the <b>Subterranean Shunning-Grounds</b> — the sewer beneath the city. Long, grim, and full of trophies.</span></label>
-        <label class="task"><input type="checkbox" data-id="a1-mohgomen"><span><b>Mohg, the Omen</b> in the sewer depths — the lesser Mohg, not the Palace one. Bleeds beautifully. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a1-dungeater"><span>Find the <b>Dung Eater</b> imprisoned down here and start his thread — it ends in a legendary armament.</span></label>
-        <label class="task"><input type="checkbox" data-id="a1-frenzydoor"><span><b>Find</b> the Frenzied Flame Proscription door — the one that needs you naked. <b>Do not open it yet.</b> Just know where it is.</span></label>
-        <label class="task"><input type="checkbox" data-id="a1-morgott"><span><b>MORGOTT, THE OMEN KING</b> — watch the weapon, not the body. Rune Arc + Fowl Foot + pre-buffed Mimic. <span class="tro">SHARDBEARER</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a1-rold"><span>Take the <b>Rold Medallion</b> from Melina after the kill. It opens the lift to everything in Act III.</span></label>
-        <div class="row grace"><b>The spine:</b> Avenue Balcony → Lower Capital Church → Erdtree Sanctuary → Godfrey → Queen's Bedchamber → Morgott</div>
-        <div class="row enemy"><b>City rule holds:</b> no spirit ashes on the streets. The Mimic only works at fog gates.</div>
-        <div class="row quest"><b>Before you leave:</b> this is the last comfortable time to talk to every Roundtable NPC. Several vanish later.</div>
-      </div>
+    <div class="step" data-step="3" data-min="20">
+      <div class="n"><span>03 · DEEPROOT DEPTHS</span><span class="mins">~20 min</span></div>
+      <div class="t">Elden Stars — verify first</div>
+      <label class="task"><input type="checkbox" data-id="r3"><span>Confirm whether you already hold <b>Elden Stars</b>. If not, the ant cave along the roots has it.</span></label>
+      <div class="row enemy"><b>Conflict in the record:</b> the ledger lists this as missing, but the 13 August session logged picking it up in Deeproot. <b>Check your inventory before you travel</b> — if it is held, this objective vanishes and the spell category becomes 6 of 7.</div>
+      <div class="row unlock"><b>Unlocks:</b> with Stars of Ruin, closes <b>Legendary Sorceries and Incantations</b>.</div>
+    </div>
 
-      <!-- ═══ ACT II ═══ -->
-      <div class="step" data-step="2">
-        <div class="n">ACT II · THE GREAT BACKTRACK · ~10-14 hrs</div>
-        <div class="t">Everything You Sensibly Skipped</div>
-        <div class="brief"><b>START:</b> anywhere, via fast travel. <b>DO:</b> collect the eleven trophies scattered across regions your route deliberately bypassed. <b>DONE WHEN:</b> Ranni's quest is finished and the underground is empty.</div>
-        <div class="stats">
-          <div class="stat"><div class="k">Level</div><div class="v">85-110</div></div>
-          <div class="stat"><div class="k">Weapon</div><div class="v">+20/+18</div></div>
-          <div class="stat"><div class="k">Vigor</div><div class="v">55-60</div></div>
-          <div class="stat"><div class="k">Dex</div><div class="v">40 ✓</div></div>
-          <div class="stat"><div class="k">End</div><div class="v">25</div></div>
-        </div>
-        <div class="row item"><b>Doctrine violation, acknowledged.</b> This act is pure sprawl — the exact thing rule 7 told you to bookmark. That was correct advice for a first clear and it's wrong advice for a platinum. Eleven trophies live out here and none of them come to you.</div>
-        <label class="task"><input type="checkbox" data-id="a2-makar"><span><b>Magma Wyrm Makar</b> — Ruin-Strewn Precipice, the ravine dungeon in northern Liurnia. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-noble"><span><b>Godskin Noble</b> — Volcano Manor. Stretchy and horrible; bleed shuts him up. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-rykard"><span><b>RYKARD, LORD OF BLASPHEMY</b> — use the Serpent-Hunter spear lying in his arena. Your Uchigatanas are irrelevant here; the gimmick weapon <em>is</em> the fight. <span class="tro">SHARDBEARER</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-elemer"><span><b>Elemer of the Briar</b> — Shaded Castle, Altus. Drops the Marais Executioner's Sword. <span class="tro">TROPHY + LEGENDARY 2/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-leonine"><span><b>Leonine Misbegotten</b> — Castle Morne, Weeping Peninsula. Yes, the starting zone. Also holds the Grafted Blade Greatsword. <span class="tro">TROPHY + LEGENDARY 3/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-ruins"><span><b>Ruins Greatsword</b> — Redmane Castle, from the Misbegotten Warrior + Crucible Knight duo. <span class="tro">LEGENDARY 4/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-sonf"><span><b>Sword of Night and Flame</b> — Caria Manor basement chest. You've been in that building. <span class="tro">LEGENDARY 5/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-ancestor"><span><b>Ancestor Spirit</b> — Siofra River, Hallowhorn Grounds. Needs Deathroot in your pocket to summon. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-regal"><span><b>Regal Ancestor Spirit</b> — Nokron's own Hallowhorn Grounds. Same Deathroot mechanic. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-gargoyles"><span><b>Valiant Gargoyles</b> — Siofra Aqueduct, the gateway to Deeproot. Two of them. Poison breath. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-fia"><span>Run <b>Fia's questline</b> at the Roundtable — it's the only key to Fortissax. Requires the Deathbed Dress and a Deathroot delivery.</span></label>
-        <label class="task"><input type="checkbox" data-id="a2-fortissax"><span><b>Lichdragon Fortissax</b> — Deeproot Depths, inside Fia's dream. Locked behind her quest, permanently. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-fingerslayer"><span><b>Deliver the Fingerslayer Blade to Ranni.</b> It's been in your inventory since Nokron. This unblocks the whole chain. <span class="tro">CRITICAL</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-dragonkin"><span><b>Dragonkin Soldier of Nokstella</b> — Ainsel River Main, on Ranni's path. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-astel"><span><b>Astel, Naturalborn of the Void</b> — beyond the Lake of Rot. Bring every Preserving Bolus you own. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-ranni"><span><b>Finish Ranni's questline</b> → Dark Moon Greatsword, and the Age of the Stars ending becomes selectable. <span class="tro">LEGENDARY 6/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a2-gowry"><span><b>Start Millicent's chain</b> at Gowry's Shack, eastern Caelid. Kill Commander O'Neil in the swamp for the broken needle. <span class="tro">CRITICAL</span></span></label>
-        <div class="row quest"><b>Why Ranni is not optional:</b> Age of the Stars is one of the three ending trophies, and it only appears if her quest is complete. You already hold the Fingerslayer Blade — you are one delivery from the longest quest in the game unblocking.</div>
-        <div class="row ash"><b>Mimic upgrades:</b> Ghost Glovewort 5+ grows all over Ainsel and Deeproot. You'll be down there anyway — take the Mimic to +8 or better on the way through.</div>
-      </div>
+    <div class="step" data-step="4" data-min="30">
+      <div class="n"><span>04 · SAINTED HERO'S GRAVE, ALTUS</span><span class="mins">~30 min</span></div>
+      <div class="t">Ancient Dragon Knight Kristoff</div>
+      <label class="task"><input type="checkbox" data-id="r4"><span>Clear the grave and take the <b>Ancient Dragon Knight Kristoff</b> ashes.</span></label>
+      <div class="row unlock"><b>Unlocks:</b> the fifth of six legendary ashes. Only Cleanrot Knight Finlay in Elphael remains after this.</div>
+      <div class="row enemy">Chariot dungeon. The trick is the side alcoves and the two braziers, not out-running anything.</div>
+    </div>
 
-      <!-- ═══ ACT III ═══ -->
-      <div class="step" data-step="3">
-        <div class="n">ACT III · THE MOUNTAINTOPS & THE HALIGTREE · ~10-12 hrs</div>
-        <div class="t">Snow, Blood, and the Needle</div>
-        <div class="brief"><b>START:</b> Grand Lift of Rold. <b>DO:</b> both medallion halves, the secret lift, Mohgwyn, and the hardest area in the game. <b>DONE WHEN:</b> you hold Miquella's Needle.</div>
-        <div class="stats">
-          <div class="stat"><div class="k">Level</div><div class="v">120-150</div></div>
-          <div class="stat"><div class="k">Weapon</div><div class="v">+24/+22</div></div>
-          <div class="stat"><div class="k">Vigor</div><div class="v">60</div></div>
-          <div class="stat"><div class="k">Dex</div><div class="v">40 ✓</div></div>
-          <div class="stat"><div class="k">End</div><div class="v">25-30</div></div>
-        </div>
-        <label class="task"><input type="checkbox" data-id="a3-zamor"><span>Ride the Mountaintops to <b>Zamor Ruins</b> and the Fire Giant's plateau. Grab every Golden Seed on the way — flasks matter more than levels here.</span></label>
-        <label class="task"><input type="checkbox" data-id="a3-medL"><span><b>Haligtree Medallion (Left)</b> — Village of the Albinaurics, Liurnia. Shoot the "pot" that's actually a person.</span></label>
-        <label class="task"><input type="checkbox" data-id="a3-niall"><span><b>Commander Niall</b> — Castle Sol, north Mountaintops. Two summoned knights first; kill them fast. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-medR"><span><b>Haligtree Medallion (Right)</b> — Niall's reward. Plus the <b>Eclipse Shotel</b> in the castle. <span class="tro">LEGENDARY 7/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-snowfield"><span>Use both halves at the <b>Grand Lift of Rold</b> — hold the medallion, don't press the obvious button. Opens the Consecrated Snowfield.</span></label>
-        <label class="task"><input type="checkbox" data-id="a3-golden"><span><b>Golden Order Greatsword</b> — Cave of the Forlorn, Consecrated Snowfield. <span class="tro">LEGENDARY 8/9</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-mohgwyn"><span>Take the <b>Mohgwyn portal</b> in the Snowfield's northeast — a one-way trip into a blood swamp.</span></label>
-        <label class="task"><input type="checkbox" data-id="a3-mohg"><span><b>MOHG, LORD OF BLOOD</b> — his Nihil ritual will nearly kill you three times. Purifying Crystal Tear cancels it outright if you'd rather not learn the dodge. <span class="tro">SHARDBEARER</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-ordina"><span><b>Ordina, Liturgical Town</b> — the evergaol puzzle. Light four seals while invisible assassins hunt you. Sneak; don't fight.</span></label>
-        <label class="task"><input type="checkbox" data-id="a3-loretta2"><span><b>Loretta, Knight of the Haligtree</b> — the second Loretta, in the branches. Same moveset you already beat at Caria. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-millicent"><span><b>Finish Millicent's quest</b> in Elphael — side with her against her sisters. Yields the <b>Unalloyed Gold Needle</b>. <span class="tro">CRITICAL</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-malenia"><span><b>MALENIA, BLADE OF MIQUELLA</b> — the hardest fight in the game. Waterfowl Dance is the exam; everything else is manageable. She heals on every hit she lands, including on your Mimic. <span class="tro">SHARDBEARER</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a3-needle"><span><b>Return to Malenia's arena</b> after the kill and use the needle at the great flower → <b>Miquella's Needle</b>. This is your Frenzied Flame undo button. <span class="tro">CRITICAL</span></span></label>
-        <div class="row enemy"><b>Malenia, honestly:</b> she is a difficulty spike unlike anything on your ledger — a Radahn-first-try player should still expect a long evening. Bleed works on her, which is the good news; your build is among the better ones for the fight.</div>
-        <div class="row item"><b>Mohgwyn is the rune answer.</b> If Act III's levels feel slow, the blood swamp's sleeping birds pay absurdly. This is the one place where farming isn't a doctrine violation — it's on ground you're crossing anyway.</div>
-      </div>
+    <div class="step" data-step="5" data-min="75">
+      <div class="n"><span>05 · MOHGWYN PALACE</span><span class="mins">~75 min</span></div>
+      <div class="t">Mohg, Lord of Blood</div>
+      <label class="task"><input type="checkbox" data-id="r5"><span><b>MOHG, LORD OF BLOOD</b> — the blood swamp via the Snowfield portal. <span class="tro">SHARDBEARER</span></span></label>
+      <div class="row gate"><b>Gate:</b> the <b>Purifying Crystal Tear</b>. In your physick it cancels the Nihil ritual outright; without it, Nihil is three near-death events you must heal through. <span style="color:var(--danger)">Sync could not confirm you have it.</span></div>
+      <div class="row unlock"><b>Unlocks:</b> Shardbearer Mohg, plus his Great Rune. Also the entry requirement for Shadow of the Erdtree, alongside Radahn.</div>
+      <div class="row item">The swamp's sleeping birds are the best rune farm in the game if Mind and Endurance need funding.</div>
+    </div>
 
-      <!-- ═══ ACT IV ═══ -->
-      <div class="step" data-step="4">
-        <div class="n">ACT IV · BURN IT DOWN · ~5-7 hrs</div>
-        <div class="t">The Fire Giant and the City Beyond Time</div>
-        <div class="brief"><b>START:</b> the Fire Giant's plateau. <b>DO:</b> burn the Erdtree, then clear Farum Azula. <b>DONE WHEN:</b> Maliketh falls and the capital is ash.</div>
-        <div class="stats">
-          <div class="stat"><div class="k">Level</div><div class="v">140-160</div></div>
-          <div class="stat"><div class="k">Weapon</div><div class="v">+25 ✓</div></div>
-          <div class="stat"><div class="k">Vigor</div><div class="v">60</div></div>
-          <div class="stat"><div class="k">Dex</div><div class="v">40 ✓</div></div>
-          <div class="stat"><div class="k">End</div><div class="v">30</div></div>
-        </div>
-        <label class="task"><input type="checkbox" data-id="a4-firegiant"><span><b>Fire Giant</b> — a two-phase endurance test. Attack the ankle-eye in phase one; phase two is a rolling wheel of fire. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a4-aflame"><span><b>Forge of the Giants</b> — walk into the flame and burn the Erdtree. <span class="tro">TROPHY · POINT OF NO RETURN</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a4-beastman"><span>Clear the Farum Azula approach — Beastman duo, the flying dragons, the crumbling stairs.</span></label>
-        <label class="task"><input type="checkbox" data-id="a4-godskinduo"><span><b>Godskin Duo</b> — they share one health bar and revive until it empties. Pillar-dance; let the Mimic hold one. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a4-placidusax"><span><b>Dragonlord Placidusax</b> — lie down on the marked ground at the arena's edge to descend. Entirely optional, entirely required for you. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a4-maliketh"><span><b>Maliketh, the Black Blade</b> — phase two moves faster than anything you've fought and cuts max HP. Stay under him. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a4-ashen"><span>Return to <b>Leyndell, Ashen Capital</b> — same map, worse weather, new enemies.</span></label>
-        <label class="task"><input type="checkbox" data-id="a4-gideon"><span><b>Sir Gideon Ofnir</b> at the Erdtree Sanctuary — no trophy, but he blocks the road. He casts every spell of every boss you've killed.</span></label>
-        <div class="row enemy"><b>Read this before the Forge:</b> burning the Erdtree is the game's real point of no return. Leyndell's NPCs, its merchants, and several quest steps are gone the moment you light it. Everything in Acts I–III should be finished first. That is the entire reason this guide is ordered the way it is.</div>
-      </div>
+    <div class="step" data-step="6" data-min="30">
+      <div class="n"><span>06 · ORDINA, LITURGICAL TOWN</span><span class="mins">~30 min</span></div>
+      <div class="t">The Evergaol Puzzle</div>
+      <label class="task"><input type="checkbox" data-id="r6"><span>Light all four seals while invisible assassins hunt you.</span></label>
+      <div class="row unlock"><b>Unlocks: roughly four hours of content.</b> This is the highest-leverage half hour left on the board — it is the only door to the Haligtree, Elphael, Loretta, Malenia, Finlay, Marika's Soreseal and the Dragoncrest Greatshield.</div>
+      <div class="row item">Sneak, do not fight. Use Sentry's Torch or throw pots to reveal them; the northeast seal is the one that kills people.</div>
+    </div>
 
-      <!-- ═══ ACT V ═══ -->
-      <div class="step" data-step="5">
-        <div class="n">ACT V · THREE ENDINGS, ONE RUN · ~2-3 hrs</div>
-        <div class="t">The Save-File Gambit</div>
-        <div class="brief"><b>START:</b> the last grace before Radagon. <b>DO:</b> back up your save, then collect all three endings by reloading. <b>DONE WHEN:</b> the platinum pings.</div>
-        <label class="task"><input type="checkbox" data-id="a5-hoarah"><span><b>Godfrey / Hoarah Loux</b> — the real one. He throws off the armour and starts wrestling. <span class="tro">TROPHY</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a5-backup"><span><b>STOP at the final grace. Back up your save to USB</b> — PS5 Settings → Saved Data → Copy to USB. Turn OFF cloud auto-upload first or it will overwrite your backup.</span></label>
-        <label class="task"><input type="checkbox" data-id="a5-radagon"><span><b>Radagon → Elden Beast</b> — beat them, but <b>do not touch anything</b> in the arena afterward until you've decided which ending you're taking.</span></label>
-        <label class="task"><input type="checkbox" data-id="a5-e1"><span><b>Ending 1 — Age of the Stars.</b> Summon Ranni at the arena. Take this one first; it's the one with the quest prerequisite. <span class="tro">GOLD</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a5-restore1"><span>Restore the USB backup. You're back at the final grace with everything intact.</span></label>
-        <label class="task"><input type="checkbox" data-id="a5-e2"><span><b>Ending 2 — Elden Lord.</b> The plain one: just mend the ring. <span class="tro">GOLD</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a5-restore2"><span>Restore the backup again.</span></label>
-        <label class="task"><input type="checkbox" data-id="a5-e3"><span><b>Ending 3 — Lord of Frenzied Flame.</b> Strip fully naked, walk into the Proscription door you found back in Act I, then take the ending. <span class="tro">GOLD</span></span></label>
-        <label class="task"><input type="checkbox" data-id="a5-plat"><span><b>ELDEN RING</b> — the platinum. <span class="tro">PLATINUM</span></span></label>
-        <div class="row item"><b>The needle is your insurance.</b> If you'd rather not juggle save files at all, Miquella's Needle lets you take Frenzied Flame, cure it at Placidusax's arena, and continue to another ending in the same save. Slower, but nothing can go wrong with it.</div>
-        <div class="row enemy"><b>The one true trap:</b> accepting the Frenzied Flame without either a backup or the needle permanently locks Age of the Stars and Elden Lord for that save. This is the single most common platinum-killer in the game.</div>
-      </div>
+    <div class="step" data-step="7" data-min="90">
+      <div class="n"><span>07 · MIQUELLA'S HALIGTREE</span><span class="mins">~90 min</span></div>
+      <div class="t">Loretta, Knight of the Haligtree</div>
+      <label class="task"><input type="checkbox" data-id="r7"><span><b>Loretta, Knight of the Haligtree</b> — the same moveset you beat at Caria Manor, with more damage. <span class="tro">TROPHY</span></span></label>
+      <div class="row enemy">The branch-walking above the void is more dangerous than anything in the area. The Erdtree Avatar on the approach is optional.</div>
+    </div>
+
+    <div class="step" data-step="8" data-min="120">
+      <div class="n"><span>08 · ELPHAEL, BRACE OF THE HALIGTREE</span><span class="mins">~2 hrs</span></div>
+      <div class="t">Two Categories Close Here</div>
+      <label class="task"><input type="checkbox" data-id="r8a"><span><b>Marika's Soreseal</b> <span class="tro">TALISMAN 7/8</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r8b"><span><b>Dragoncrest Greatshield Talisman</b> <span class="tro">TALISMAN 8/8</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r8c"><span><b>Cleanrot Knight Finlay</b> ashes <span class="tro">ASHES 6/6</span></span></label>
+      <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b> in a single area. Two trophies.</div>
+      <div class="row enemy"><b>Two hours of scarlet rot.</b> Boluses are effectively craft-only — count them before you go in. Going in short turns this into a three-hour area.</div>
+    </div>
+
+    <div class="step" data-step="9" data-min="180">
+      <div class="n"><span>09 · MALENIA, BLADE OF MIQUELLA</span><span class="mins">open-ended</span></div>
+      <div class="t">The Only Genuine Wall</div>
+      <label class="task"><input type="checkbox" data-id="r9"><span><b>MALENIA, BLADE OF MIQUELLA</b> <span class="tro">SHARDBEARER</span></span></label>
+      <div class="row enemy"><b>Not solvable by level.</b> Everything else on this list bends to being over-levelled; she does not. Waterfowl Dance is the exam and the answer is spacing, not rolling.</div>
+      <div class="row enemy">She heals on <em>every</em> hit she lands, including hits on your Mimic. A blocked hit still heals her. This is why the fight punishes passivity.</div>
+      <div class="row ash">Pre-buff, then summon: your +10 Mimic arrives as a level-129 samurai with two +25 katanas and takes roughly half her attention.</div>
+      <div class="row item">Bleed procs are your best damage. Powerstance L1 chains build it fastest — the same rotation that has worked all game.</div>
+    </div>
+
+    <div class="step" data-step="10" data-min="45">
+      <div class="n"><span>10 · LEYNDELL, ASHEN CAPITAL</span><span class="mins">~45 min</span></div>
+      <div class="t">Hoarah Loux, Warrior</div>
+      <label class="task"><input type="checkbox" data-id="r10"><span><b>Godfrey / Hoarah Loux</b> — he throws off the armour and starts wrestling. <span class="tro">TROPHY</span></span></label>
+      <div class="row enemy">Sir Gideon Ofnir stands before him and carries no trophy — he casts the spells of every boss you have killed, which by now is a long list.</div>
+      <div class="row item">Do this <b>after</b> Malenia. Nothing here is missable and there is no reason to be closer to the ending than you must be.</div>
+    </div>
+
+    <div class="step" data-step="11" data-min="120">
+      <div class="n"><span>11 · THE ENDINGS</span><span class="mins">~2 hrs</span></div>
+      <div class="t">The Save-File Protocol</div>
+      <label class="task"><input type="checkbox" data-id="r11a"><span><b>Confirm all 39 non-ending trophies have popped</b> before you fight the Elden Beast. <span class="tro q">DO NOT SKIP</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r11b"><span><b>Radagon → Elden Beast.</b> Rest at Fractured Marika and <b>do not touch the remains.</b></span></label>
+      <label class="task"><input type="checkbox" data-id="r11c"><span>Turn <b>auto-sync OFF</b>, then take a manual PS Plus cloud backup.</span></label>
+      <label class="task"><input type="checkbox" data-id="r11d"><span><b>Lord of Frenzied Flame</b> first — Cathedral of the Forsaken detour, strip armour after the boss. <span class="tro">GOLD</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r11e"><span>Restore backup → <b>Age of the Stars</b>, summoning Ranni. <span class="tro">GOLD</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r11f"><span>Restore backup → <b>Age of Fracture</b> for Elden Lord. <span class="tro">GOLD</span></span></label>
+      <label class="task"><input type="checkbox" data-id="r11g"><span><b>ELDEN RING</b> — platinum. <span class="tro">PLATINUM</span></span></label>
+      <div class="row enemy"><b>Auto-sync stays off until all three have popped.</b> It will silently overwrite the backup you are depending on, and that is the single most common way this protocol fails.</div>
+      <div class="row item">Frenzied Flame goes first deliberately: it is the ending that locks the others, so it is taken when a restore is guaranteed to follow. New Game Plus has no bearing on the platinum.</div>
     </div>
   </div>
 
-  <!-- ═══ COLLECTIONS ═══ -->
+  <!-- ══ CHECK AT A GRACE ══ -->
+  <div class="section verify">
+    <h2>Five Minutes at a Grace — Settle These First</h2>
+    <div class="lede">Eight things the sync could not confirm. Each one either wastes a trip or changes a fight if it turns out wrong, and all of them are readable from a menu.</div>
+    <div class="cols">
+      <label class="task"><input type="checkbox" data-id="v1"><span><b>Stat screen.</b> Settles level 126 vs 129 and locks the derived-level formula above.</span></label>
+      <label class="task"><input type="checkbox" data-id="v2"><span><b>Elden Stars.</b> Ledger says missing; the 13 Aug session says collected. Removes a whole trip if held.</span></label>
+      <label class="task"><input type="checkbox" data-id="v3"><span><b>Purifying Crystal Tear.</b> Decides whether Mohg's Nihil is a mechanic or a formality.</span></label>
+      <label class="task"><input type="checkbox" data-id="v4"><span><b>Sellian Sealbreaker</b> in Key Items. Without it, Stars of Ruin is unreachable.</span></label>
+      <label class="task"><input type="checkbox" data-id="v5"><span><b>Preserving Bolus count.</b> Elphael is two hours of rot and boluses are craft-only.</span></label>
+      <label class="task"><input type="checkbox" data-id="v6"><span><b>Scroll the PS5 trophy list once.</b> Confirms Margit, Roundtable Hold and Shardbearer Rykard — all three inferred, never recorded.</span></label>
+      <label class="task"><input type="checkbox" data-id="v7"><span><b>Flask charges and Sacred Tears.</b> The largest remaining lever for Malenia.</span></label>
+      <label class="task"><input type="checkbox" data-id="v8"><span><b>Equip load and roll type.</b> Endurance moved to 40 and nothing in the record reflects what that did.</span></label>
+    </div>
+  </div>
+
+  <!-- ══ COLLECTIONS ══ -->
   <div class="section">
     <h2>The Four Collection Trophies</h2>
-    <div class="lede">These don't come from bosses — they come from checklists. Nothing here needs to be equipped or cast, only <em>acquired</em>, which means your Dex build never has to compromise for them.</div>
+    <div class="lede">Nothing here needs to be equipped or cast — only acquired. Ticked boxes reflect the 14 August sync.</div>
     <div class="cols">
-      <div class="grp">God-Slaying Armament — one weapon to maximum</div>
-      <label class="task"><input type="checkbox" data-id="c-godslay"><span>Take your main Uchigatana to <b>+25</b>. Smithing Stones [7] and [8] carry you to +24; the final step needs one <b>Ancient Dragon Smithing Stone</b>. <span class="tro">TROPHY</span></span></label>
-      <label class="task"><input type="checkbox" data-id="c-bearing8"><span>Grab the <b>Somber/Smithing bell bearings</b> in Farum Azula and the Mountaintops so Hewg sells stones outright — no more mining.</span></label>
 
-      <div class="grp">Legendary Armaments — nine weapons</div>
-      <label class="task"><input type="checkbox" data-id="l-gransax"><span>Bolt of Gransax — Leyndell avenue <em>(Act I)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-marais"><span>Marais Executioner's Sword — Elemer <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-grafted"><span>Grafted Blade Greatsword — Castle Morne <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-ruins"><span>Ruins Greatsword — Redmane Castle <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-sonf"><span>Sword of Night and Flame — Caria Manor <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-darkmoon"><span>Dark Moon Greatsword — Ranni's finale <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-eclipse"><span>Eclipse Shotel — Castle Sol <em>(Act III)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-golden"><span>Golden Order Greatsword — Cave of the Forlorn <em>(Act III)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="l-devourer"><span>Devourer's Scepter — Dung Eater's questline <em>(started Act I)</em></span></label>
+      <div class="grp">Legendary Armaments <span>— 8 of 9</span></div>
+      <label class="task"><input type="checkbox" data-id="l-gransax" data-seed="1"><span>Bolt of Gransax</span></label>
+      <label class="task"><input type="checkbox" data-id="l-marais" data-seed="1"><span>Marais Executioner's Sword</span></label>
+      <label class="task"><input type="checkbox" data-id="l-grafted" data-seed="1"><span>Grafted Blade Greatsword</span></label>
+      <label class="task"><input type="checkbox" data-id="l-ruins" data-seed="1"><span>Ruins Greatsword</span></label>
+      <label class="task"><input type="checkbox" data-id="l-sonf" data-seed="1"><span>Sword of Night and Flame</span></label>
+      <label class="task"><input type="checkbox" data-id="l-darkmoon" data-seed="1"><span>Dark Moon Greatsword</span></label>
+      <label class="task"><input type="checkbox" data-id="l-eclipse" data-seed="1"><span>Eclipse Shotel</span></label>
+      <label class="task"><input type="checkbox" data-id="l-devourer" data-seed="1"><span>Devourer's Scepter</span></label>
+      <label class="task"><input type="checkbox" data-id="l-golden"><span><b>Golden Order Greatsword</b> — Cave of the Forlorn <em>(objective 01)</em></span></label>
 
-      <div class="grp">Legendary Ashen Remains — six spirits</div>
-      <label class="task"><input type="checkbox" data-id="s-mimic"><span>Mimic Tear — <b>already yours</b></span></label>
-      <label class="task"><input type="checkbox" data-id="s-lhutel"><span>Lhutel the Headless — Tombsward Catacombs, Weeping Peninsula</span></label>
-      <label class="task"><input type="checkbox" data-id="s-tiche"><span>Black Knife Tiche — Ringleader's Evergaol, Liurnia</span></label>
-      <label class="task"><input type="checkbox" data-id="s-ogha"><span>Redmane Knight Ogha — War-Dead Catacombs, Caelid</span></label>
-      <label class="task"><input type="checkbox" data-id="s-kristoff"><span>Ancient Dragon Knight Kristoff — Sainted Hero's Grave, Altus</span></label>
-      <label class="task"><input type="checkbox" data-id="s-puppet"><span>Dung Eater Puppet — Seluvis's questline. <b>Talk to Seluvis early</b>; you've met him but taken no potion.</span></label>
+      <div class="grp">Legendary Ashen Remains <span>— 4 of 6</span></div>
+      <label class="task"><input type="checkbox" data-id="s-mimic" data-seed="1"><span>Mimic Tear</span></label>
+      <label class="task"><input type="checkbox" data-id="s-lhutel" data-seed="1"><span>Lhutel the Headless</span></label>
+      <label class="task"><input type="checkbox" data-id="s-ogha" data-seed="1"><span>Redmane Knight Ogha</span></label>
+      <label class="task"><input type="checkbox" data-id="s-tiche" data-seed="1"><span>Black Knife Tiche</span></label>
+      <label class="task"><input type="checkbox" data-id="s-kristoff"><span><b>Ancient Dragon Knight Kristoff</b> — Sainted Hero's Grave <em>(04)</em></span></label>
+      <label class="task"><input type="checkbox" data-id="s-finlay"><span><b>Cleanrot Knight Finlay</b> — Elphael <em>(08)</em></span></label>
 
-      <div class="grp">Legendary Talismans — eight</div>
-      <label class="task"><input type="checkbox" data-id="t-soreseal"><span>Radagon's Soreseal — <b>already equipped</b></span></label>
-      <label class="task"><input type="checkbox" data-id="t-marika"><span>Marika's Soreseal — Elphael <em>(Act III)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-godfrey"><span>Godfrey Icon — Golden Lineage Evergaol, Altus</span></label>
-      <label class="task"><input type="checkbox" data-id="t-radagon"><span>Radagon Icon — Raya Lucaria, Debate Parlour</span></label>
-      <label class="task"><input type="checkbox" data-id="t-nokstella"><span>Moon of Nokstella — Nokstella, Eternal City <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-oldlord"><span>Old Lord's Talisman — Crumbling Farum Azula <em>(Act IV)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-dragoncrest"><span>Dragoncrest Greatshield — Elphael <em>(Act III)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-erdtree"><span>Erdtree's Favor +2 — Leyndell, Ashen Capital <em>(Act IV)</em></span></label>
+      <div class="grp">Legendary Talismans <span>— 6 of 8</span></div>
+      <label class="task"><input type="checkbox" data-id="t-soreseal" data-seed="1"><span>Radagon's Soreseal <em>(retired from the build, still counts)</em></span></label>
+      <label class="task"><input type="checkbox" data-id="t-nokstella" data-seed="1"><span>Moon of Nokstella</span></label>
+      <label class="task"><input type="checkbox" data-id="t-oldlord" data-seed="1"><span>Old Lord's Talisman</span></label>
+      <label class="task"><input type="checkbox" data-id="t-radagon" data-seed="1"><span>Radagon Icon</span></label>
+      <label class="task"><input type="checkbox" data-id="t-godfrey" data-seed="1"><span>Godfrey Icon</span></label>
+      <label class="task"><input type="checkbox" data-id="t-erdtree" data-seed="1"><span>Erdtree's Favor +2</span></label>
+      <label class="task"><input type="checkbox" data-id="t-marika"><span><b>Marika's Soreseal</b> — Elphael <em>(08)</em></span></label>
+      <label class="task"><input type="checkbox" data-id="t-dragoncrest"><span><b>Dragoncrest Greatshield Talisman</b> — Elphael <em>(08)</em></span></label>
 
-      <div class="grp">Legendary Sorceries & Incantations — seven, acquire only</div>
-      <label class="task"><input type="checkbox" data-id="m-azur"><span>Comet Azur — Primeval Sorcerer Azur, Mt. Gelmir</span></label>
-      <label class="task"><input type="checkbox" data-id="m-rain"><span>Founding Rain of Stars — Heretical Rise, Mountaintops</span></label>
-      <label class="task"><input type="checkbox" data-id="m-darkmoon"><span>Ranni's Dark Moon — Chelona's Rise, Liurnia <em>(Ranni's chain)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="m-stars"><span>Stars of Ruin — Sellen's questline</span></label>
-      <label class="task"><input type="checkbox" data-id="m-elden"><span>Elden Stars — Deeproot Depths <em>(Act II)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="m-fell"><span>Flame of the Fell God — Adan, Thief of Fire, Liurnia</span></label>
-      <label class="task"><input type="checkbox" data-id="m-placidusax"><span>Placidusax's Ruin — Placidusax's arena <em>(Act IV)</em></span></label>
+      <div class="grp">Legendary Sorceries &amp; Incantations <span>— 5 of 7</span></div>
+      <label class="task"><input type="checkbox" data-id="m-rain" data-seed="1"><span>Founding Rain of Stars</span></label>
+      <label class="task"><input type="checkbox" data-id="m-azur" data-seed="1"><span>Comet Azur</span></label>
+      <label class="task"><input type="checkbox" data-id="m-greyoll" data-seed="1"><span>Greyoll's Roar</span></label>
+      <label class="task"><input type="checkbox" data-id="m-fell" data-seed="1"><span>Flame of the Fell God</span></label>
+      <label class="task"><input type="checkbox" data-id="m-darkmoon" data-seed="1"><span>Ranni's Dark Moon</span></label>
+      <label class="task"><input type="checkbox" data-id="m-stars"><span><b>Stars of Ruin</b> — Sellia Hideaway <em>(02)</em></span></label>
+      <label class="task"><input type="checkbox" data-id="m-elden"><span><b>Elden Stars</b> — Deeproot Depths <em>(03, verify first)</em></span></label>
     </div>
   </div>
 
-  <!-- ═══ ALREADY EARNED ═══ -->
+  <!-- ══ EARNED ══ -->
   <div class="section">
-    <h2>Already on the Shelf — 9 of 42</h2>
-    <div class="lede">Pulled from the campaign ledger. Untick anything you don't actually have and the counter corrects itself.</div>
-    <div class="cols">
-      <label class="task"><input type="checkbox" data-id="e-margit" data-seed="1"><span>Margit, the Fell Omen</span></label>
-      <label class="task"><input type="checkbox" data-id="e-godrick" data-seed="1"><span>Shardbearer Godrick</span></label>
-      <label class="task"><input type="checkbox" data-id="e-rennala" data-seed="1"><span>Rennala, Queen of the Full Moon</span></label>
-      <label class="task"><input type="checkbox" data-id="e-radahn" data-seed="1"><span>Shardbearer Radahn — <em>first attempt</em></span></label>
-      <label class="task"><input type="checkbox" data-id="e-redwolf" data-seed="1"><span>Red Wolf of Radagon</span></label>
-      <label class="task"><input type="checkbox" data-id="e-loretta" data-seed="1"><span>Royal Knight Loretta — Caria Manor</span></label>
-      <label class="task"><input type="checkbox" data-id="e-mimic" data-seed="1"><span>Mimic Tear — the unequip trick</span></label>
-      <label class="task"><input type="checkbox" data-id="e-roundtable" data-seed="1"><span>Roundtable Hold</span></label>
-      <label class="task"><input type="checkbox" data-id="e-greatrune" data-seed="1"><span>Great Rune — Radahn's, at the Divine Tower of Caelid</span></label>
-    </div>
+    <h2>Thirty on the Shelf</h2>
+    <div class="lede">From the 14 August sync, by elimination — the arithmetic closes exactly against the 12 remaining. Untick anything the PS5 list contradicts.</div>
+    <details class="earned">
+      <summary>▸ Show all thirty earned trophies</summary>
+      <div class="cols">
+        <label class="task"><input type="checkbox" data-id="e-margit" data-seed="1"><span>Margit, the Fell Omen <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-godrick" data-seed="1"><span>Shardbearer Godrick</span></label>
+        <label class="task"><input type="checkbox" data-id="e-redwolf" data-seed="1"><span>Red Wolf of Radagon</span></label>
+        <label class="task"><input type="checkbox" data-id="e-rennala" data-seed="1"><span>Rennala, Queen of the Full Moon</span></label>
+        <label class="task"><input type="checkbox" data-id="e-leonine" data-seed="1"><span>Leonine Misbegotten</span></label>
+        <label class="task"><input type="checkbox" data-id="e-ancestor" data-seed="1"><span>Ancestor Spirit</span></label>
+        <label class="task"><input type="checkbox" data-id="e-regal" data-seed="1"><span>Regal Ancestor Spirit</span></label>
+        <label class="task"><input type="checkbox" data-id="e-makar" data-seed="1"><span>Magma Wyrm Makar</span></label>
+        <label class="task"><input type="checkbox" data-id="e-mimicboss" data-seed="1"><span>Mimic Tear</span></label>
+        <label class="task"><input type="checkbox" data-id="e-loretta" data-seed="1"><span>Royal Knight Loretta</span></label>
+        <label class="task"><input type="checkbox" data-id="e-radahn" data-seed="1"><span>Shardbearer Radahn <em>— first attempt</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-elemer" data-seed="1"><span>Elemer of the Briar</span></label>
+        <label class="task"><input type="checkbox" data-id="e-noble" data-seed="1"><span>Godskin Noble</span></label>
+        <label class="task"><input type="checkbox" data-id="e-rykard" data-seed="1"><span>Shardbearer Rykard <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-godfrey" data-seed="1"><span>Godfrey, First Elden Lord</span></label>
+        <label class="task"><input type="checkbox" data-id="e-morgott" data-seed="1"><span>Shardbearer Morgott</span></label>
+        <label class="task"><input type="checkbox" data-id="e-mohgomen" data-seed="1"><span>Mohg, the Omen</span></label>
+        <label class="task"><input type="checkbox" data-id="e-niall" data-seed="1"><span>Commander Niall</span></label>
+        <label class="task"><input type="checkbox" data-id="e-firegiant" data-seed="1"><span>Fire Giant</span></label>
+        <label class="task"><input type="checkbox" data-id="e-duo" data-seed="1"><span>Godskin Duo</span></label>
+        <label class="task"><input type="checkbox" data-id="e-placidusax" data-seed="1"><span>Dragonlord Placidusax</span></label>
+        <label class="task"><input type="checkbox" data-id="e-maliketh" data-seed="1"><span>Maliketh, the Black Blade</span></label>
+        <label class="task"><input type="checkbox" data-id="e-dragonkin" data-seed="1"><span>Dragonkin Soldier of Nokstella</span></label>
+        <label class="task"><input type="checkbox" data-id="e-gargoyles" data-seed="1"><span>Valiant Gargoyles</span></label>
+        <label class="task"><input type="checkbox" data-id="e-astel" data-seed="1"><span>Astel, Naturalborn of the Void</span></label>
+        <label class="task"><input type="checkbox" data-id="e-fortissax" data-seed="1"><span>Lichdragon Fortissax</span></label>
+        <label class="task"><input type="checkbox" data-id="e-godslay" data-seed="1"><span>God-Slaying Armament <em>— +25</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-roundtable" data-seed="1"><span>Roundtable Hold <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-greatrune" data-seed="1"><span>Great Rune</span></label>
+        <label class="task"><input type="checkbox" data-id="e-aflame" data-seed="1"><span>Erdtree Aflame</span></label>
+      </div>
+    </details>
   </div>
 
-  <!-- ═══ DANGER ═══ -->
+  <!-- ══ DANGER ══ -->
   <div class="section danger">
-    <h2>Things That Permanently Ruin a Platinum Run</h2>
+    <h2>What Can Still Go Wrong</h2>
     <ul>
-      <li><b>Burning the Erdtree too early.</b> Leyndell's NPCs and several quest steps die with the city. Acts I–III first, always.</li>
-      <li><b>Taking the Frenzied Flame with no exit.</b> Without a save backup or Miquella's Needle, two of the three ending trophies are gone for that save file.</li>
-      <li><b>Killing quest NPCs for their gear.</b> Every one of them is worth more alive. Nothing you get from a corpse beats a finished questline.</li>
-      <li><b>Ranni before Age of the Stars.</b> The ending is quest-gated, not choice-gated. You hold the Fingerslayer Blade — deliver it.</li>
-      <li><b>Millicent's chain started too late.</b> It begins in Caelid and ends in Elphael. Start it in Act II or you'll be crossing the world again in Act III.</li>
-      <li><b>PS5 cloud auto-upload during the ending juggle.</b> It will silently overwrite the backup you're depending on. Switch it off before Act V.</li>
+      <li><b>Fighting the Elden Beast before the other 39 have popped.</b> The endings protocol assumes everything else is banked. Check the trophy list, not your memory.</li>
+      <li><b>PS5 auto-sync during the ending juggle.</b> It overwrites the backup silently. Off before the first ending, on only after the third.</li>
+      <li><b>Travelling to Sellia without the Sealbreaker</b>, or to Deeproot for a spell you already own. Both are in the five-minute check above.</li>
+      <li><b>Mohg without the Purifying Tear.</b> Not fatal, but it converts a formality into three near-death events mid-fight.</li>
+      <li><b>Elphael on a short bolus count.</b> Two hours of scarlet rot with nothing to cure it becomes three hours and a lot of running back.</li>
+      <li><b>Trophies failing to pop offline.</b> Some players report this. If you play disconnected, connect once before the ending sequence.</li>
     </ul>
   </div>
 
-  <!-- ═══ DOCTRINE ═══ -->
+  <!-- ══ DOCTRINE ══ -->
   <div class="section">
-    <h2>Amended Doctrine for the Platinum</h2>
+    <h2>Doctrine, Final Revision</h2>
     <ul>
-      <li><b>Rule 7 is suspended.</b> "Sprawl gets bookmarked, not explored" won the first clear and would cost you the platinum. Act II <em>is</em> the sprawl, collected deliberately.</li>
-      <li><b>Rule 2 still holds absolutely.</b> Weapon level &gt; character level; flasks &gt; both. A +25 katana at level 120 beats a +20 at 150.</li>
-      <li><b>Vigor to 60, then stop.</b> Diminishing returns bite hard past 60. Everything after goes to Endurance, then wherever you like.</li>
-      <li><b>The Mimic scales with you.</b> Every weapon upgrade and every level makes it stronger for free. Feed it Glovewort while you're underground in Act II.</li>
-      <li><b>Buff first, summon second.</b> Unchanged, and it matters most against Malenia.</li>
-      <li><b>Two Great Runes minimum.</b> Morgott's is a straight upgrade over Radahn's for boss attempts once you have it.</li>
-      <li><b>Cross-reference before travel.</b> Rule 8 earned its place — quest triggers are the most patch-sensitive thing in this game.</li>
-      <li><b>Malenia last.</b> Every level and every upgrade helps. There is no prize for meeting her early.</li>
+      <li><b>Mind is now the build's constraint.</b> "Mind untouched by design" was right at Mind 11 with no FP costs. Unsheathe is your punish and it is FP-gated — 25 Mind is the highest-value spend left.</li>
+      <li><b>Vigor is finished at 60.</b> Roughly 6 HP per level past the cap. Nothing to gain.</li>
+      <li><b>Never store what you can derive.</b> Level drifted from 126 to 129 across two documents because it was recorded rather than calculated. It is computed here.</li>
+      <li><b>Unlocks matter more than duration.</b> Ordina is thirty minutes and opens four hours. Sort by what a task frees, not what it costs.</li>
+      <li><b>Malenia is not a levelling problem.</b> Every other wall in this game bent to being over-levelled. She will not. Go in expecting to learn her.</li>
+      <li><b>Rule 1 survives to the end.</b> Never farm as a standalone activity — and Mohgwyn's birds are on ground you are crossing anyway, so they do not count.</li>
+      <li><b>Verify before travelling.</b> Rule 8 has now caught a wrong Samurai stat floor, a drifted level, and two collection lists I had wrong. Keep doing it.</li>
     </ul>
   </div>
 
-  <!-- ═══ EXPORT ═══ -->
+  <!-- ══ EXPORT ══ -->
   <div class="exportbar">
-    <div class="txt">Tick things off as you go — it all saves to this device automatically. When you want to talk it over, copy your state and paste it into the chat.</div>
+    <div class="txt">Everything saves to this device as you tick. Copy your state whenever you want to talk it through.</div>
     <button class="btn" id="copy">Copy my status</button>
     <button class="btn ghost" id="show">Show text</button>
     <button class="btn ghost" id="reset">Reset</button>
@@ -586,18 +568,17 @@
   </div>
 
   <footer>
-    The previous campaign — Altus and the road to Morgott — is still here: <a href="capital.html">The Capital Campaign</a>.
+    Earlier campaigns: <a href="capital.html">The Capital Campaign</a> — Altus and the road to Morgott, kept for the record.
   </footer>
 </div>
 
-<div class="toast" id="toast">Copied to clipboard</div>
+<div class="toast" id="toast">Copied</div>
 
 <script>
 (function(){
   "use strict";
-  var KEY = 'er-platinum-v1';
+  var KEY = 'er-platinum-v2';
 
-  /* ── state ─────────────────────────────────────────── */
   var state = {};
   try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ state = {}; }
 
@@ -610,9 +591,7 @@
     if (id in state) b.checked = !!state[id];
     else if (firstRun && b.dataset.seed === '1') b.checked = true;
   });
-  slides.forEach(function(s){
-    if (('sl-'+s.id) in state) s.value = state['sl-'+s.id];
-  });
+  slides.forEach(function(s){ if (('sl-'+s.id) in state) s.value = state['sl-'+s.id]; });
 
   function save(){
     var o = {};
@@ -621,162 +600,202 @@
     try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
   }
 
-  /* ── slider readouts ───────────────────────────────── */
-  var SIGNED = {'s-main':1,'s-off':1,'s-mimic':1};
   function num(id){ return parseInt(document.getElementById(id).value, 10); }
+  function done(id){ var b = document.querySelector('[data-id="'+id+'"]'); return !!(b && b.checked); }
+  var SIGNED = {'s-main':1,'s-off':1,'s-mimic':1};
+
+  /* ── derived level ─────────────────────────────────────
+     Samurai starts at level 9 with 88 points across the eight stats.
+     level = 9 + (sum - 88). Storing level separately is what let it
+     drift 126 vs 129 across two documents, so it is computed here. */
+  var STATS = ['s-vig','s-mind','s-end','s-str','s-dex','s-int','s-fai','s-arc'];
+  var SAMURAI_START_LEVEL = 9, SAMURAI_START_POINTS = 88;
+
+  function derivedLevel(){
+    var sum = 0;
+    STATS.forEach(function(id){ sum += num(id); });
+    return { sum: sum, spent: sum - SAMURAI_START_POINTS,
+             level: SAMURAI_START_LEVEL + (sum - SAMURAI_START_POINTS) };
+  }
+
+  /* standard community rune-cost curve for the next level */
+  function runeCost(target){
+    if (target < 12) return 0;
+    var x = target;
+    return Math.round(0.02*x*x*x + 3.06*x*x + 105.6*x - 895);
+  }
+  function short(n){
+    if (n >= 1000000) return '~' + (n/1000000).toFixed(2) + 'm';
+    if (n >= 1000)    return '~' + Math.round(n/1000) + 'k';
+    return '' + n;
+  }
 
   function paintSliders(){
     slides.forEach(function(s){
       var out = document.getElementById('v-' + s.id.slice(2));
       if (out) out.textContent = (SIGNED[s.id] ? '+' : '') + s.value;
     });
-    document.getElementById('s-dex').parentNode.classList.toggle('capped', num('s-dex') >= 40);
+    var d = derivedLevel();
+    document.getElementById('d-lvl').textContent  = d.level;
+    document.getElementById('d-pts').textContent  = d.spent;
+    document.getElementById('d-cost').textContent = short(runeCost(d.level + 1));
+
+    var chk = document.getElementById('d-check');
+    var synced = (d.level === 129);
+    chk.classList.toggle('warn', !synced);
+    chk.querySelector('b').textContent = synced ? '✓ matches 129' : d.level + ' — re-check screen';
+
     document.getElementById('s-vig').parentNode.classList.toggle('capped', num('s-vig') >= 60);
+    document.getElementById('s-dex').parentNode.classList.toggle('capped', num('s-dex') >= 80);
   }
 
-  /* ── the advisor ───────────────────────────────────── */
-  function done(id){ var b = document.querySelector('[data-id="'+id+'"]'); return !!(b && b.checked); }
-
+  /* ── advisor ───────────────────────────────────────────── */
   function advise(){
-    var lvl=num('s-lvl'), main=num('s-main'), off=num('s-off'),
-        vig=num('s-vig'), end=num('s-end'), dex=num('s-dex'),
-        flask=num('s-flask'), mimic=num('s-mimic');
+    var mind=num('s-mind'), end=num('s-end'), dex=num('s-dex'), vig=num('s-vig'),
+        flask=num('s-flask'), d=derivedLevel();
     var out = [];
 
-    /* stat spending */
-    if (vig < 50)       out.push(['warn','<b>Vigor to 50 before Morgott.</b> You are at '+vig+'. Every level goes here until it lands — nothing else competes.']);
-    else if (vig < 60)  out.push(['','Vigor '+vig+' is Morgott-ready. Push toward <b>60</b> across Act II; that is the real soft cap, and the Haligtree will test it.']);
-    else               out.push(['good','Vigor '+vig+' — done. Diminishing returns past here; spend on Endurance, then anywhere.']);
+    if (mind < 20)      out.push(['warn','<b>Mind '+mind+' is the build\'s real constraint.</b> Unsheathe costs FP every use. This is priority one now — 25 is the target, ahead of everything else.']);
+    else if (mind < 25) out.push(['','Mind '+mind+' — nearly there. 25 is the number, then move to Endurance.']);
+    else                out.push(['good','Mind '+mind+' — Unsheathe is no longer rationed. Endurance next, then Dex to 80.']);
 
-    if (dex > 40)       out.push(['warn','<b>Dex '+dex+' is wasted.</b> 40 is the softcap on a Keen build. Rennala can respec you with a Larval Tear — that is free damage recovered.']);
-    else if (dex === 40) out.push(['good','Dex 40 — finished forever, exactly as planned.']);
-    else                out.push(['warn','Dex '+dex+' is under the 40 softcap. Keen scaling is your entire damage model; get it there.']);
-
-    if (end < 25 && vig >= 50) out.push(['','Endurance '+end+' is thin for Act III. <b>25-30</b> buys you the extra roll that Malenia\'s combos demand.']);
-
-    /* gear */
-    if (main < 20)      out.push(['warn','<b>Main hand +'+main+' is behind.</b> Weapon level beats character level — Stones [7] carry you to +20 and you already banked five.']);
-    else if (main < 25) out.push(['','Main hand +'+main+'. The <b>God-Slaying Armament</b> trophy needs +25: Stones [8], then one Ancient Dragon Smithing Stone.']);
-    else                out.push(['good','Main hand +25 — God-Slaying Armament earned, and your damage ceiling is reached.']);
-
-    if (main - off > 4) out.push(['','The offhand at +'+off+' is dragging '+(main-off)+' behind. Powerstance damage is split across both — close the gap before Act III.']);
-    if (mimic < 8 && lvl > 95) out.push(['','Mimic +'+mimic+' is falling behind your level. Ghost Glovewort [5]+ litters Ainsel and Deeproot — you will walk past piles of it in Act II.']);
-    if (flask < 12)     out.push(['','Flasks at '+flask+'. Golden Seeds are thick in the Mountaintops; <b>12-14</b> before the Haligtree is the realistic target.']);
+    if (mind >= 25 && end < 50) out.push(['','Endurance '+end+' → 50 is priority two. More stamina means longer L1 chains before you are stranded mid-combo.']);
+    if (mind >= 25 && end >= 50 && dex < 80) out.push(['','Dexterity '+dex+' → 80 is the last meaningful breakpoint on Keen scaling.']);
+    if (vig > 60) out.push(['warn','Vigor '+vig+' is past the cap — roughly 6 HP per point. Those runes belong in Mind.']);
+    if (flask < 12) out.push(['warn','Flasks recorded at '+flask+', and unverified since July. This is the largest single lever left for Malenia — count them at a grace.']);
+    if (d.level !== 129) out.push(['','Stats now derive to <b>level '+d.level+'</b>, costing '+short(runeCost(d.level+1))+' for the next. If the game disagrees, the game is right.']);
 
     /* route gating */
-    if (!done('a1-morgott')) {
-      out.push(['','<b>Next:</b> finish Leyndell. Bolt of Gransax, the sewer, Mohg the Omen, then Morgott. Do not leave the city half-looted.']);
-    } else if (!done('a2-fingerslayer')) {
-      out.push(['warn','<b>Deliver the Fingerslayer Blade to Ranni.</b> It has been in your pocket since Nokron and it gates an entire ending trophy.']);
-    } else if (!done('a2-gowry')) {
-      out.push(['warn','<b>Start Millicent\'s chain at Gowry\'s Shack.</b> It runs Caelid → Altus → Elphael. Starting it late means crossing the world twice.']);
-    } else if (!done('a2-ranni')) {
-      out.push(['','<b>Finish Ranni</b> — Ainsel, Nokstella, Lake of Rot, Astel. Four trophies and a legendary sit on that one thread.']);
-    } else if (!done('a3-malenia')) {
-      out.push(['','<b>Act III.</b> Both medallion halves, then Mohgwyn and the Haligtree. Malenia last, at maximum everything.']);
-    } else if (!done('a3-needle')) {
-      out.push(['warn','<b>Go back into Malenia\'s arena</b> and use the Unalloyed Gold Needle at the flower. Without Miquella\'s Needle the ending juggle gets much riskier.']);
-    } else if (!done('a4-aflame')) {
-      out.push(['','<b>You are clear to burn.</b> Everything missable is behind you — Fire Giant, then the Forge.']);
-    } else if (!done('a5-backup')) {
-      out.push(['warn','<b>Back up your save to USB before Radagon</b>, and turn off PS5 cloud auto-upload first or it overwrites the backup.']);
-    } else {
-      out.push(['good','<b>Endings phase.</b> Age of the Stars first, restore, Elden Lord, restore, Frenzied Flame. Then the platinum.']);
-    }
-
-    /* level sanity */
-    if (lvl > 130 && !done('a3-malenia')) out.push(['','Level '+lvl+' is comfortably above the curve — as usual. Expect the Haligtree to still hit hard; it is tuned past the rest of the game.']);
-    if (lvl < 90 && done('a1-morgott'))   out.push(['warn','Level '+lvl+' is light for what comes next. The Mountaintops expect 110+; Elphael expects 130+.']);
+    if (!done('v3'))       out.push(['warn','<b>Check the physick for the Purifying Crystal Tear</b> before going anywhere near Mohg.']);
+    if (!done('r6') && (done('r1')||done('r2')||done('r4'))) out.push(['','<b>Ordina is the leverage play.</b> Thirty minutes, and it opens the Haligtree, Elphael, two collection trophies and Malenia.']);
+    if (done('r8a')&&done('r8b')&&done('r8c')) out.push(['good','Elphael is cleared — Talismans and Ashen Remains both closed.']);
+    if (done('r9')) out.push(['good','<b>Malenia is down.</b> Everything after her is procedure, not difficulty.']);
+    if (done('r10') && !done('r11a')) out.push(['warn','<b>Before the Elden Beast:</b> scroll the PS5 trophy list and confirm 39 of 42 have popped. The ending protocol assumes it.']);
 
     document.getElementById('advice').innerHTML = out.map(function(a){
       return '<div class="aline '+a[0]+'">'+a[1]+'</div>';
     }).join('');
   }
 
-  /* ── progress ──────────────────────────────────────── */
-  var TROPHY_IDS = ['e-margit','e-godrick','e-rennala','e-radahn','e-redwolf','e-loretta','e-mimic','e-roundtable','e-greatrune',
-    'a1-godfrey','a1-mohgomen','a1-morgott','a2-makar','a2-noble','a2-rykard','a2-elemer','a2-leonine','a2-ancestor','a2-regal',
-    'a2-gargoyles','a2-fortissax','a2-dragonkin','a2-astel','a3-niall','a3-mohg','a3-loretta2','a3-malenia','a4-firegiant',
-    'a4-aflame','a4-godskinduo','a4-placidusax','a4-maliketh','a5-hoarah','a5-e1','a5-e2','a5-e3','a5-plat','c-godslay'];
+  /* ── trophies: 30 earned + 8 remaining + 4 computed = 42 ── */
+  var EARNED_IDS = ['e-margit','e-godrick','e-redwolf','e-rennala','e-leonine','e-ancestor','e-regal','e-makar',
+    'e-mimicboss','e-loretta','e-radahn','e-elemer','e-noble','e-rykard','e-godfrey','e-morgott','e-mohgomen',
+    'e-niall','e-firegiant','e-duo','e-placidusax','e-maliketh','e-dragonkin','e-gargoyles','e-astel','e-fortissax',
+    'e-godslay','e-roundtable','e-greatrune','e-aflame'];
+  var REMAIN_IDS = ['r5','r7','r9','r10','r11d','r11e','r11f','r11g'];
 
-  var ACTS = [
-    ['a1-morgott', 'I · Leyndell'],
-    ['a2-ranni',   'II · Backtrack'],
-    ['a3-needle',  'III · Haligtree'],
-    ['a4-maliketh','IV · Farum Azula'],
-    ['a5-plat',    'V · Endings']
+  var SETS = {
+    arms:  ['l-gransax','l-marais','l-grafted','l-ruins','l-sonf','l-darkmoon','l-eclipse','l-devourer','l-golden'],
+    ashes: ['s-mimic','s-lhutel','s-ogha','s-tiche','s-kristoff','s-finlay'],
+    tals:  ['t-soreseal','t-nokstella','t-oldlord','t-radagon','t-godfrey','t-erdtree','t-marika','t-dragoncrest'],
+    spell: ['m-rain','m-azur','m-greyoll','m-fell','m-darkmoon','m-stars','m-elden']
+  };
+  function setDone(k){ return SETS[k].every(done); }
+
+  var OBJECTIVES = [
+    {step:'1',  ids:['r1']},                            {step:'2',  ids:['r2']},
+    {step:'3',  ids:['r3']},                            {step:'4',  ids:['r4']},
+    {step:'5',  ids:['r5']},                            {step:'6',  ids:['r6']},
+    {step:'7',  ids:['r7']},                            {step:'8',  ids:['r8a','r8b','r8c']},
+    {step:'9',  ids:['r9']},                            {step:'10', ids:['r10']},
+    {step:'11', ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g']}
   ];
 
   function paintProgress(){
-    /* 38 individually-tracked trophies + 4 collection trophies = 42.
-       Godfrey the First Lord is the Leyndell Golden Shade (a1-godfrey);
-       Hoarah Loux the Warrior is the Ashen Capital fight (a5-hoarah). Separate trophies, one each. */
     var tro = 0;
-    TROPHY_IDS.forEach(function(id){ if (done(id)) tro++; });
-    if (done('l-gransax')&&done('l-marais')&&done('l-grafted')&&done('l-ruins')&&done('l-sonf')&&
-        done('l-darkmoon')&&done('l-eclipse')&&done('l-golden')&&done('l-devourer')) tro++;
-    if (done('s-mimic')&&done('s-lhutel')&&done('s-tiche')&&done('s-ogha')&&done('s-kristoff')&&done('s-puppet')) tro++;
-    if (done('t-soreseal')&&done('t-marika')&&done('t-godfrey')&&done('t-radagon')&&done('t-nokstella')&&
-        done('t-oldlord')&&done('t-dragoncrest')&&done('t-erdtree')) tro++;
-    if (done('m-azur')&&done('m-rain')&&done('m-darkmoon')&&done('m-stars')&&done('m-elden')&&done('m-fell')&&done('m-placidusax')) tro++;
+    EARNED_IDS.forEach(function(id){ if (done(id)) tro++; });
+    REMAIN_IDS.forEach(function(id){ if (done(id)) tro++; });
+    ['arms','ashes','tals','spell'].forEach(function(k){ if (setDone(k)) tro++; });
     if (tro > 42) tro = 42;
 
     document.getElementById('p-tro').textContent = tro;
     document.getElementById('b-tro').style.width = (tro/42*100) + '%';
 
-    var checked = boxes.filter(function(b){ return b.checked; }).length;
-    document.getElementById('p-task').textContent = checked;
-    document.getElementById('p-tasktot').textContent = boxes.length;
-    document.getElementById('b-task').style.width = (checked/boxes.length*100) + '%';
+    var objDone = 0, minsLeft = 0, totalMins = 0;
+    OBJECTIVES.forEach(function(o){
+      var el = document.querySelector('.step[data-step="'+o.step+'"]');
+      var complete = o.ids.every(done);
+      var mins = parseInt(el.dataset.min, 10);
+      totalMins += mins;
+      if (complete) objDone++; else minsLeft += mins;
+      el.classList.toggle('complete', complete);
+    });
 
-    var label = 'V · Endings';
-    for (var i = 0; i < ACTS.length; i++){ if (!done(ACTS[i][0])) { label = ACTS[i][1]; break; } }
-    document.getElementById('p-act').textContent = label;
+    document.getElementById('p-obj').textContent = objDone;
+    document.getElementById('p-objtot').textContent = OBJECTIVES.length;
+    document.getElementById('b-obj').style.width = (objDone/OBJECTIVES.length*100) + '%';
+    document.getElementById('p-time').textContent = minsLeft ? '~' + (minsLeft/60).toFixed(1) + ' hrs' : 'done';
+    document.getElementById('b-time').style.width = ((totalMins-minsLeft)/totalMins*100) + '%';
 
-    /* act cards: cleared / you-are-here */
-    var current = null;
-    for (var j = 0; j < ACTS.length; j++){ if (!done(ACTS[j][0])) { current = String(j+1); break; } }
-    document.querySelectorAll('.step').forEach(function(s){
-      var n = s.dataset.step;
-      var idx = parseInt(n,10) - 1;
-      var cleared = done(ACTS[idx][0]);
-      s.classList.toggle('complete', cleared);
-      s.classList.toggle('next', n === current);
+    /* first incomplete objective is "next" */
+    var marked = false;
+    OBJECTIVES.forEach(function(o){
+      var el = document.querySelector('.step[data-step="'+o.step+'"]');
+      var isNext = !marked && !o.ids.every(done);
+      el.classList.toggle('next', isNext);
+      if (isNext) marked = true;
     });
   }
 
-  /* ── export ────────────────────────────────────────── */
+  /* ── session planner ───────────────────────────────────── */
+  function plan(){
+    var have = num('s-time');
+    document.getElementById('v-time').textContent = have;
+
+    var fits = [], nextUp = null;
+    OBJECTIVES.forEach(function(o){
+      var el = document.querySelector('.step[data-step="'+o.step+'"]');
+      var complete = o.ids.every(done);
+      var mins = parseInt(el.dataset.min, 10);
+      el.classList.remove('fits','toolong');
+      if (complete) return;
+      if (mins <= have) { el.classList.add('fits'); fits.push({el:el, mins:mins, title:el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim()}); }
+      else { el.classList.add('toolong'); if (!nextUp) nextUp = {mins:mins, title:el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim()}; }
+    });
+
+    var out = document.getElementById('plan-out');
+    if (!fits.length) {
+      out.innerHTML = nextUp
+        ? 'Nothing fits in <b>' + have + ' min</b>. The shortest thing left is <b>' + nextUp.title + '</b> at ' + nextUp.mins + ' min.'
+        : 'Everything on the route is complete.';
+      return;
+    }
+    var total = fits.reduce(function(a,b){ return a + b.mins; }, 0);
+    var names = fits.slice(0,3).map(function(f){ return '<b>' + f.title + '</b> (' + f.mins + ')'; }).join(', ');
+    out.innerHTML = fits.length + ' objective' + (fits.length>1?'s':'') + ' fit in <b>' + have + ' min</b>: ' + names +
+      (fits.length > 3 ? ' and ' + (fits.length-3) + ' more' : '') +
+      '. Stacked back to back that is ' + Math.round(total/60*10)/10 + ' hrs of work highlighted below.';
+  }
+
+  /* ── export ────────────────────────────────────────────── */
   function summary(){
-    var L = [];
+    var d = derivedLevel(), L = [];
     L.push('ELDEN RING — PLATINUM RUN STATUS');
-    L.push('Level ' + num('s-lvl') + '  |  Uchigatana +' + num('s-main') + ' / +' + num('s-off') +
+    L.push('Level ' + d.level + ' (derived from stats)  |  Uchigatana +' + num('s-main') + ' / +' + num('s-off') +
            '  |  Mimic +' + num('s-mimic') + '  |  ' + num('s-flask') + ' flasks');
-    L.push('VIG ' + num('s-vig') + '  END ' + num('s-end') + '  DEX ' + num('s-dex') + '  MND ' + num('s-mind'));
-    L.push('Trophies: ' + document.getElementById('p-tro').textContent + '/42   ·   Current act: ' +
-           document.getElementById('p-act').textContent);
+    L.push('VIG ' + num('s-vig') + '  MND ' + num('s-mind') + '  END ' + num('s-end') + '  STR ' + num('s-str') +
+           '  DEX ' + num('s-dex') + '  INT ' + num('s-int') + '  FAI ' + num('s-fai') + '  ARC ' + num('s-arc'));
+    L.push('Trophies: ' + document.getElementById('p-tro').textContent + '/42   ·   Route: ' +
+           document.getElementById('p-obj').textContent + '/' + OBJECTIVES.length +
+           ' objectives, ' + document.getElementById('p-time').textContent + ' left');
     L.push('');
-
-    document.querySelectorAll('.step').forEach(function(s){
-      var title = s.querySelector('.t').textContent.replace(/\s*◄.*$/,'').replace(/\s*✓.*$/,'').trim();
-      var mine  = Array.prototype.slice.call(s.querySelectorAll('.task input'));
-      if (!mine.length) return;
-      var todo = mine.filter(function(b){ return !b.checked; });
-      L.push('── ' + s.querySelector('.n').textContent.split('·')[0].trim() + ': ' + title +
-             '  (' + (mine.length - todo.length) + '/' + mine.length + ')');
-      if (!todo.length) { L.push('   all clear'); }
-      else todo.slice(0,6).forEach(function(b){
-        L.push('   ☐ ' + b.parentNode.querySelector('span').textContent.replace(/\s+/g,' ').split('—')[0].trim().slice(0,72));
+    L.push('REMAINING ROUTE');
+    OBJECTIVES.forEach(function(o){
+      if (o.ids.every(done)) return;
+      var el = document.querySelector('.step[data-step="'+o.step+'"]');
+      L.push('  ☐ ' + el.querySelector('.n').textContent.replace(/\s+/g,' ').trim());
+    });
+    L.push('');
+    L.push('COLLECTIONS');
+    [['Armaments','arms',9],['Ashen Remains','ashes',6],['Talismans','tals',8],['Sorceries/Incants','spell',7]]
+      .forEach(function(c){
+        var have = SETS[c[1]].filter(done).length;
+        var missing = SETS[c[1]].filter(function(i){ return !done(i); })
+          .map(function(i){ return document.querySelector('[data-id="'+i+'"]').parentNode.querySelector('span').textContent.split('—')[0].trim(); });
+        L.push('  ' + c[0] + ': ' + have + '/' + c[2] + (missing.length ? '  — missing ' + missing.join(', ') : '  ✓'));
       });
-      if (todo.length > 6) L.push('   … and ' + (todo.length - 6) + ' more');
-    });
-
-    L.push('');
-    var colTot = 0, colDone = 0;
-    document.querySelectorAll('.section .task input').forEach(function(b){
-      if (b.dataset.seed) return;
-      colTot++; if (b.checked) colDone++;
-    });
-    L.push('Collections (legendaries + max upgrade): ' + colDone + '/' + colTot);
+    var unchecked = ['v1','v2','v3','v4','v5','v6','v7','v8'].filter(function(i){ return !done(i); });
+    if (unchecked.length) { L.push(''); L.push('STILL UNVERIFIED: ' + unchecked.length + ' of 8 grace-checks outstanding'); }
     return L.join('\n');
   }
 
@@ -787,90 +806,51 @@
   }
 
   document.getElementById('copy').addEventListener('click', function(){
-    var text = summary();
-    var ta = document.getElementById('dump');
+    var text = summary(), ta = document.getElementById('dump');
     ta.value = text;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(
         function(){ toast('Copied — paste it into the chat'); },
-        function(){ ta.classList.add('show'); ta.select(); toast('Select and copy'); }
-      );
-    } else {
-      ta.classList.add('show'); ta.select();
-      try { document.execCommand('copy'); toast('Copied'); } catch(e){ toast('Select and copy'); }
-    }
+        function(){ ta.classList.add('show'); ta.select(); toast('Select and copy'); });
+    } else { ta.classList.add('show'); ta.select();
+      try { document.execCommand('copy'); toast('Copied'); } catch(e){ toast('Select and copy'); } }
   });
-
   document.getElementById('show').addEventListener('click', function(){
-    var ta = document.getElementById('dump');
-    ta.value = summary();
-    ta.classList.toggle('show');
+    var ta = document.getElementById('dump'); ta.value = summary(); ta.classList.toggle('show');
   });
-
   document.getElementById('reset').addEventListener('click', function(){
     if (!confirm('Clear every tick and slider on this device?')) return;
     try { localStorage.removeItem(KEY); } catch(e){}
     location.reload();
   });
 
-  /* ── wiring ────────────────────────────────────────── */
-  function refresh(){ paintSliders(); advise(); paintProgress(); save(); }
-
-  boxes.forEach(function(b){ b.addEventListener('change', refresh); });
-  slides.forEach(function(s){ s.addEventListener('input', refresh); });
-
-  /* ── stat tooltips: tap anywhere, hover on desktop ──── */
+  /* ── tooltips ──────────────────────────────────────────── */
   var canHover = window.matchMedia && window.matchMedia('(hover:hover)').matches;
-  var infos = Array.prototype.slice.call(document.querySelectorAll('.info'));
-
   function closeAll(){
-    document.querySelectorAll('.sl.pinned,.sl.hovered').forEach(function(el){
-      el.classList.remove('pinned','hovered');
-    });
+    document.querySelectorAll('.sl.pinned,.sl.hovered').forEach(function(el){ el.classList.remove('pinned','hovered'); });
   }
-
-  infos.forEach(function(btn){
+  document.querySelectorAll('.info').forEach(function(btn){
     var cell = btn.closest('.sl');
     btn.addEventListener('click', function(ev){
       ev.stopPropagation();
       var open = cell.classList.contains('pinned');
-      closeAll();
-      if (!open) cell.classList.add('pinned');
+      closeAll(); if (!open) cell.classList.add('pinned');
     });
     if (canHover) {
       btn.addEventListener('mouseenter', function(){ cell.classList.add('hovered'); });
       cell.addEventListener('mouseleave', function(){ cell.classList.remove('hovered'); });
     }
   });
-
-  /* tapping the tip itself shouldn't dismiss it; tapping anywhere else should */
   document.querySelectorAll('.tip').forEach(function(t){
     t.addEventListener('click', function(ev){ ev.stopPropagation(); });
   });
   document.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeAll(); });
 
-  /* act card highlighting from the map */
-  var wps = document.querySelectorAll('.wp');
-  var stepEls = document.querySelectorAll('.step');
-  function activate(n){
-    stepEls.forEach(function(s){ s.classList.toggle('active', s.dataset.step === n); });
-    wps.forEach(function(w){ w.classList.toggle('lit', w.dataset.step === n); });
-  }
-  wps.forEach(function(w){
-    w.addEventListener('click', function(){
-      activate(w.dataset.step);
-      var el = document.querySelector('.step[data-step="' + w.dataset.step + '"]');
-      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
-  /* headings only, so ticking a box never steals the highlight */
-  stepEls.forEach(function(s){
-    var h = s.querySelector('.n'), t = s.querySelector('.t');
-    h.addEventListener('click', function(){ activate(s.dataset.step); });
-    t.addEventListener('click', function(){ activate(s.dataset.step); });
-  });
-
+  /* ── wiring ────────────────────────────────────────────── */
+  function refresh(){ paintSliders(); advise(); paintProgress(); plan(); save(); }
+  boxes.forEach(function(b){ b.addEventListener('change', refresh); });
+  slides.forEach(function(s){ s.addEventListener('input', refresh); });
   refresh();
 })();
 </script>
