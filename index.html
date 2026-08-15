@@ -109,6 +109,9 @@
     color:#120d06;font-size:13px;font-weight:700}
   .chk input:checked ~ .ct{color:var(--text-3);text-decoration:line-through;text-decoration-color:var(--line)}
   .ct b{color:var(--text);font-weight:600}
+  .ct .menu{display:inline-block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);border-radius:5px;
+    padding:2px 7px;margin-left:7px;white-space:nowrap;vertical-align:middle}
   .ct .src{display:block;font-size:15px;color:var(--text-2);margin-top:8px;line-height:1.52;
     background:rgba(0,0,0,.28);border-left:2px solid var(--gold);border-radius:0 7px 7px 0;padding:9px 13px}
   .ct .src em{font-family:'Cinzel',serif;font-style:normal;font-size:9.5px;letter-spacing:.18em;
@@ -148,11 +151,10 @@
   .tag.item{background:var(--item-bg);color:var(--item);border-color:rgba(200,162,78,.3)}
   .tag.puzzle{background:var(--puzzle-bg);color:var(--puzzle);border-color:rgba(95,168,158,.3)}
   .tag.final{background:var(--final-bg);color:var(--final);border-color:rgba(165,138,212,.3)}
-  .dur{font-family:'Cinzel',serif;font-size:12.5px;color:var(--text-3);flex:0 0 auto;min-width:56px;text-align:right}
-  .addcost{color:var(--gold)}
+  .addcost{color:var(--gold);font-weight:600}
   .car{color:var(--text-3);font-size:11px;transition:transform .22s ease;flex:0 0 auto}
   .stop.open .car{transform:rotate(180deg)}
-  @media(max-width:560px){ .row{flex-wrap:wrap;gap:9px 12px} .rmid{flex:1 0 55%} .dur{min-width:0} }
+  @media(max-width:560px){ .row{flex-wrap:wrap;gap:9px 12px} .rmid{flex:1 0 100%;order:2} }
 
   .body{display:none;padding:2px 18px 18px;border-top:1px solid var(--line-2)}
   .stop.open .body{display:block}
@@ -449,8 +451,8 @@
   function set(id,v){ state[id]=!!v; }
 
   var PRESETS=[30,45,60,90,120,150,180,300];
-  var LABELS=['30m','45m','1h','1½h','2h','2½h','3h','5h+'];
-  var BIG=['30 minutes','45 minutes','1 hour','1½ hours','2 hours','2½ hours','3 hours','5 hours or more'];
+  var LABELS=['30m','45m','1h','1.5h','2h','2.5h','3h','5h+'];
+  var BIG=['30 minutes','45 minutes','1 hour','1.5 hours','2 hours','2.5 hours','3 hours','5 hours or more'];
 
   /* ══ the route ══ */
   var ROUTE=[
@@ -461,7 +463,7 @@
            'Walk through the Hidden Path, then head <b>west along the cliffs</b> to the Cave of the Forlorn.'],
       miss:['Light <b>every</b> grace you pass — stops 5 and 6 both warp back here, and this is the trip that unlocks them.',
             '<b>Yelough Anix Tunnel</b> especially. That grace is where Mohgwyn begins.'],
-      prep:[{t:'Two Stonesword Keys',src:'Twin Maiden Husks at the Roundtable sell them, as do most nomadic merchants.'}],
+      prep:[{t:'Two Stonesword Keys <span class=\'menu\'>Inventory &rsaquo; Tools</span>',src:'Twin Maiden Husks at the Roundtable sell them, as do most nomadic merchants.'}],
       out:'<b>Legendary Armaments</b> complete — a trophy from a single pickup.' },
 
     { s:'2', mins:30, type:'item', name:'Stars of Ruin', where:'Sellia Hideaway, Caelid', ids:['r2'],
@@ -470,7 +472,7 @@
       way:['Find the cave mouth in the <b>west</b> of town, behind an illusory wall.',
            'Master Lusat sits behind a sealed door deep inside.'],
       miss:['The hideaway is built on illusory walls throughout. Hit anything that looks wrong.'],
-      prep:[{t:'Check Key Items for the <b>Sellian Sealbreaker</b>',src:'No Sealbreaker, no Stars of Ruin — skip this stop entirely rather than waste the ride. It comes from Sellen’s questline.'}],
+      prep:[{t:'The <b>Sellian Sealbreaker</b> <span class=\'menu\'>Inventory &rsaquo; Key Items</span>',src:'No Sealbreaker, no Stars of Ruin — skip this stop entirely rather than waste the ride. It comes from Sellen’s questline.'}],
       out:'Legendary spells to <b>6 of 7</b>.' },
 
     { s:'3', mins:20, type:'item', name:'Elden Stars', where:'Deeproot Depths', ids:['r3'],
@@ -478,7 +480,7 @@
       startNote:'You cleared Fortissax down here, so several graces are lit.',
       way:['On a corpse along the roots, near the giant ants.'],
       miss:[],
-      prep:[{t:'Check your inventory for <b>Elden Stars</b>',src:'You may already be carrying it. If it is there, drop this stop and save yourself twenty minutes.'}],
+      prep:[{t:'<b>Elden Stars</b> \u2014 may already be yours <span class=\'menu\'>Inventory &rsaquo; Incantations</span>',src:'You may already be carrying it. If it is there, drop this stop and save yourself twenty minutes.'}],
       out:'With Stars of Ruin, closes <b>Legendary Sorceries</b>.' },
 
     { s:'4', mins:30, type:'item', name:'Ancient Dragon Knight Kristoff', where:"Sainted Hero's Grave, Altus", ids:['r4'],
@@ -487,7 +489,7 @@
       way:['The grave sits <b>west</b> of the grace, with a Black Knife Assassin on the door.',
            'Inside, enemies take no damage until they wander into the statues’ light circles.'],
       miss:['The boss is the Ancient Hero of Zamor — fast, aggressive, and bleeds well.'],
-      prep:[{t:'Two Stonesword Keys',src:'Twin Maiden Husks or a nomadic merchant.'}],
+      prep:[{t:'Two Stonesword Keys <span class=\'menu\'>Inventory &rsaquo; Tools</span>',src:'Twin Maiden Husks or a nomadic merchant.'}],
       out:'Legendary ashes to <b>5 of 6</b>.' },
 
     { s:'5', mins:75, type:'boss', name:'Mohg, Lord of Blood', where:'Mohgwyn Palace', ids:['r5'],
@@ -498,7 +500,7 @@
       miss:['The sleeping birds here are the best rune farm in the game, if Mind needs funding.'],
       fight:['<b>Nihil</b> is the fight: three scripted near-deaths. The Purifying Tear cancels it outright.',
              'Bleed lands at <b>half rate</b>. He is weak to plain physical, which your katanas already are.'],
-      prep:[{t:'Check your physick holds the <b>Purifying Crystal Tear</b>',src:'Missing it? It drops from <b>Eleonora, Violet Bloody Finger</b>, who invades at the <b>Second Church of Marika</b> in Altus. You have passed the Rold trigger, so she will come.'}],
+      prep:[{t:'<b>Purifying Crystal Tear</b> in the physick <span class=\'menu\'>At a grace &rsaquo; Wondrous Physick &rsaquo; Mix</span>',src:'Missing it? It drops from <b>Eleonora, Violet Bloody Finger</b>, who invades at the <b>Second Church of Marika</b> in Altus. You have passed the Rold trigger, so she will come.'}],
       out:'<b>Shardbearer Mohg</b>, his Great Rune, and the Shadow of the Erdtree entry.' },
 
     { s:'6', mins:30, type:'puzzle', name:'Ordina — the four seals', where:'Consecrated Snowfield, north', ids:['r6'],
@@ -507,7 +509,7 @@
       way:['Ride <b>north</b> past the frozen ravine and keep going.',
            'Light all four seals while invisible assassins hunt you. <b>Sneak — do not fight.</b>'],
       miss:['The north-east seal is the one that kills people.'],
-      prep:[{t:"Sentry's Torch — it reveals the invisible assassins",src:'Missing it? The <b>Hermit Merchant</b> in Altus, near the capital’s first rampart, sells one for 7,000 runes. Worth the detour.'}],
+      prep:[{t:"<b>Sentry's Torch</b> — reveals the invisible assassins <span class='menu'>Inventory &rsaquo; Armaments</span>",src:'Missing it? The <b>Hermit Merchant</b> in Altus, near the capital’s first rampart, sells one for 7,000 runes. Worth the detour.'}],
       out:'No trophy, but it opens <b>four hours</b>: the Haligtree, Elphael, Malenia and two collection trophies. The best half hour left.' },
 
     { s:'7', mins:90, type:'boss', name:'Loretta, Knight of the Haligtree', where:"Miquella's Haligtree", ids:['r7'],
@@ -527,7 +529,7 @@
            'Two hours of scarlet rot from end to end.'],
       miss:['Both talismans are easy to walk past on a rot-panicked run.',
             'Short on boluses turns this into a three-hour area.'],
-      prep:[{t:'Craft <b>Preserving Boluses</b> — as many as you can carry',src:'Two hours of scarlet rot. Short on boluses turns Elphael into a three-hour area.'}],
+      prep:[{t:'<b>Preserving Boluses</b> — craft as many as you can carry <span class=\'menu\'>Inventory &rsaquo; Tools</span>',src:'Two hours of scarlet rot. Short on boluses turns Elphael into a three-hour area.'}],
       out:'Closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b>. Two trophies in one area.' },
 
     { s:'9', mins:180, type:'boss', name:'Malenia, Blade of Miquella', where:'Elphael', ids:['r9'],
@@ -539,7 +541,7 @@
              '<b>Waterfowl Dance</b> wants distance, not rolls. Run from the first flurry, dodge the last two.',
              'She heals on every hit she lands — on you, your Mimic, even your block. Passivity loses.',
              'Not a levelling problem. Every other wall bent to being over-levelled; she will not.'],
-      prep:[{t:'Top up flasks and carry a Rune Arc',src:'Also spend your runes before the fog — never carry a fortune through her gate.'}],
+      prep:[{t:'Full flasks, and a Rune Arc <span class=\'menu\'>Inventory &rsaquo; Tools</span>',src:'Also spend your runes before the fog — never carry a fortune through her gate.'}],
       out:'<b>Shardbearer Malenia</b> — the last real difficulty on the run.' },
 
     { s:'10', mins:45, type:'boss', name:'Godfrey, and Hoarah Loux', where:'Leyndell, Ashen Capital', ids:['r10'],
@@ -562,7 +564,7 @@
              'Radagon has no fire resistance. The Elden Beast resists holy heavily.'],
       warn:['Confirm <b>39 of 42</b> have popped before you fight the Elden Beast.',
             'Auto-sync stays <b>off</b> until all three endings pop — it overwrites the backup silently.'],
-      prep:[{t:'Turn PS5 <b>auto-sync off</b>',src:'It overwrites your backup silently. Off before the first ending, on only after the third.'},{t:'Have a USB stick or PS Plus cloud slot ready',src:'The whole three-ending protocol depends on one restorable save.'}],
+      prep:[{t:'Turn <b>auto-sync off</b> <span class=\'menu\'>PS5 Settings &rsaquo; Saved Data</span>',src:'It overwrites your backup silently. Off before the first ending, on only after the third.'},{t:'Have a USB stick or PS Plus cloud slot ready',src:'The whole three-ending protocol depends on one restorable save.'}],
       out:'The last <b>four trophies</b>, including the platinum.' }
   ];
   function fin(o){ return o.ids.every(on); }
@@ -574,7 +576,12 @@
     ['r11d','r11e','r11f','r11g'].forEach(function(k){ if(on(k))n++; });
     return Math.min(n,42);
   }
-  function fmt(m){ if(m<60) return m+' min'; var h=Math.floor(m/60), r=m%60; return h+(r?'½':'')+' hr'+(h>1||r?'s':''); }
+  function fmt(m){
+    if(m<60) return m+' min';
+    if(m%60===0){ var w=m/60; return w+' hr'+(w>1?'s':''); }
+    if(m%30===0) return (m/60).toFixed(1)+' hrs';   /* 90 -> 1.5 hrs */
+    return Math.floor(m/60)+' hr '+(m%60)+' min';   /* 75 -> 1 hr 15 min */
+  }
   function clock(m){ var h=Math.floor(m/60), r=m%60; return h+':'+(r<10?'0':'')+r; }
 
   var chipIdx = ('dialIdx' in state) ? parseInt(state.dialIdx,10) : -1;
@@ -598,7 +605,7 @@
       /* the presets jump 3hr -> 5hr, so past three hours round to the half hour instead */
       if(PRESETS[i]===300){
         var half=Math.ceil(m/30)*30, hrs=half/60;
-        return (hrs%1) ? (Math.floor(hrs)+'\u00bd hours') : (hrs+' hours');
+        return (hrs%1 ? hrs.toFixed(1) : hrs) + ' hours';
       }
       return BIG[i];
     }
@@ -654,13 +661,15 @@
 
     /* every remaining stop is listed; selected ones carry a running clock */
     var run=0;
-    var list=ROUTE.filter(function(o){ return !fin(o) || state['plan-'+o.s]; });
+    /* every stop always renders — filtering here is what made the run vanish
+       when stale state marked things complete without a plan flag */
+    var list=ROUTE;
     document.getElementById('stops').innerHTML=list.map(function(o){
       var d=fin(o), sp=picked(o), open=!!state['open-'+o.s];
-      var st=null; if(sp){ st=run; run+=o.mins; }
-      var sub = d ? o.where
-              : sp ? o.where+' · starts about '+fmt(st)+' in'
-                   : o.where;
+      var st=0; if(sp){ st=run; run+=o.mins; }
+      var sub = d ? o.where + ' · done'
+              : sp ? o.where+' · '+fmt(o.mins)+' · starts '+fmt(st)+' in'
+                   : o.where+' · <span class="addcost">+'+fmt(o.mins)+'</span>';
       return '<div class="stop'+(d?' fin':(sp?' picked':' unpicked'))+(open?' open':'')+'" data-s="'+o.s+'">'+
         '<div class="row">'+
           '<button type="button" class="pick" data-pick="'+o.s+'" aria-label="Add or remove this stop">'+
@@ -668,19 +677,19 @@
           '<div class="rmid" data-exp="'+o.s+'"><div class="rname">'+o.name+'</div>'+
             '<div class="rsub">'+sub+'</div></div>'+
           '<span class="tag '+o.type+'">'+(o.type==='final'?'Endings':o.type)+'</span>'+
-          '<span class="dur">'+(sp||d?fmt(o.mins):'<span class="addcost">+'+fmt(o.mins)+'</span>')+'</span>'+
           '<span class="car" data-exp="'+o.s+'">▾</span></div>'+
         '<div class="body">'+
           '<div class="blk"><div class="bh">Start at</div>'+
             '<div class="start"><div class="sv">'+o.start+'</div><div class="sa">'+o.startNote+'</div></div></div>'+
-          (o.way&&o.way.length?'<div class="blk"><div class="bh">Along the way</div>'+
-            o.way.map(function(l){ return '<div class="li">'+l+'</div>'; }).join('')+'</div>':'')+
-          (o.miss&&o.miss.length?'<div class="blk"><div class="bh">Don\u2019t miss</div>'+
-            o.miss.map(function(l){ return '<div class="li miss">'+l+'</div>'; }).join('')+'</div>':'')+
+          (function(){
+            /* one list, not three — directions first, then the things people walk past */
+            var todo=(o.way||[]).map(function(l){ return '<div class="li">'+l+'</div>'; })
+              .concat((o.miss||[]).map(function(l){ return '<div class="li miss">'+l+'</div>'; }))
+              .concat((o.warn||[]).map(function(l){ return '<div class="li warn">'+l+'</div>'; }));
+            return todo.length ? '<div class="blk"><div class="bh">What to do</div>'+todo.join('')+'</div>' : '';
+          })()+
           (o.fight&&o.fight.length?'<div class="blk"><div class="bh">The fight</div>'+
             o.fight.map(function(l){ return '<div class="li fight">'+l+'</div>'; }).join('')+'</div>':'')+
-          (o.warn&&o.warn.length?'<div class="blk"><div class="bh" style="color:var(--boss)">Do not skip</div>'+
-            o.warn.map(function(l){ return '<div class="li warn">'+l+'</div>'; }).join('')+'</div>':'')+
           '<div class="out"><div class="oh">You finish with</div>'+o.out+'</div>'+
           '<button type="button" class="mark'+(d?' undo':'')+'" data-act="'+o.s+'">'+
             (d?'\u21ba Not done after all':'\u2713 Mark this complete')+'</button>'+
