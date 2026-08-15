@@ -53,46 +53,23 @@
     color:var(--gold-lt);text-shadow:0 0 30px rgba(214,168,74,.42), 0 2px 0 rgba(0,0,0,.6);line-height:1.15}
   .tagline{font-style:italic;color:var(--text-3);margin-top:12px;font-size:16.5px;letter-spacing:.02em}
 
-  /* ── stat strip ── */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 34px}
-  @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 12px;text-align:center;
-    box-shadow:var(--shadow);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
-  .stat .n{font-family:'Cinzel',serif;font-size:25px;font-weight:600;color:var(--gold-lt);line-height:1.2;
-    text-shadow:0 0 18px rgba(214,168,74,.3)}
-  .stat .n small{font-size:14px;color:var(--text-3);font-weight:400;text-shadow:none}
-  .stat .k{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--text-3);margin-top:6px}
-  .stat .track{height:3px;border-radius:2px;background:var(--line-2);margin-top:10px;overflow:hidden}
-  .stat .track i{display:block;height:100%;width:0;transition:width .45s ease;
-    background:linear-gradient(90deg,#7a5f24,var(--gold),#f0dda4);box-shadow:0 0 10px rgba(214,168,74,.6)}
-
-  /* ── the dial ── */
+  /* ── the ask ── */
   .dial{background:linear-gradient(170deg,var(--panel-hi),var(--panel));border:1px solid var(--line);border-radius:14px;
-    padding:26px 26px 20px;box-shadow:var(--shadow-lift);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
-    position:relative;overflow:hidden}
+    padding:26px 24px 22px;box-shadow:var(--shadow-lift);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    position:relative;overflow:hidden;margin-top:6px}
   .dial::before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;
     background:linear-gradient(90deg,transparent,rgba(214,168,74,.55),transparent)}
-  .dial .q{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);
-    text-align:center}
-  .dial .big{font-family:'Cinzel',serif;font-size:clamp(29px,6.6vw,40px);font-weight:600;text-align:center;
-    line-height:1.15;margin:8px 0 20px;color:var(--gold-lt);text-shadow:0 0 26px rgba(214,168,74,.35)}
-  .slot{position:relative;padding:0 4px}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:4px;cursor:pointer;
-    background:linear-gradient(90deg,#a8842f 0%,#e2cb8a var(--pct,50%),#2c2416 var(--pct,50%),#2c2416 100%);
-    outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.7)}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;
-    background:radial-gradient(circle at 34% 28%,#fdf2cf,#c8a24e 52%,#6d5320);border:1px solid #f0dda4;cursor:pointer;
-    box-shadow:0 0 18px rgba(226,203,138,.75), 0 2px 6px rgba(0,0,0,.6)}
-  input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;
-    background:radial-gradient(circle at 34% 28%,#fdf2cf,#c8a24e 52%,#6d5320);border:1px solid #f0dda4;cursor:pointer;
-    box-shadow:0 0 18px rgba(226,203,138,.75)}
-  .ticks{display:flex;justify-content:space-between;margin-top:14px}
-  .ticks button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.05em;color:var(--text-3);background:none;
-    border:none;cursor:pointer;padding:6px 2px;flex:1;transition:all .16s ease}
-  .ticks button:hover{color:var(--gold)}
-  .ticks button.on{color:var(--gold-lt);font-weight:600;text-shadow:0 0 14px rgba(214,168,74,.6)}
-  .dialnote{font-size:14.5px;color:var(--text-3);font-style:italic;text-align:center;margin-top:16px}
+  .dial .q{font-family:'Cinzel',serif;font-size:clamp(15px,3.4vw,19px);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold-lt);text-align:center;text-shadow:0 0 24px rgba(214,168,74,.3);margin-bottom:20px}
+  .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  @media(min-width:660px){.chips{grid-template-columns:repeat(8,1fr)}}
+  .chips button{font-family:'Cinzel',serif;font-size:14px;font-weight:500;letter-spacing:.03em;cursor:pointer;
+    background:rgba(0,0,0,.32);color:var(--text-2);border:1px solid var(--line);border-radius:10px;padding:16px 4px;
+    transition:all .18s ease}
+  .chips button:hover{border-color:var(--gold-dim);color:var(--gold-lt)}
+  .chips button.on{background:linear-gradient(170deg,#e2c98c,#a8842f);color:#120d06;border-color:var(--gold-lt);
+    font-weight:700;box-shadow:0 0 22px rgba(214,168,74,.4)}
+  .dialnote{font-size:14.5px;color:var(--text-3);font-style:italic;text-align:center;margin-top:18px}
 
   /* ── tally ── */
   .tally{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px;
@@ -241,10 +218,20 @@
   .nope{color:var(--text-3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em}
   .tblwrap{overflow-x:auto}
 
-  .foot{display:flex;gap:10px;justify-content:center;margin-top:28px;flex-wrap:wrap}
-  .foot button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-    background:none;color:var(--text-3);border:1px solid var(--line);border-radius:8px;padding:12px 22px;transition:all .18s ease}
-  .foot button:hover{color:var(--gold);border-color:var(--gold-dim)}
+  .savebar{position:sticky;bottom:0;z-index:40;margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    background:linear-gradient(170deg,rgba(30,23,13,.96),rgba(14,11,7,.98));border:1px solid var(--gold-dim);
+    border-radius:14px;padding:16px 20px;box-shadow:0 -6px 40px rgba(0,0,0,.8);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .savetxt{flex:1;min-width:190px;font-size:14px;color:var(--text-3);line-height:1.5}
+  .savetxt em{color:var(--gold);font-style:normal}
+  .savebtn{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+    background:linear-gradient(170deg,#e2c98c,#a8842f);color:#120d06;border:1px solid var(--gold-lt);border-radius:10px;
+    padding:16px 28px;font-weight:700;transition:all .18s ease;flex:0 0 auto}
+  .savebtn:hover{filter:brightness(1.1);box-shadow:0 0 26px rgba(214,168,74,.5)}
+  .savebtn.done{background:linear-gradient(170deg,#9fd182,#5e8a48);border-color:#b6e09c}
+  .resetbtn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+    background:none;color:var(--text-3);border:1px solid var(--line);border-radius:9px;padding:14px 16px;flex:0 0 auto}
+  .resetbtn:hover{color:var(--boss);border-color:var(--boss)}
   .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;
     background:linear-gradient(170deg,#c8a24e,#8a6d28);color:#120d06;
     font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;padding:14px 26px;border-radius:9px;font-weight:600;
@@ -353,23 +340,10 @@
     <div class="tagline">Pick your time. Get your route.</div>
   </header>
 
-  <div class="stats">
-    <div class="stat"><div class="n" id="st-tro">30<small> / 42</small></div><div class="k">Trophies</div>
-      <div class="track"><i id="bar-tro"></i></div></div>
-    <div class="stat"><div class="n" id="st-hrs">13<small> hrs</small></div><div class="k">Left to play</div>
-      <div class="track"><i id="bar-hrs"></i></div></div>
-    <div class="stat"><div class="n" id="st-stops">11</div><div class="k">Stops remaining</div>
-      <div class="track"><i id="bar-stops"></i></div></div>
-    <div class="stat"><div class="n" id="st-boss">4</div><div class="k">Bosses left</div>
-      <div class="track"><i id="bar-boss"></i></div></div>
-  </div>
-
   <div class="dial">
-    <div class="q">How long have you got?</div>
-    <div class="big" id="bigtime">1½ hours</div>
-    <div class="slot"><input type="range" id="dial" min="0" max="7" step="1" value="3" aria-label="Session length"></div>
-    <div class="ticks" id="ticks"></div>
-    <div class="dialnote">Sets a starting selection — then add or drop stops below and the total follows.</div>
+    <div class="q">How much time do you have?</div>
+    <div class="chips" id="chips"></div>
+    <div class="dialnote">Picks a starting set — then add or drop stops below and the total follows.</div>
   </div>
 
   <div class="tally" id="tally">
@@ -424,9 +398,11 @@
     </div>
   </div>
 
-  <div class="foot">
-    <button type="button" id="copy">Copy status</button>
-    <button type="button" id="reset">Reset</button>
+  <div class="savebar">
+    <div class="savetxt">Everything saves to this device as you tick.<br>
+      <em>Save &amp; copy</em> puts your progress on the clipboard to paste back into the chat.</div>
+    <button type="button" class="savebtn" id="save">Save &amp; copy</button>
+    <button type="button" class="resetbtn" id="reset">Reset</button>
   </div>
   <textarea id="dump" readonly></textarea>
   <div class="colophon">Earlier campaign — <a href="capital.html">Altus and the road to Morgott</a></div>
@@ -572,19 +548,15 @@
   function fmt(m){ if(m<60) return m+' min'; var h=Math.floor(m/60), r=m%60; return h+(r?'½':'')+' hr'+(h>1||r?'s':''); }
   function clock(m){ var h=Math.floor(m/60), r=m%60; return h+':'+(r<10?'0':'')+r; }
 
-  var dial=document.getElementById('dial');
-  if('dialIdx' in state) dial.value=state.dialIdx;
-  function mins(){ return PRESETS[parseInt(dial.value,10)]; }
+  var chipIdx = ('dialIdx' in state) ? parseInt(state.dialIdx,10) : -1;
+  function mins(){ return chipIdx<0 ? 0 : PRESETS[chipIdx]; }
 
-  document.getElementById('ticks').innerHTML=LABELS.map(function(l,i){
+  document.getElementById('chips').innerHTML=LABELS.map(function(l,i){
     return '<button type="button" data-i="'+i+'">'+l+'</button>'; }).join('');
 
   function paintDial(){
-    var i=parseInt(dial.value,10);
-    dial.style.setProperty('--pct',(i/7*100)+'%');
-    document.getElementById('bigtime').textContent=BIG[i];
-    document.querySelectorAll('#ticks button').forEach(function(b){
-      b.classList.toggle('on',parseInt(b.dataset.i,10)===i); });
+    document.querySelectorAll('#chips button').forEach(function(b){
+      b.classList.toggle('on',parseInt(b.dataset.i,10)===chipIdx); });
   }
 
   /* ══ render ══ */
@@ -622,17 +594,6 @@
     var total=sel.reduce(function(a,o){ return a+o.mins; },0);
     var left=0, bossLeft=0;
     ROUTE.forEach(function(o){ if(fin(o)) return; left+=o.mins; if(o.type==='boss') bossLeft++; });
-
-    /* stats strip */
-    var t=trophies(), stopsLeft=ROUTE.filter(function(o){ return !fin(o); }).length;
-    document.getElementById('st-tro').innerHTML=t+'<small> / 42</small>';
-    document.getElementById('bar-tro').style.width=(t/42*100)+'%';
-    document.getElementById('st-hrs').innerHTML=left?Math.round(left/60)+'<small> hrs</small>':'0';
-    document.getElementById('bar-hrs').style.width=((800-left)/800*100)+'%';
-    document.getElementById('st-stops').textContent=stopsLeft;
-    document.getElementById('bar-stops').style.width=((11-stopsLeft)/11*100)+'%';
-    document.getElementById('st-boss').textContent=bossLeft;
-    document.getElementById('bar-boss').style.width=((4-bossLeft)/4*100)+'%';
 
     /* tally */
     var tally=document.getElementById('tally');
@@ -773,10 +734,9 @@
   }
 
   /* ══ chrome ══ */
-  dial.addEventListener('input',function(){ state.dialIdx=dial.value; autoPick(); refresh(); });
-  document.getElementById('ticks').addEventListener('click',function(ev){
+  document.getElementById('chips').addEventListener('click',function(ev){
     var b=ev.target.closest('button'); if(!b) return;
-    dial.value=b.dataset.i; state.dialIdx=dial.value; autoPick(); refresh();
+    chipIdx=parseInt(b.dataset.i,10); state.dialIdx=chipIdx; autoPick(); refresh();
   });
   var ref=document.getElementById('ref');
   if(state['ref-open']) ref.classList.add('open');
@@ -785,21 +745,61 @@
     this.textContent=ref.classList.contains('open')?'Build, stats & weapons ▴':'Build, stats & weapons ▾';
   });
   function summary(){
-    var L=lvl(),o=[];
-    o.push('ELDEN RING — Level '+L.l+', '+trophies()+'/42');
-    o.push('VIG '+num('s-vig')+' MND '+num('s-mind')+' END '+num('s-end')+' STR '+num('s-str')+
-           ' DEX '+num('s-dex')+' INT '+num('s-int')+' FAI '+num('s-fai')+' ARC '+num('s-arc'));
-    o.push('Uchigatana +'+num('s-main')+'/+'+num('s-off')+', Mimic +'+num('s-mimic')+', '+num('s-flask')+' flasks');
-    o.push(''); o.push('LEFT TO DO');
-    ROUTE.forEach(function(r){ if(!fin(r)) o.push('  ☐ '+r.s+'. '+r.name+' — '+r.where+' ('+r.mins+' min, start at '+r.start+')'); });
-    var d=ROUTE.filter(fin);
-    if(d.length){ o.push(''); o.push('DONE'); d.forEach(function(r){ o.push('  ✓ '+r.s+'. '+r.name); }); }
+    var L=lvl(), o=[];
+    o.push('=== ELDEN RING — SAVED PROGRESS ===');
+    o.push('');
+    o.push('BUILD');
+    o.push('  Level ' + L.l + ' (derived from stats)');
+    o.push('  VIG '+num('s-vig')+'  MND '+num('s-mind')+'  END '+num('s-end')+'  STR '+num('s-str'));
+    o.push('  DEX '+num('s-dex')+'  INT '+num('s-int')+'  FAI '+num('s-fai')+'  ARC '+num('s-arc'));
+    o.push('  Uchigatana +'+num('s-main')+' / +'+num('s-off')+'   Mimic Tear +'+num('s-mimic'));
+    o.push('  Flask charges: '+num('s-flask'));
+    o.push('  Trophies: '+trophies()+' / 42');
+    o.push('');
+
+    var doneList=ROUTE.filter(fin), todo=ROUTE.filter(function(r){ return !fin(r); });
+    o.push('COMPLETED ('+doneList.length+' of '+ROUTE.length+')');
+    if(!doneList.length) o.push('  nothing yet');
+    else doneList.forEach(function(r){ o.push('  [x] '+r.s+'. '+r.name+' — '+r.where); });
+    o.push('');
+
+    o.push('STILL TO DO ('+todo.reduce(function(a,r){ return a+r.mins; },0)+' min total)');
+    todo.forEach(function(r){
+      o.push('  [ ] '+r.s+'. '+r.name+' — '+r.where+'  ('+r.mins+' min, start at '+r.start+')'); });
+    o.push('');
+
+    var sel=ROUTE.filter(picked);
+    if(sel.length){
+      o.push('PLANNED FOR NEXT SESSION ('+fmt(sel.reduce(function(a,r){ return a+r.mins; },0))+')');
+      sel.forEach(function(r){ o.push('  -> '+r.s+'. '+r.name); });
+      o.push('');
+    }
+
+    var pfDone=[], pfTodo=[];
+    sel.forEach(function(r){ (r.prep||[]).forEach(function(pr){
+      var id='pf'+pr.t.replace(/[^a-z]/gi,'').slice(0,16);
+      var txt=pr.t.replace(/<[^>]+>/g,'');
+      var bucketArr = on(id) ? pfDone : pfTodo;
+      if(bucketArr.indexOf(txt)<0) bucketArr.push(txt);
+    }); });
+    if(pfDone.length||pfTodo.length){
+      o.push('PREP');
+      pfDone.forEach(function(x){ o.push('  [x] '+x); });
+      pfTodo.forEach(function(x){ o.push('  [ ] '+x); });
+    }
     return o.join('\n');
   }
-  document.getElementById('copy').addEventListener('click',function(){
+
+  document.getElementById('save').addEventListener('click',function(){
     var txt=summary(), ta=document.getElementById('dump'); ta.value=txt;
-    var t=document.getElementById('toast');
-    function ok(){ t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },1700); }
+    var t=document.getElementById('toast'), btn=this;
+    function ok(){
+      t.textContent='Saved — now paste it into the chat';
+      t.classList.add('show');
+      btn.classList.add('done'); btn.textContent='✓ Copied';
+      setTimeout(function(){ t.classList.remove('show'); },2400);
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent='Save & copy'; },2600);
+    }
     if(navigator.clipboard&&navigator.clipboard.writeText)
       navigator.clipboard.writeText(txt).then(ok,function(){ ta.classList.add('show'); ta.select(); });
     else { ta.classList.add('show'); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} }
@@ -810,7 +810,7 @@
   });
 
   function refresh(){ paintBuild(); render(); persist(); }
-  if(!ROUTE.some(function(o){ return ('sel-'+o.s) in state; })) autoPick();
+  if(!ROUTE.some(function(o){ return ('sel-'+o.s) in state; })){ if(chipIdx<0){ chipIdx=3; state.dialIdx=3; } autoPick(); }
   refresh();
 })();
 </script>
