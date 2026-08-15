@@ -81,6 +81,7 @@
   .tally .tnum{font-family:'Cinzel',serif;font-size:30px;font-weight:600;line-height:1.1;color:var(--gold-lt);
     text-shadow:0 0 24px rgba(214,168,74,.35)}
   .tally .tsub{font-size:15px;color:var(--text-3);margin-top:4px}
+  .tally .tsub b{color:var(--ok);font-weight:600}
   .tally .tbucket{margin-left:auto;text-align:right}
   .tally .tbucket .bk{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
   .tally .tbucket .bv{font-family:'Cinzel',serif;font-size:19px;font-weight:600;margin-top:3px;color:var(--text)}
@@ -668,11 +669,16 @@
   }
 
   /* Moving the dial replaces the selection with a greedy fill in route order. */
+  /* Stops come in 20-120 min lumps, so an exact fit is usually impossible.
+     Overshooting the ask by up to OVERSHOOT minutes beats leaving a big
+     hole — nobody who says "45 minutes" means 45 to the minute. */
+  var OVERSHOOT=15;
   function autoPick(){
-    var budget=mins();
+    var ask=mins(), used=0;
     ROUTE.forEach(function(o){
       if(fin(o)){ state['sel-'+o.s]=false; return; }
-      if(o.mins<=budget){ budget-=o.mins; state['sel-'+o.s]=true; }
+      var after=used+o.mins;
+      if(after<=ask || after-ask<=OVERSHOOT){ used=after; state['sel-'+o.s]=true; }
       else state['sel-'+o.s]=false;
     });
   }
@@ -689,9 +695,15 @@
     var tally=document.getElementById('tally');
     tally.classList.toggle('empty', !sel.length);
     document.getElementById('t-total').textContent = sel.length ? fmt(total) : '—';
-    document.getElementById('t-sub').textContent = sel.length
-      ? sel.length + (sel.length===1?' stop selected':' stops selected')
-      : 'Tick a stop below, or move the dial';
+    var askEl=document.getElementById('t-sub');
+    if(!sel.length){ askEl.textContent='Add a stop below, or pick a time above'; }
+    else {
+      var ask=mins(), n=sel.length+(sel.length===1?' stop':' stops');
+      if(!ask){ askEl.textContent=n+' selected'; }
+      else if(total===ask){ askEl.innerHTML=n+' · <b>exactly</b> the '+fmt(ask)+' you picked'; }
+      else if(total<ask){ askEl.innerHTML=n+' · '+(ask-total)+' min under the '+fmt(ask)+' you picked'; }
+      else { askEl.innerHTML=n+' · '+(total-ask)+' min over the '+fmt(ask)+' you picked'; }
+    }
     document.getElementById('t-bucket').textContent = sel.length ? bucket(total) : '—';
 
     /* prep, for the selected stops only */
