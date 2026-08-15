@@ -10,11 +10,11 @@
 <style>
   /* ═══ palette: taken off the cover — near-black ground, gold leaf, ember glow ═══ */
   :root{
-    --void:#080604; --ground:#0e0b07; --raise:#171208; --raise-2:#1e1810;
-    --panel:rgba(24,18,10,.78); --panel-hi:rgba(34,26,14,.85);
+    --void:#050d0c; --ground:#0b1a19; --raise:#122523; --raise-2:#17302d;
+    --panel:rgba(16,34,32,.76); --panel-hi:rgba(24,48,45,.84);
     --gold:#c8a24e; --gold-lt:#f2e0aa; --gold-dim:#6f5a2c;
-    --text:#dccdaa; --text-2:#a89877; --text-3:#7b6e56;
-    --line:#3d3220; --line-2:#2a2216;
+    --text:#d8dbc9; --text-2:#a3ac9b; --text-3:#75837a;
+    --line:#27423e; --line-2:#1b302d;
     --boss:#c4664a; --boss-bg:rgba(196,102,74,.12);
     --item:#c8a24e; --item-bg:rgba(200,162,78,.13);
     --puzzle:#5fa89e; --puzzle-bg:rgba(95,168,158,.13);
@@ -28,27 +28,27 @@
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
     background:
-      radial-gradient(1200px 760px at 50% -12%, rgba(214,168,74,.20) 0%, rgba(214,168,74,0) 64%),
-      radial-gradient(900px 700px at 50% 108%, rgba(150,104,38,.13) 0%, rgba(150,104,38,0) 62%),
-      linear-gradient(180deg, var(--ground) 0%, var(--void) 62%, #0a0705 100%);
+      radial-gradient(1150px 720px at 50% 4%, rgba(226,190,104,.22) 0%, rgba(226,190,104,0) 58%),
+      radial-gradient(1000px 620px at 50% 30%, rgba(88,168,150,.14) 0%, rgba(88,168,150,0) 62%),
+      radial-gradient(900px 640px at 50% 112%, rgba(40,92,84,.30) 0%, rgba(40,92,84,0) 64%),
+      linear-gradient(180deg, #0f2422 0%, #0a1a19 44%, var(--void) 100%);
     background-attachment:fixed;
     color:var(--text); font-family:'EB Garamond',Georgia,serif; font-size:17px; line-height:1.62;
     padding:0 18px 90px; min-height:100vh; position:relative;
   }
   /* ── background furniture ── */
   .bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-  .bg .sword{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(24deg);
-    width:min(150vw,1500px);height:auto;opacity:.10}
-  .bg .sigil{position:absolute;top:-190px;left:50%;transform:translateX(-50%);width:720px;height:720px;opacity:.22}
+  .bg .skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:min(46vh,420px);opacity:.9}
+  .bg .sigil{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:760px;height:760px;opacity:.30}
   .bg .emberfield{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
   .bg .vig{position:absolute;inset:0;
-    background:radial-gradient(120% 80% at 50% 45%, rgba(0,0,0,0) 42%, rgba(0,0,0,.62) 100%)}
+    background:radial-gradient(125% 85% at 50% 38%, rgba(0,0,0,0) 40%, rgba(3,12,11,.72) 100%)}
   @media(max-width:620px){ .bg .sigil{width:520px;height:520px;top:-140px} }
   .wrap{max-width:820px;margin:0 auto;position:relative;z-index:1}
 
   /* ── masthead ── */
   header{text-align:center;padding:52px 0 24px}
-  .mark{display:block;width:min(78vw,330px);height:auto;margin:0 auto 18px}
+  .emblem{display:block;width:min(72vw,300px);height:auto;margin:0 auto 20px;overflow:visible}
   h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,6.4vw,46px);letter-spacing:.16em;
     color:var(--gold-lt);text-shadow:0 0 30px rgba(214,168,74,.42), 0 2px 0 rgba(0,0,0,.6);line-height:1.15}
   .tagline{font-style:italic;color:var(--text-3);margin-top:12px;font-size:16.5px;letter-spacing:.02em}
@@ -76,6 +76,8 @@
     background:linear-gradient(170deg,var(--panel-hi),var(--panel));border:1px solid var(--gold-dim);
     border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-lift), inset 0 0 40px rgba(214,168,74,.05);
     backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .tally .bk{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:5px}
   .tally .tnum{font-family:'Cinzel',serif;font-size:30px;font-weight:600;line-height:1.1;color:var(--gold-lt);
     text-shadow:0 0 24px rgba(214,168,74,.35)}
   .tally .tsub{font-size:15px;color:var(--text-3);margin-top:4px}
@@ -121,17 +123,20 @@
   .stop:hover{border-color:var(--gold-dim)}
   .stop.picked{border-color:var(--gold-dim);box-shadow:var(--shadow), inset 0 0 30px rgba(214,168,74,.045)}
   .stop.open{border-color:var(--gold)}
-  .stop.unpicked{opacity:.5}
-  .stop.unpicked:hover{opacity:.85}
-  .stop.fin{opacity:.42}
+  .stop.unpicked{background:rgba(10,24,22,.55);border-color:var(--line-2)}
+  .stop.unpicked .rname{color:var(--text-2)}
+  .stop.unpicked:hover{background:var(--panel);border-color:var(--gold-dim)}
+  .stop.fin{opacity:.62;background:rgba(8,20,18,.5)}
   .row{display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;user-select:none}
-  .pick{flex:0 0 auto;width:34px;height:34px;border-radius:50%;cursor:pointer;font-family:'Cinzel',serif;
-    font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;
-    background:rgba(0,0,0,.3);color:var(--text-3);border:1.5px dashed var(--line);transition:all .18s ease}
-  .pick:hover{border-color:var(--gold);color:var(--gold)}
-  .stop.picked .pick{background:radial-gradient(circle at 35% 30%,#f2e0aa,#c8a24e 60%,#8a6d28);color:#120d06;
-    border:1.5px solid var(--gold-lt);box-shadow:0 0 16px rgba(214,168,74,.5)}
-  .stop.fin .pick{background:var(--ok-bg);color:var(--ok);border:1.5px solid var(--ok);box-shadow:none}
+  .pick{flex:0 0 auto;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;font-weight:600;padding:9px 13px;border-radius:8px;min-width:92px;text-align:center;
+    background:rgba(0,0,0,.3);color:var(--text-3);border:1px dashed var(--line);transition:all .18s ease}
+  .pick:hover{border-color:var(--gold);color:var(--gold-lt);border-style:solid}
+  .stop.picked .pick{background:linear-gradient(170deg,#e2c98c,#a8842f);color:#0c1a19;
+    border:1px solid var(--gold-lt);border-style:solid;box-shadow:0 0 16px rgba(214,168,74,.4)}
+  .stop.fin .pick{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok);border-style:solid;box-shadow:none;
+    cursor:default}
+  @media(max-width:560px){.pick{min-width:0;order:3}}
   .rmid{flex:1;min-width:0}
   .rname{font-family:'Cinzel',serif;font-size:17.5px;font-weight:500;line-height:1.3;color:var(--text)}
   .stop.picked .rname{color:var(--gold-lt)}
@@ -248,49 +253,25 @@
 
 <div class="bg" aria-hidden="true">
 
-  <!-- greatsword laid across the ground, cover-art fashion -->
-  <svg class="sword" viewBox="0 0 1600 240" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0"   stop-color="#c8a24e" stop-opacity="0"/>
-        <stop offset=".16" stop-color="#e8d29a" stop-opacity=".9"/>
-        <stop offset=".62" stop-color="#c8a24e" stop-opacity=".75"/>
-        <stop offset="1"   stop-color="#7a5f24" stop-opacity=".35"/>
-      </linearGradient>
-    </defs>
-    <g fill="none" stroke="url(#steel)" stroke-linecap="round">
-      <path d="M120 120 L1080 120" stroke-width="13"/>
-      <path d="M1080 104 L1210 120 L1080 136 Z" stroke-width="4" fill="url(#steel)"/>
-      <path d="M300 120 L1060 120" stroke-width="2" stroke-opacity=".5"/>
-      <path d="M300 62 L300 178" stroke-width="11"/>
-      <path d="M262 80 Q236 120 262 160" stroke-width="6"/>
-      <path d="M338 80 Q364 120 338 160" stroke-width="6"/>
-      <path d="M150 120 L296 120" stroke-width="9"/>
-      <circle cx="128" cy="120" r="26" stroke-width="7"/>
-      <circle cx="128" cy="120" r="11" stroke-width="4"/>
-    </g>
-  </svg>
-
-  <!-- the ring: broken, spoked, hanging over everything -->
+  <!-- the ring, hanging in the sky -->
   <svg class="sigil" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <radialGradient id="halo" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="#e0b45c" stop-opacity=".24"/>
-        <stop offset="58%"  stop-color="#c8a24e" stop-opacity=".10"/>
+        <stop offset="0%"   stop-color="#f0d79a" stop-opacity=".26"/>
+        <stop offset="55%"  stop-color="#c8a24e" stop-opacity=".11"/>
         <stop offset="100%" stop-color="#c8a24e" stop-opacity="0"/>
       </radialGradient>
-      <g id="spoke"><path d="M200 46 L200 96" stroke="#e2c98c" stroke-width="1.5" stroke-linecap="round"/></g>
+      <g id="spoke"><path d="M200 44 L200 94" stroke="#f0d79a" stroke-width="1.5" stroke-linecap="round"/></g>
     </defs>
-    <circle cx="200" cy="200" r="190" fill="url(#halo)"/>
-    <g fill="none" stroke="#e2c98c" stroke-linecap="round">
-      <circle cx="200" cy="200" r="152" stroke-width="2.4" stroke-opacity=".85"
+    <circle cx="200" cy="200" r="196" fill="url(#halo)"/>
+    <g fill="none" stroke="#f0d79a" stroke-linecap="round">
+      <circle cx="200" cy="200" r="152" stroke-width="2.4" stroke-opacity=".8"
               stroke-dasharray="700 40 210 999" transform="rotate(-58 200 200)"/>
-      <circle cx="200" cy="200" r="140" stroke-width=".9" stroke-opacity=".45"/>
-      <circle cx="200" cy="200" r="104" stroke-width="1.4" stroke-opacity=".55"/>
-      <circle cx="200" cy="200" r="42"  stroke-width="1.1" stroke-opacity=".4"/>
-      <path d="M200 200 m-152 0 a152 152 0 0 1 44 -107" stroke-width="4" stroke-opacity=".9"/>
+      <circle cx="200" cy="200" r="140" stroke-width=".9" stroke-opacity=".4"/>
+      <circle cx="200" cy="200" r="104" stroke-width="1.4" stroke-opacity=".5"/>
+      <circle cx="200" cy="200" r="42"  stroke-width="1.1" stroke-opacity=".36"/>
     </g>
-    <g stroke-opacity=".5">
+    <g stroke-opacity=".42">
       <use href="#spoke"/><use href="#spoke" transform="rotate(30 200 200)"/>
       <use href="#spoke" transform="rotate(60 200 200)"/><use href="#spoke" transform="rotate(90 200 200)"/>
       <use href="#spoke" transform="rotate(120 200 200)"/><use href="#spoke" transform="rotate(150 200 200)"/>
@@ -303,7 +284,7 @@
   <!-- drifting embers -->
   <svg class="emberfield" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="ember"><stop offset="0" stop-color="#f6dfa4"/><stop offset="1" stop-color="#c8a24e" stop-opacity="0"/></radialGradient>
+      <radialGradient id="ember"><stop offset="0" stop-color="#f6e2ae"/><stop offset="1" stop-color="#c8a24e" stop-opacity="0"/></radialGradient>
       <pattern id="motes" width="340" height="420" patternUnits="userSpaceOnUse">
         <circle cx="40"  cy="70"  r="2.4" fill="url(#ember)"/>
         <circle cx="210" cy="30"  r="1.5" fill="url(#ember)"/>
@@ -317,13 +298,60 @@
     <rect width="100%" height="100%" fill="url(#motes)"/>
   </svg>
 
+  <!-- treeline and a lone Tarnished, looking up at it -->
+  <svg class="skyline" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#16332f"/><stop offset="1" stop-color="#0b1e1c"/>
+      </linearGradient>
+      <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0a1a19"/><stop offset="1" stop-color="#050f0e"/>
+      </linearGradient>
+    </defs>
+
+    <!-- distant ridge -->
+    <path fill="url(#far)" opacity=".85" d="M0 300 L120 236 L210 272 L330 198 L430 258 L540 214 L650 268
+      L760 220 L880 266 L990 210 L1110 262 L1220 228 L1320 268 L1400 240 L1400 420 L0 420 Z"/>
+
+    <!-- conifer treeline -->
+    <g fill="url(#near)">
+      <path d="M60 420 L60 330 L44 330 L74 276 L104 330 L88 330 L88 420 Z"/>
+      <path d="M150 420 L150 344 L136 344 L164 292 L192 344 L178 344 L178 420 Z"/>
+      <path d="M246 420 L246 322 L228 322 L262 262 L296 322 L278 322 L278 420 Z"/>
+      <path d="M348 420 L348 350 L334 350 L362 300 L390 350 L376 350 L376 420 Z"/>
+      <path d="M452 420 L452 332 L434 332 L468 270 L502 332 L484 332 L484 420 Z"/>
+      <path d="M566 420 L566 346 L552 346 L580 296 L608 346 L594 346 L594 420 Z"/>
+      <path d="M668 420 L668 326 L650 326 L684 264 L718 326 L700 326 L700 420 Z"/>
+      <path d="M790 420 L790 348 L776 348 L804 298 L832 348 L818 348 L818 420 Z"/>
+      <path d="M892 420 L892 330 L874 330 L908 268 L942 330 L924 330 L924 420 Z"/>
+      <path d="M1006 420 L1006 350 L992 350 L1020 300 L1048 350 L1034 350 L1034 420 Z"/>
+      <path d="M1104 420 L1104 324 L1086 324 L1120 262 L1154 324 L1136 324 L1136 420 Z"/>
+      <path d="M1226 420 L1226 346 L1212 346 L1240 296 L1268 346 L1254 346 L1254 420 Z"/>
+      <path d="M1330 420 L1330 332 L1312 332 L1346 270 L1380 332 L1362 332 L1362 420 Z"/>
+      <rect x="0" y="386" width="1400" height="34"/>
+    </g>
+
+    <!-- the Tarnished, cloaked, sword grounded -->
+    <g fill="#04100f">
+      <path d="M700 396 L700 352 Q694 346 694 336 Q694 322 706 318 Q702 308 706 300
+               Q710 292 720 292 Q730 292 734 300 Q738 308 734 318 Q746 322 746 336
+               Q746 346 740 352 L740 396 Z"/>
+      <path d="M720 268 Q712 268 710 276 Q708 286 712 292 Q716 296 720 296
+               Q724 296 728 292 Q732 286 730 276 Q728 268 720 268 Z"/>
+      <path d="M745 300 L751 300 L751 398 L745 398 Z"/>
+      <path d="M739 306 L757 306 L757 311 L739 311 Z"/>
+      <path d="M694 352 Q676 372 672 398 L700 398 Z"/>
+      <path d="M746 352 Q764 372 768 398 L740 398 Z"/>
+    </g>
+  </svg>
+
   <div class="vig"></div>
 </div>
 
 <div class="wrap">
 
   <header>
-    <svg class="mark" viewBox="0 0 340 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="emblem" viewBox="0 0 340 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g fill="none" stroke="#c8a24e" stroke-linecap="round">
         <path d="M8 46 H120" stroke-width="1"/>
         <path d="M220 46 H332" stroke-width="1"/>
@@ -348,6 +376,7 @@
 
   <div class="tally" id="tally">
     <div>
+      <div class="bk">Your session</div>
       <div class="tnum" id="t-total">—</div>
       <div class="tsub" id="t-sub">Nothing selected</div>
     </div>
@@ -621,7 +650,7 @@
     } else pw.style.display='none';
 
     var hint=document.getElementById('runhint');
-    hint.textContent = stopsLeft ? 'Tap ＋ to add a stop · tap the name for detail' : 'All done.';
+    hint.textContent = stopsLeft ? '＋ Add builds tonight\u2019s list · tap a name to open it' : 'All done.';
 
     /* every remaining stop is listed; selected ones carry a running clock */
     var run=0;
@@ -635,7 +664,7 @@
       return '<div class="stop'+(d?' fin':(sp?' picked':' unpicked'))+(open?' open':'')+'" data-s="'+o.s+'">'+
         '<div class="row">'+
           '<button type="button" class="pick" data-pick="'+o.s+'" aria-label="Add or remove this stop">'+
-            (d?'✓':(sp?'✓':'＋'))+'</button>'+
+            (d?'✓ Done':(sp?'✓ In session':'＋ Add'))+'</button>'+
           '<div class="rmid" data-exp="'+o.s+'"><div class="rname">'+o.name+'</div>'+
             '<div class="rsub">'+sub+'</div></div>'+
           '<span class="tag '+o.type+'">'+(o.type==='final'?'Endings':o.type)+'</span>'+
@@ -653,7 +682,8 @@
           (o.warn&&o.warn.length?'<div class="blk"><div class="bh" style="color:var(--boss)">Do not skip</div>'+
             o.warn.map(function(l){ return '<div class="li warn">'+l+'</div>'; }).join('')+'</div>':'')+
           '<div class="out"><div class="oh">You finish with</div>'+o.out+'</div>'+
-          '<button type="button" class="mark'+(d?' undo':'')+'" data-act="'+o.s+'">'+(d?'\u21ba Undo':'Mark done')+'</button>'+
+          '<button type="button" class="mark'+(d?' undo':'')+'" data-act="'+o.s+'">'+
+            (d?'\u21ba Not done after all':'\u2713 Mark this complete')+'</button>'+
         '</div></div>';
     }).join('');
 
