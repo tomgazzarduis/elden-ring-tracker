@@ -33,7 +33,15 @@
     color:var(--ink); font-family:'EB Garamond',Georgia,serif; font-size:17px; line-height:1.6;
     padding:0 18px 90px; min-height:100vh; position:relative;
   }
-  .erdtree{position:fixed;right:-90px;bottom:-70px;width:520px;height:520px;opacity:.055;pointer-events:none;z-index:0}
+  /* ── background: asanoha lattice, rising sun, seigaiha waves ── */
+  .bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .bg .lattice{position:absolute;inset:0;width:100%;height:100%;opacity:.30}
+  .bg .sun{position:absolute;top:-140px;left:50%;transform:translateX(-50%);width:760px;height:760px;opacity:.5}
+  .bg .waves{position:absolute;left:0;right:0;bottom:-10px;width:100%;height:230px;opacity:.42}
+  @media(max-width:620px){
+    .bg .sun{width:560px;height:560px;top:-110px}
+    .bg .waves{height:150px}
+  }
   .wrap{max-width:820px;margin:0 auto;position:relative;z-index:1}
 
   /* ── masthead ────────────────────────────────────────── */
@@ -97,7 +105,10 @@
     color:#fdfaf2;font-size:13px;font-weight:700}
   .chk input:checked ~ .ct{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
   .ct b{color:var(--ink);font-weight:600}
-  .ct .src{display:block;font-size:15px;color:var(--ink-3);margin-top:4px;line-height:1.45}
+  .ct .src{display:block;font-size:15px;color:var(--ink-2);margin-top:7px;line-height:1.5;
+    background:var(--card-2);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;padding:8px 12px}
+  .ct .src em{font-family:'Cinzel',serif;font-style:normal;font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);display:block;margin-bottom:3px}
   .ct .for{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--ink-3);margin-top:3px}
 
@@ -221,18 +232,74 @@
 </head>
 <body>
 
-<svg class="erdtree" viewBox="0 0 200 200" aria-hidden="true">
-  <g fill="none" stroke="#6b4f18" stroke-width="1.6" stroke-linecap="round">
-    <path d="M100 190 L100 96"/>
-    <path d="M100 128 Q76 112 62 78 M100 128 Q124 112 138 78"/>
-    <path d="M100 108 Q82 94 72 62 M100 108 Q118 94 128 62"/>
-    <path d="M100 150 Q80 138 68 110 M100 150 Q120 138 132 110"/>
-    <path d="M100 96 Q92 70 96 40 M100 96 Q108 70 104 40"/>
-    <path d="M72 62 Q66 44 70 26 M128 62 Q134 44 130 26"/>
-    <path d="M62 78 Q52 58 54 38 M138 78 Q148 58 146 38"/>
-  </g>
-  <circle cx="100" cy="70" r="58" fill="#8a6a1f" opacity=".18"/>
-</svg>
+<div class="bg" aria-hidden="true">
+
+  <!-- asanoha: triangular lattice, the hemp-leaf grid -->
+  <svg class="lattice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="asanoha" width="60" height="103.92" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="#8a6a1f" stroke-width=".7" stroke-linecap="round">
+          <path d="M0 0 H60 M0 51.96 H60 M0 103.92 H60"/>
+          <path d="M0 0 L30 51.96 L0 103.92 M60 0 L30 51.96 L60 103.92"/>
+          <path d="M30 0 L0 51.96 M30 0 L60 51.96 M30 103.92 L0 51.96 M30 103.92 L60 51.96"/>
+          <path d="M30 0 L30 103.92 M0 0 L0 103.92 M60 0 L60 103.92"/>
+          <path d="M15 25.98 L45 25.98 M15 77.94 L45 77.94"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#asanoha)"/>
+  </svg>
+
+  <!-- hinomaru: rising sun, with the Erdtree standing in it -->
+  <svg class="sun" viewBox="0 0 400 400">
+    <defs>
+      <radialGradient id="disc" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#c98a3a" stop-opacity=".30"/>
+        <stop offset="62%"  stop-color="#c98a3a" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="#c98a3a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="175" fill="url(#disc)"/>
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#9c7628" stroke-width="1.1" opacity=".38"/>
+    <circle cx="200" cy="200" r="163" fill="none" stroke="#9c7628" stroke-width=".6" opacity=".22"/>
+    <g fill="none" stroke="#6b4f18" stroke-width="1.5" stroke-linecap="round" opacity=".30">
+      <path d="M200 330 L200 196"/>
+      <path d="M200 250 Q166 228 148 184 M200 250 Q234 228 252 184"/>
+      <path d="M200 222 Q174 202 160 160 M200 222 Q226 202 240 160"/>
+      <path d="M200 284 Q172 266 156 228 M200 284 Q228 266 244 228"/>
+      <path d="M200 196 Q189 158 194 116 M200 196 Q211 158 206 116"/>
+      <path d="M160 160 Q151 132 156 106 M240 160 Q249 132 244 106"/>
+      <path d="M148 184 Q133 154 136 126 M252 184 Q267 154 264 126"/>
+    </g>
+  </svg>
+
+  <!-- seigaiha: the blue-ocean-wave band -->
+  <svg class="waves" viewBox="0 0 1200 240" preserveAspectRatio="none">
+    <defs>
+      <g id="scale">
+        <circle cx="0" cy="0" r="58" fill="none" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="0" cy="0" r="44" fill="none" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="0" cy="0" r="30" fill="none" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="0" cy="0" r="16" fill="none" stroke="#8a6a1f" stroke-width="1"/>
+      </g>
+      <pattern id="seigaiha" width="120" height="60" patternUnits="userSpaceOnUse">
+        <use href="#scale" x="0"   y="60"/>
+        <use href="#scale" x="120" y="60"/>
+        <use href="#scale" x="60"  y="30"/>
+        <use href="#scale" x="0"   y="0"/>
+        <use href="#scale" x="120" y="0"/>
+      </pattern>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#fff" stop-opacity="0"/>
+        <stop offset="55%" stop-color="#fff" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+      </linearGradient>
+      <mask id="fademask"><rect width="1200" height="240" fill="url(#fade)"/></mask>
+    </defs>
+    <rect width="1200" height="240" fill="url(#seigaiha)" mask="url(#fademask)"/>
+  </svg>
+
+</div>
 
 <div class="wrap">
 
@@ -342,7 +409,7 @@
 
     { s:'2', mins:30, type:'item', name:'Stars of Ruin', where:'Sellia Hideaway, Caelid', ids:['r2'],
       start:'Sellia, Town of Sorcery',
-      startNote:'You farmed sorcerers here in July, so this should be lit.',
+      startNote:'You have ridden through this town before, so the grace should be lit.',
       way:['Find the cave mouth in the <b>west</b> of town, behind an illusory wall.',
            'Master Lusat sits behind a sealed door deep inside.'],
       miss:['The hideaway is built on illusory walls throughout. Hit anything that looks wrong.'],
@@ -354,7 +421,7 @@
       startNote:'You cleared Fortissax down here, so several graces are lit.',
       way:['On a corpse along the roots, near the giant ants.'],
       miss:[],
-      prep:[{t:'Check your inventory for <b>Elden Stars</b>',src:'The 13 Aug session may already have picked it up. If it is there, drop this stop and save twenty minutes.'}],
+      prep:[{t:'Check your inventory for <b>Elden Stars</b>',src:'You may already be carrying it. If it is there, drop this stop and save yourself twenty minutes.'}],
       out:'With Stars of Ruin, closes <b>Legendary Sorceries</b>.' },
 
     { s:'4', mins:30, type:'item', name:'Ancient Dragon Knight Kristoff', where:"Sainted Hero's Grave, Altus", ids:['r4'],
@@ -503,7 +570,7 @@
       document.getElementById('prep').innerHTML=need.map(function(p){
         var id='pf'+p.t.replace(/[^a-z]/gi,'').slice(0,16);
         return '<label class="chk"><input type="checkbox" data-pf="'+id+'"'+(on(id)?' checked':'')+
-               '><span class="ct">'+p.t+(p.src?'<span class="src">'+p.src+'</span>':'')+'<span class="for">for '+p.for+'</span></span></label>'; }).join('');
+               '><span class="ct">'+p.t+(p.src?'<span class="src"><em>Don’t have it?</em> '+p.src+'</span>':'')+'<span class="for">for '+p.for+'</span></span></label>'; }).join('');
       document.querySelectorAll('[data-pf]').forEach(function(c){
         c.addEventListener('change',function(){ set(c.dataset.pf,c.checked); persist(); }); });
     } else pw.style.display='none';
@@ -613,7 +680,7 @@
     else tip.push('Spending plan complete — overflow anywhere.');
     if(fai<10) tip.push('Two points of Faith unlocks the <b>Eclipse Shotel</b> you already own.');
     if(str<16) tip.push('Four points of Strength unlocks <b>Hand of Malenia</b>.');
-    if(fl<12) tip.push('Flasks at '+fl+', unverified since July — the largest lever left for Malenia.');
+    if(fl<12) tip.push('Flasks showing '+fl+' — worth confirming on the menu. It is the largest lever left for Malenia.');
     document.getElementById('tips').innerHTML=tip.map(function(x){ return '<p>'+x+'</p>'; }).join('');
 
     var cur={str:num('s-str'),dex:num('s-dex'),int:num('s-int'),fai:num('s-fai'),arc:num('s-arc')};
