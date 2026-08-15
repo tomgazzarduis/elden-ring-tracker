@@ -683,8 +683,7 @@
 
     var sel=ROUTE.filter(picked);
     var total=sel.reduce(function(a,o){ return a+o.mins; },0);
-    var left=0, bossLeft=0;
-    ROUTE.forEach(function(o){ if(fin(o)) return; left+=o.mins; if(o.type==='boss') bossLeft++; });
+    var stopsLeft=ROUTE.filter(function(o){ return !fin(o); }).length;
 
     /* tally */
     var tally=document.getElementById('tally');
