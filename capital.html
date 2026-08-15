@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Campaign — Altus & Leyndell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#100d08; --gold:#d9b45a; --gold-bright:#f2dc94; --parch:#cdba8e;
+    --parch-dim:#8f8464; --line:#3a3120; --red:#d98a68; --rune:#8fd0c8; --danger:#c97b6a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 800px at 50% -10%, #241d10 0%, var(--ink) 60%);
+    color:var(--parch); font-family:'EB Garamond', Georgia, serif; line-height:1.6;
+    padding:32px 20px 64px; min-height:100vh;
+  }
+  .wrap{max-width:1180px;margin:0 auto}
+  header{text-align:center;margin-bottom:28px}
+  .eyebrow{font-family:'Cinzel',serif;letter-spacing:.42em;text-transform:uppercase;font-size:11px;color:var(--parch-dim);margin-bottom:14px}
+  h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(28px,5vw,46px);color:var(--gold-bright);text-shadow:0 0 24px rgba(217,180,90,.35);letter-spacing:.02em;line-height:1.1}
+  .sub{color:var(--parch-dim);font-style:italic;font-size:16px;margin-top:10px}
+  .ledger{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .ledger span{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:#9fc98f;border:1px solid #3a5230;border-radius:20px;padding:3px 12px}
+
+  .layout{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;margin-top:8px}
+  @media(max-width:920px){.layout{grid-template-columns:1fr}}
+  .mapcard{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);border-radius:14px;padding:14px;
+    box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5);align-self:start;position:sticky;top:16px}
+  @media(max-width:920px){.mapcard{position:static}}
+  svg{width:100%;height:auto;display:block}
+  .region-label{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;fill:var(--parch);text-transform:uppercase}
+  .region-label.dim{fill:var(--parch-dim);font-size:11px}
+  .wp{cursor:pointer}
+  .wp circle.node{transition:r .15s ease}
+  .wp:hover circle.node{r:17}
+  .wp.lit circle.node{filter:url(#glow);stroke:#fff}
+  .wp text{font-family:'Cinzel',serif;font-weight:700;font-size:12px;fill:var(--ink);pointer-events:none}
+  .hint{text-align:center;color:var(--parch-dim);font-size:13px;font-style:italic;margin-top:8px}
+
+  .panel h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .step{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px;cursor:pointer;
+    background:linear-gradient(160deg,rgba(24,18,9,.6),rgba(13,10,5,.6));transition:border-color .2s ease}
+  .step.active{border-color:var(--gold)}
+  .step.next{border-color:#9fc98f}
+  .step.next .t::after{content:"  ◄ YOU ARE HERE";font-size:11px;letter-spacing:.14em;color:#9fc98f}
+  .step .n{font-family:'Cinzel',serif;color:var(--gold-bright);font-weight:700;font-size:12px;letter-spacing:.12em}
+  .step .t{font-family:'Cinzel',serif;color:var(--parch);font-size:17px;margin:2px 0 8px}
+  .step p{font-size:15px;color:#b7a982;margin-bottom:8px}
+  .brief{background:rgba(217,180,90,.08);border:1px solid #4a3f22;border-radius:8px;padding:8px 12px;margin:8px 0 10px;font-size:14.5px;color:#d4c193}
+  .brief b{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--gold-bright)}
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
+  @media(max-width:480px){.stats{grid-template-columns:repeat(3,1fr)}}
+  .stat{background:rgba(217,180,90,.06);border:1px solid var(--line);border-radius:8px;padding:6px 4px;text-align:center}
+  .stat .k{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;color:var(--parch-dim);text-transform:uppercase}
+  .stat .v{font-family:'Cinzel',serif;font-size:15px;color:var(--gold-bright);font-weight:600}
+  .row{font-size:14.5px;color:#b7a982;margin:4px 0;padding-left:22px;position:relative}
+  .row::before{position:absolute;left:0;top:1px;font-size:13px}
+  .row.item::before{content:"◆";color:#9fc98f}
+  .row.enemy::before{content:"☠";color:var(--danger)}
+  .row.ash::before{content:"❖";color:#b8a1e3}
+  .row.farm::before{content:"◉";color:var(--rune)}
+  .row.grace::before{content:"⚑";color:var(--gold-bright)}
+  .row.grace{color:#d4c193}
+  .row b{color:var(--parch);font-weight:500}
+
+  .section{margin-top:28px;border-radius:14px;padding:24px 26px;background:linear-gradient(160deg,#161006,#0c0904);border:1px solid var(--line)}
+  .section h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  .section ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px 30px}
+  @media(max-width:720px){.section ul{grid-template-columns:1fr}}
+  .section li{font-size:15px;color:#b7a982;padding-left:20px;position:relative}
+  .section li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:12px;top:3px}
+  .section li b{color:var(--parch);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">The final card, expanded</div>
+    <h1>The Capital Campaign</h1>
+    <div class="sub">Altus for seeds and steel, then Leyndell for the throne. The last arrow on the original map.</div>
+    <div class="ledger">
+      <span>LVL 72</span><span>+16 / +12 KEEN</span><span>MIMIC +4</span><span>DEX 40 · END 20</span><span>RADAHN: FIRST TRY</span><span>GREYLL: AVENGED</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div class="mapcard">
+      <svg viewBox="0 0 720 460" role="img" aria-label="Altus Plateau and Leyndell campaign map">
+        <defs>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="routeGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f2dc94"/><stop offset="1" stop-color="#c79a3a"/>
+          </linearGradient>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#e8cd80"/>
+          </marker>
+          <radialGradient id="erdtree" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Altus plateau landmass, zoomed -->
+        <path d="M60 120 Q160 60 320 55 Q480 50 600 80 Q660 100 665 160 Q670 260 640 330 Q600 400 500 415 Q340 430 200 405 Q90 380 60 300 Q40 200 60 120 Z"
+              fill="#181510" stroke="#3a3120" stroke-width="1.5"/>
+        <path d="M70 130 Q165 72 320 66 Q470 60 590 90 Q645 108 650 160 Q655 250 628 320 Q590 388 498 402 Q345 416 205 393 Q98 370 72 296 Q52 200 70 130 Z"
+              fill="rgba(168,132,47,.12)"/>
+        <text class="region-label" x="230" y="150" text-anchor="middle">Altus Plateau</text>
+        <text class="region-label dim" x="140" y="95" text-anchor="middle">Mt. Gelmir (skip)</text>
+
+        <!-- Erdtree + Leyndell -->
+        <circle cx="545" cy="215" r="70" fill="url(#erdtree)"/>
+        <path d="M545 255 L545 185 M545 200 Q522 182 512 152 M545 200 Q568 182 578 152 M545 222 Q525 210 517 190 M545 222 Q565 210 573 190"
+              stroke="#f2dc94" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M470 280 Q545 250 620 280 Q625 330 600 355 Q545 372 490 355 Q465 330 470 280 Z"
+              fill="rgba(217,180,90,.10)" stroke="#5a4a20" stroke-width="1.2"/>
+        <text class="region-label" x="545" y="330" text-anchor="middle">Leyndell</text>
+
+        <!-- landmarks -->
+        <circle cx="95" cy="290" r="6" fill="none" stroke="#8f8464" stroke-width="1.5"/>
+        <text class="region-label dim" x="112" y="278" text-anchor="middle">Dectus Lift</text>
+        <text class="region-label dim" x="300" y="345" text-anchor="middle">shallow lake</text>
+        <text class="region-label dim" x="430" y="120" text-anchor="middle">Altus Tunnel</text>
+
+        <!-- route -->
+        <path d="M95 290 Q160 260 235 240" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <path d="M235 240 Q330 180 415 140" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <path d="M415 140 Q430 230 400 300" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <path d="M400 300 Q450 330 480 340" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+        <path d="M480 340 Q540 350 560 300" fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 8" marker-end="url(#arrow)"/>
+
+        <!-- waypoints -->
+        <g class="wp" data-step="a"><circle class="node" cx="235" cy="240" r="13" fill="var(--gold-bright)" stroke="#7a5c1c" stroke-width="2"/><text x="235" y="245" text-anchor="middle">A</text></g>
+        <g class="wp" data-step="b"><circle class="node" cx="415" cy="140" r="13" fill="var(--rune)" stroke="#2f5a54" stroke-width="2"/><text x="415" y="145" text-anchor="middle">B</text></g>
+        <g class="wp" data-step="c"><circle class="node" cx="400" cy="300" r="13" fill="var(--gold-bright)" stroke="#7a5c1c" stroke-width="2"/><text x="400" y="305" text-anchor="middle">C</text></g>
+        <g class="wp" data-step="d"><circle class="node" cx="480" cy="340" r="13" fill="var(--gold-bright)" stroke="#7a5c1c" stroke-width="2"/><text x="480" y="345" text-anchor="middle">D</text></g>
+        <g class="wp" data-step="e"><circle class="node" cx="560" cy="300" r="13" fill="var(--red)" stroke="#6a3020" stroke-width="2"/><text x="560" y="305" text-anchor="middle">E</text></g>
+      </svg>
+      <div class="hint">A→D is riding; the dotted E leg is inside the city walls. Tap a marker to highlight its card.</div>
+    </div>
+
+    <div class="panel">
+      <h2>The Campaign</h2>
+
+      <div class="step next" data-step="a">
+        <div class="n">A · THE HIGHWAY SWEEP · ~1 hr</div>
+        <div class="t">Seeds and Graces</div>
+        <div class="brief"><b>START:</b> Altus Plateau grace (lift top). <b>DO:</b> ride the main road east/northeast, light every grace, stop at every glowing sapling. <b>DONE WHEN:</b> flasks at 10+, road network lit.</div>
+        <div class="stats">
+          <div class="stat"><div class="k">Level</div><div class="v">72-74</div></div>
+          <div class="stat"><div class="k">Weapon</div><div class="v">+16/+12</div></div>
+          <div class="stat"><div class="k">Vigor</div><div class="v">→45</div></div>
+          <div class="stat"><div class="k">Dex</div><div class="v">40 ✓</div></div>
+          <div class="stat"><div class="k">End</div><div class="v">20 ✓</div></div>
+        </div>
+        <div class="row grace"><b>Graces:</b> Altus Plateau → Altus Highway Junction (the big crossroads) → onward toward the wall</div>
+        <div class="row item"><b>Golden Seeds</b> — sapling at the highway junction crossroads; a double-seed sapling near the Outer Wall Phantom Tree; another on the rampart approach. Flasks to 10+</div>
+        <div class="row item"><b>Boluses & Fowl Feet</b> — restock at any nomadic merchant you pass</div>
+        <div class="row enemy"><b>Wandering Fallingstar Beast & the Tree Sentinel duo</b> at the capital's west gate — both optional, both skippable at full gallop. The duo guards a gate that's sealed anyway</div>
+      </div>
+
+      <div class="step" data-step="b">
+        <div class="n">B · ALTUS TUNNEL · ~30-40 min · Farm stop</div>
+        <div class="t">The Last Forge Run</div>
+        <div class="brief"><b>START:</b> tunnel entrance in the wooded ravine, north-center Altus (northeast of the junction). <b>DO:</b> mine every stone 5/6 on the walls, then Hewg. <b>DONE WHEN:</b> main katana +17/+18, offhand +14/+15.</div>
+        <div class="row item"><b>Smithing Stones 5 & 6</b> — wall deposits throughout; miners drop more</div>
+        <div class="row item"><b>Somber stones</b> — pocket them; a future weapon may want them</div>
+        <div class="row enemy"><b>The boss (Crystalian pair)</b> — skippable, and you remember the shell gimmick. Only fight it if the mining lap felt fun; jump attacks + Mimic make it quick now</div>
+        <div class="row farm"><b>Rune top-up:</b> the tunnel miners + Altus road patrols pay well at your kill speed. No dedicated farming needed at level 72</div>
+      </div>
+
+      <div class="step" data-step="c">
+        <div class="n">C · THE OUTER WALL · ~30 min</div>
+        <div class="t">Approach the Capital</div>
+        <div class="brief"><b>START:</b> Outer Wall Phantom Tree grace (south of the city, by the shallow lake you know from the Sealed Tunnel trip). <b>DO:</b> ride east along the wall, through the Outer Wall Battleground, to the great stair and lift up the ramparts. <b>DONE WHEN:</b> Capital Rampart grace lit.</div>
+        <div class="row grace"><b>Graces:</b> Outer Wall Phantom Tree → Outer Wall Battleground → Capital Rampart</div>
+        <div class="row enemy"><b>Erdtree Avatar at the Battleground</b> — the golden golem cousin of your Dragonbarrow nemesis, minus the rot. Optional, but this one's a fair fight on dry ground if you want the rematch-by-proxy: Mimic first, back legs, two-swing rule. Drops flask tears</div>
+        <div class="row ash"><b>Ash: Mimic +4</b> — feed Roderika any Ghost Glovewort from Altus; +5-6 by Morgott is the target, +4 is acceptable</div>
+      </div>
+
+      <div class="step" data-step="d">
+        <div class="n">D · LEYNDELL, ROYAL CAPITAL · ~2-3 hrs</div>
+        <div class="t">The Best Dungeon in the Game</div>
+        <div class="brief"><b>START:</b> Capital Rampart grace. <b>DO:</b> drop onto the dragon's wing below the rampart, follow the city's main descent, then climb toward the Erdtree. <b>DONE WHEN:</b> Godfrey falls at the Erdtree Sanctuary.</div>
+        <div class="stats">
+          <div class="stat"><div class="k">Level</div><div class="v">74-78</div></div>
+          <div class="stat"><div class="k">Weapon</div><div class="v">+17/+14</div></div>
+          <div class="stat"><div class="k">Vigor</div><div class="v">46-48</div></div>
+          <div class="stat"><div class="k">Dex</div><div class="v">40</div></div>
+          <div class="stat"><div class="k">End</div><div class="v">20</div></div>
+        </div>
+        <div class="row grace"><b>Graces (the spine):</b> Capital Rampart → East Capital Rampart → Avenue Balcony → Lower Capital Church → Erdtree Sanctuary. Generous checkpoints; light them all</div>
+        <div class="row item"><b>Golden Seed(s)</b> — the city holds more saplings along the avenue; flasks toward 11-12</div>
+        <div class="row item"><b>Loot the mansions</b> — stones, Rune Arcs, and talismans hide in the side rooms off the main avenue; two minutes per detour, take the obvious glows</div>
+        <div class="row enemy"><b>Godfrey, Golden Shade (boss)</b> — the warm-up lord. Slow, readable, massively bleedable. Mimic + flank rotation; his stomp shockwaves want a jump, not a roll</div>
+        <div class="row enemy"><b>Watch for:</b> the Crucible Knight patrolling near the sanctuary approach (duel him or sprint past) and gargoyle statues that come alive on the rooftops</div>
+      </div>
+
+      <div class="step" data-step="e">
+        <div class="n">E · THE OMEN KING · the final exam</div>
+        <div class="t">Morgott</div>
+        <div class="brief"><b>START:</b> Queen's Bedchamber grace, directly before his fog. <b>DO:</b> buff, summon, and unlearn your roll timing. <b>DONE WHEN:</b> the plan you started at level 39 is complete.</div>
+        <div class="stats">
+          <div class="stat"><div class="k">Level</div><div class="v">76-80</div></div>
+          <div class="stat"><div class="k">Weapon</div><div class="v">+18/+15</div></div>
+          <div class="stat"><div class="k">Vigor</div><div class="v">50</div></div>
+          <div class="stat"><div class="k">Dex</div><div class="v">40</div></div>
+          <div class="stat"><div class="k">End</div><div class="v">20-22</div></div>
+        </div>
+        <div class="row item"><b>Pre-fog ritual:</b> Radahn's Great Rune + Rune Arc, Fowl Foot if you like (he pays ~90k), THEN summon so the Mimic copies your buffs</div>
+        <div class="row enemy"><b>Morgott's one trick, everywhere:</b> delayed swings. He hangs the blade in the air a half-beat longer than your instincts expect, baiting early rolls. Watch the WEAPON, not his body. Roll on the movement, not the windup</div>
+        <div class="row enemy"><b>Phase 2:</b> he ignites the arena with holy rain and a flame spear — more spectacle than damage if you keep moving. Bleed procs melt him; he has a lord's title and a scholar's poise</div>
+        <div class="row ash"><b>Ash: Mimic +5-6</b> — pre-buffed twin, aggressive as ever. Two samurai, one king</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Doctrine for the Capital</h2>
+    <ul>
+      <li><b>Every level is Vigor now.</b> Dex and End are finished at 40/20 (base). 50 Vigor by Morgott's fog — that's the whole spending plan.</li>
+      <li><b>Soreseal check-in:</b> this is the promised re-evaluation point. Keep it through the city; if Morgott specifically kills you in bursts that feel unfair, swap it for Crimson Amber's bigger sibling or a defensive pick for that fight only.</li>
+      <li><b>Buff-then-summon:</b> the Mimic copies active buffs at the moment of summoning. Fowl Foot, Physick, anything — apply first, summon second.</li>
+      <li><b>The Avatar rematch is optional forever.</b> Dragonbarrow's rot golem still holds your crystal tears. At 75+ with boluses it's a 90-second errand whenever you feel like collecting.</li>
+      <li><b>Rune Arcs flow now.</b> Leyndell's rats and loot drop them steadily — you can afford one per serious boss attempt with Radahn's rune (+15% HP/FP/stamina).</li>
+      <li><b>After Morgott:</b> the original route completes. The next map (Mountaintops, and the roads beyond) gets drawn when the king is dead — one campaign at a time.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const steps = document.querySelectorAll('.step');
+  const wps = document.querySelectorAll('.wp');
+  function activate(n){
+    steps.forEach(s=>s.classList.toggle('active', s.dataset.step===n));
+    wps.forEach(w=>w.classList.toggle('lit', w.dataset.step===n));
+  }
+  wps.forEach(w=>w.addEventListener('click', ()=>{
+    activate(w.dataset.step);
+    const el = document.querySelector('.step[data-step="'+w.dataset.step+'"]');
+    if(el) el.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }));
+  steps.forEach(s=>s.addEventListener('click', ()=>activate(s.dataset.step)));
+  steps.forEach(s=>s.addEventListener('mouseenter', ()=>activate(s.dataset.step)));
+</script>
+</body>
+</html>
