@@ -47,6 +47,26 @@
     border:2px solid #7a5c1c;cursor:pointer}
   .sl.capped .lab b{color:var(--green)}
 
+  /* info buttons + tooltips */
+  .sl{position:relative}
+  .info{font-family:'Cinzel',serif;font-size:9px;font-weight:700;line-height:1;cursor:pointer;
+    width:14px;height:14px;padding:0;margin-left:5px;border-radius:50%;vertical-align:baseline;
+    background:none;color:var(--parch-dim);border:1px solid #5a4a20;transition:all .15s ease}
+  .info:hover,.sl.pinned .info{background:var(--gold-bright);color:var(--ink);border-color:var(--gold-bright)}
+  .info:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .tip{position:absolute;z-index:30;top:100%;left:0;right:0;min-width:230px;margin-top:9px;
+    background:linear-gradient(160deg,#241c0e,#120d06);border:1px solid var(--gold);border-radius:10px;
+    padding:11px 13px;font-size:13.5px;line-height:1.5;color:#c9b98e;
+    box-shadow:0 14px 40px rgba(0,0,0,.75);opacity:0;visibility:hidden;transform:translateY(-4px);
+    transition:opacity .15s ease,transform .15s ease,visibility .15s}
+  .tip::before{content:"";position:absolute;top:-5px;left:15px;width:8px;height:8px;
+    background:#241c0e;border-left:1px solid var(--gold);border-top:1px solid var(--gold);transform:rotate(45deg)}
+  .tip b{color:var(--gold-bright);font-weight:600}
+  .tip .when{display:block;margin-top:7px;padding-top:7px;border-top:1px solid #3a3120;
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+  .sl.pinned .tip,.sl.hovered .tip{opacity:1;visibility:visible;transform:translateY(0)}
+  @media(max-width:440px){.tip{left:-6px;right:-6px}}
+
   .advice{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
   .advice .aline{font-size:14.5px;color:#d4c193;padding-left:22px;position:relative;margin:5px 0}
   .advice .aline::before{content:"➤";position:absolute;left:0;color:var(--gold);font-size:12px}
@@ -179,15 +199,70 @@
   <div class="console">
     <h2>The Runebook — set your current state</h2>
     <div class="sliders">
-      <div class="sl"><label class="lab" for="s-lvl">Level <b id="v-lvl">78</b></label><input type="range" id="s-lvl" min="40" max="180" value="78"></div>
-      <div class="sl"><label class="lab" for="s-main">Main hand <b id="v-main">+16</b></label><input type="range" id="s-main" min="0" max="25" value="16"></div>
-      <div class="sl"><label class="lab" for="s-off">Offhand <b id="v-off">+13</b></label><input type="range" id="s-off" min="0" max="25" value="13"></div>
-      <div class="sl"><label class="lab" for="s-vig">Vigor <b id="v-vig">49</b></label><input type="range" id="s-vig" min="10" max="99" value="49"></div>
-      <div class="sl"><label class="lab" for="s-end">Endurance <b id="v-end">20</b></label><input type="range" id="s-end" min="10" max="99" value="20"></div>
-      <div class="sl"><label class="lab" for="s-dex">Dexterity <b id="v-dex">40</b></label><input type="range" id="s-dex" min="10" max="99" value="40"></div>
-      <div class="sl"><label class="lab" for="s-mind">Mind <b id="v-mind">11</b></label><input type="range" id="s-mind" min="10" max="99" value="11"></div>
-      <div class="sl"><label class="lab" for="s-flask">Flask charges <b id="v-flask">10</b></label><input type="range" id="s-flask" min="4" max="14" value="10"></div>
-      <div class="sl"><label class="lab" for="s-mimic">Mimic Tear <b id="v-mimic">+4</b></label><input type="range" id="s-mimic" min="0" max="10" value="4"></div>
+
+      <div class="sl">
+        <div class="lab"><span>Level <button type="button" class="info" aria-label="What is Level?">i</button></span> <b id="v-lvl">78</b></div>
+        <input type="range" id="s-lvl" min="40" max="180" value="78" aria-label="Character level">
+        <div class="tip" role="tooltip">Not a stat in itself — just the running total of every point you've spent. Each level costs more runes than the last, so the real question is never <em>whether</em> to level, it's <b>where the point goes</b>.
+          <span class="when">Spend order: Vigor → 60, Endurance → 30, then anywhere</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Main hand <button type="button" class="info" aria-label="What is weapon upgrade level?">i</button></span> <b id="v-main">+16</b></div>
+        <input type="range" id="s-main" min="0" max="25" value="16" aria-label="Main hand upgrade level">
+        <div class="tip" role="tooltip">Your main Uchigatana's <b>upgrade level</b>, raised with Smithing Stones at Hewg. This is the single biggest damage lever in the game — far bigger than character level. Stones [1]–[8] carry you to +24; the last step needs one <b>Ancient Dragon Smithing Stone</b>.
+          <span class="when">+25 is its own trophy — God-Slaying Armament</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Offhand <button type="button" class="info" aria-label="What is the offhand level?">i</button></span> <b id="v-off">+13</b></div>
+        <input type="range" id="s-off" min="0" max="25" value="13" aria-label="Offhand upgrade level">
+        <div class="tip" role="tooltip">Your second katana's upgrade level. Powerstancing swings <b>both</b> weapons, so every L1 chain deals damage from each one — an offhand lagging several levels behind is a quiet, permanent DPS loss.
+          <span class="when">Keep it within ~2 levels of the main hand</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Vigor <button type="button" class="info" aria-label="What is Vigor?">i</button></span> <b id="v-vig">49</b></div>
+        <input type="range" id="s-vig" min="10" max="99" value="49" aria-label="Vigor">
+        <div class="tip" role="tooltip"><b>Hit points</b> — the most valuable stat in the game for nearly every build. It soft caps at 40 and again at 60; points past 60 barely register on the bar.
+          <span class="when">50 before Morgott · 60 before the Haligtree</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Endurance <button type="button" class="info" aria-label="What is Endurance?">i</button></span> <b id="v-end">20</b></div>
+        <input type="range" id="s-end" min="10" max="99" value="20" aria-label="Endurance">
+        <div class="tip" role="tooltip"><b>Stamina</b> (attacks, rolls, sprinting) and <b>equip load</b> (how heavy you can dress while still medium-rolling). For dual katanas it's the stat that decides whether you can finish an L1 chain <em>and</em> still dodge out of it.
+          <span class="when">25–30 is plenty — more only if you wear heavy armour</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Dexterity <button type="button" class="info" aria-label="What is Dexterity?">i</button></span> <b id="v-dex">40</b></div>
+        <input type="range" id="s-dex" min="10" max="99" value="40" aria-label="Dexterity">
+        <div class="tip" role="tooltip">Scales <b>Keen</b> weapons — your entire damage model. Returns fall off a cliff at 40, which is why the plan called it finished forever. Anything above 40 is runes that should have gone to Vigor.
+          <span class="when">40 and done · Rennala refunds overspend for a Larval Tear</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Mind <button type="button" class="info" aria-label="What is Mind?">i</button></span> <b id="v-mind">11</b></div>
+        <input type="range" id="s-mind" min="10" max="99" value="11" aria-label="Mind">
+        <div class="tip" role="tooltip"><b>FP</b>, which fuels Ashes of War. Matters more to you than it looks — <b>Unsheathe costs FP every use</b>. At 11 you get very few casts per blue flask. Your Mimic costs HP, not FP, so it's unaffected either way.
+          <span class="when">15–20 if you ever run dry mid-boss · otherwise ignore</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Flask charges <button type="button" class="info" aria-label="What are flask charges?">i</button></span> <b id="v-flask">10</b></div>
+        <input type="range" id="s-flask" min="4" max="14" value="10" aria-label="Flask charges">
+        <div class="tip" role="tooltip">Total Crimson + Cerulean, raised by <b>Golden Seeds</b> at any grace. Usually a bigger survivability gain than more Vigor — it's more <em>total</em> healing rather than a bigger bar. Sacred Tears make each sip heal harder.
+          <span class="when">12–14 before the Haligtree</span></div>
+      </div>
+
+      <div class="sl">
+        <div class="lab"><span>Mimic Tear <button type="button" class="info" aria-label="What is the Mimic Tear level?">i</button></span> <b id="v-mimic">+4</b></div>
+        <input type="range" id="s-mimic" min="0" max="10" value="4" aria-label="Mimic Tear upgrade level">
+        <div class="tip" role="tooltip">Your spirit summon's upgrade level, fed <b>Ghost Glovewort</b> to Roderika. It also copies your current gear and stats, so every weapon upgrade strengthens it for free.
+          <span class="when">+8 before Act III · Glovewort [5]+ litters Ainsel &amp; Deeproot</span></div>
+      </div>
+
     </div>
     <div class="advice" id="advice"></div>
   </div>
@@ -743,6 +818,37 @@
 
   boxes.forEach(function(b){ b.addEventListener('change', refresh); });
   slides.forEach(function(s){ s.addEventListener('input', refresh); });
+
+  /* ── stat tooltips: tap anywhere, hover on desktop ──── */
+  var canHover = window.matchMedia && window.matchMedia('(hover:hover)').matches;
+  var infos = Array.prototype.slice.call(document.querySelectorAll('.info'));
+
+  function closeAll(){
+    document.querySelectorAll('.sl.pinned,.sl.hovered').forEach(function(el){
+      el.classList.remove('pinned','hovered');
+    });
+  }
+
+  infos.forEach(function(btn){
+    var cell = btn.closest('.sl');
+    btn.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var open = cell.classList.contains('pinned');
+      closeAll();
+      if (!open) cell.classList.add('pinned');
+    });
+    if (canHover) {
+      btn.addEventListener('mouseenter', function(){ cell.classList.add('hovered'); });
+      cell.addEventListener('mouseleave', function(){ cell.classList.remove('hovered'); });
+    }
+  });
+
+  /* tapping the tip itself shouldn't dismiss it; tapping anywhere else should */
+  document.querySelectorAll('.tip').forEach(function(t){
+    t.addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeAll(); });
 
   /* act card highlighting from the map */
   var wps = document.querySelectorAll('.wp');
