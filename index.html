@@ -92,14 +92,48 @@
   .advice .aline.good{color:var(--green)}
   .advice .aline.good::before{content:"✓";color:var(--green)}
 
-  /* ── planner ─────────────────────────────────────────── */
-  .planner{background:linear-gradient(160deg,#141b16,#0a0d0b);border:1px solid #3a5230;padding:18px 22px;margin-bottom:20px}
-  .planner h2{color:var(--green)}
-  .planner .cbody{padding-top:12px}
-  .planner .prow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-  .planner .prow .sl{flex:1;min-width:200px}
-  .planner .out{font-size:14.5px;color:#c9d8c0;flex:2;min-width:240px}
-  .planner .out b{color:var(--green)}
+  /* ── planner (the hero) ──────────────────────────────── */
+  .planner{background:linear-gradient(160deg,#141b16,#0a0d0b);border:1px solid #4a6b3c;padding:22px 24px;margin-bottom:22px;
+    box-shadow:0 0 0 1px rgba(159,201,143,.08) inset, 0 24px 60px rgba(0,0,0,.5)}
+  .planner h2{color:var(--green);font-size:14px}
+  .planner .cbody{padding-top:14px}
+  .planner .prow{display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap;margin-bottom:6px}
+  .planner .prow .sl{flex:1;min-width:230px}
+  .planner .sl input[type=range]{height:6px}
+  .planner .sl input[type=range]::-webkit-slider-thumb{width:20px;height:20px;background:var(--green);border-color:#3a5230;
+    box-shadow:0 0 10px rgba(159,201,143,.6)}
+  .planner .sl .lab b{font-size:22px;color:var(--green)}
+  .quickset{display:flex;gap:6px;flex-wrap:wrap}
+  .quickset button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;background:none;
+    color:var(--parch-dim);border:1px solid var(--line);border-radius:14px;padding:5px 11px;transition:all .15s ease}
+  .quickset button:hover,.quickset button.on{color:var(--green);border-color:#4a6b3c;background:rgba(159,201,143,.08)}
+  .plansum{font-size:15px;color:#c9d8c0;margin:12px 0 4px;padding-top:12px;border-top:1px solid #2a3a24}
+  .plansum b{color:var(--green)}
+  .plansum .none{color:var(--danger)}
+
+  .plancard{border:1px solid #2f4429;border-radius:11px;padding:13px 15px;margin-top:10px;background:rgba(0,0,0,.28);
+    display:flex;gap:14px;align-items:flex-start}
+  .plancard.isdone{opacity:.5;border-color:#3a5230}
+  .plancard .seq{font-family:'Cinzel',serif;font-weight:700;font-size:15px;color:var(--green);
+    flex:0 0 auto;width:26px;text-align:center;line-height:1.3}
+  .plancard .meat{flex:1;min-width:0}
+  .plancard .ptitle{font-family:'Cinzel',serif;font-size:15px;color:var(--gold-bright);margin-bottom:5px}
+  .plancard .ptitle .pm{font-size:11px;color:var(--rune);letter-spacing:.1em;margin-left:8px}
+  .warprow{font-size:14px;color:#d4c193;background:rgba(217,180,90,.09);border:1px solid #4a3f22;border-radius:7px;
+    padding:7px 11px;margin:6px 0}
+  .warprow .wk{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.14em;color:var(--gold-bright);
+    text-transform:uppercase;display:block;margin-bottom:2px}
+  .warprow em{color:#b7a982;font-style:normal}
+  .thenrow{font-size:14px;color:#b7a982;margin:5px 0;padding-left:20px;position:relative}
+  .thenrow::before{content:"↳";position:absolute;left:2px;color:var(--parch-dim)}
+  .bringrow{font-size:13.5px;color:var(--amber);margin-top:5px;padding-left:20px;position:relative}
+  .bringrow::before{content:"◈";position:absolute;left:2px}
+  .donebtn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+    background:none;color:var(--parch-dim);border:1px solid var(--line);border-radius:7px;padding:7px 12px;
+    flex:0 0 auto;transition:all .15s ease;align-self:center}
+  .donebtn:hover{color:var(--green);border-color:#4a6b3c}
+  .donebtn.on{background:var(--green);color:#0d120a;border-color:var(--green)}
+  @media(max-width:560px){.plancard{flex-wrap:wrap}.donebtn{width:100%;margin-top:4px}}
 
   /* ── progress cards ──────────────────────────────────── */
   .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px}
@@ -277,8 +311,31 @@
     <div class="stamp">Synced 14 August 2026 · ~10 hrs of route, plus however long Malenia takes</div>
   </header>
 
+  <!-- ══ PLANNER — the hero ══ -->
+  <div class="planner" data-col="planner">
+    <div class="chead"><span class="caret">▼</span><h2>Plan tonight's session</h2><span class="badge" id="badge-plan">90 MIN</span></div>
+    <div class="cbody">
+      <div class="prow">
+        <div class="sl">
+          <div class="lab"><span>How long have you got?</span> <b id="v-time">90</b></div>
+          <input type="range" id="s-time" min="15" max="300" step="15" value="90" aria-label="Minutes available">
+        </div>
+        <div class="quickset">
+          <button type="button" data-t="30">30 min</button>
+          <button type="button" data-t="60">1 hr</button>
+          <button type="button" data-t="90">90 min</button>
+          <button type="button" data-t="120">2 hrs</button>
+          <button type="button" data-t="180">3 hrs</button>
+          <button type="button" data-t="300">All day</button>
+        </div>
+      </div>
+      <div class="plansum" id="plan-sum"></div>
+      <div id="plan-cards"></div>
+    </div>
+  </div>
+
   <!-- ══ CONSOLE ══ -->
-  <div class="console" data-col="console">
+  <div class="console collapsed" data-col="console">
     <div class="chead"><span class="caret">▼</span><h2>The Runebook</h2><span class="badge" id="badge-console">LVL 129</span></div>
     <div class="cbody">
       <div class="note">Level is <em>derived</em> from the eight stats, not stored — so it can never drift out of sync again. Red labels are values the sync could not confirm.</div>
@@ -351,20 +408,6 @@
         <div class="d" id="d-check">Formula check<b>✓ matches 129</b></div>
       </div>
       <div class="advice" id="advice"></div>
-    </div>
-  </div>
-
-  <!-- ══ PLANNER ══ -->
-  <div class="planner" data-col="planner">
-    <div class="chead"><span class="caret">▼</span><h2>Session planner</h2><span class="badge" id="badge-plan">90 MIN</span></div>
-    <div class="cbody">
-      <div class="prow">
-        <div class="sl">
-          <div class="lab"><span>Minutes available</span> <b id="v-time">90</b></div>
-          <input type="range" id="s-time" min="15" max="300" step="15" value="90" aria-label="Minutes available">
-        </div>
-        <div class="out" id="plan-out"></div>
-      </div>
     </div>
   </div>
 
@@ -1060,6 +1103,81 @@
     {step:'11',ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g']}
   ];
 
+  /* ── where to fast travel ──────────────────────────────
+     `warp` is the grace to select on the map. `alt` is the fallback for a
+     grace he may not have lit — half of what is left is in regions he has
+     never entered, so every objective needs a start he can actually reach. */
+  var WARP = {
+    '1': {warp:'Grand Lift of Rold',
+          alt:'You have used this lift before, so it is on your map. If not: Forbidden Lands grace, then ride north.',
+          then:['At the lift, choose <b>"Hoist secret medallion"</b> — <em>not</em> "Hoist medallion". They are two different prompts and the wrong one just takes you back to the Mountaintops.',
+                'It drops you into the Hidden Path to the Haligtree, a short dungeon. Walk it through and out into the snow.',
+                'Light the <b>Consecrated Snowfield</b> grace the moment you see it — everything else in this region warps from there.',
+                'Cave of the Forlorn is on the <b>western</b> edge, along the cliffs. The snowstorm hides everything, so hug the cliff line and you cannot get lost.'],
+          bring:'Two Stonesword Keys for the imp statue seal — worth carrying spares.'},
+    '2': {warp:'Sellia, Town of Sorcery',
+          alt:'If not lit: Church of the Plague, or the Caelid Highway South grace, then ride north-east.',
+          then:['You farmed sorcerers here in July, so the town grace should be on your map.',
+                'The hideaway entrance is in the <b>west</b> of the town — a cave mouth behind an illusory wall. Hit walls that look wrong.',
+                'Master Lusat sits behind a sealed door deep inside.'],
+          bring:'<b>Sellian Sealbreaker</b> — without it the cell will not open and the entire trip is wasted. Check Key Items before you warp.'},
+    '3': {warp:'Great Waterfall Crest',
+          alt:'Any Deeproot Depths grace works — you cleared Fortissax down here, so several are lit.',
+          then:['<b>Check your inventory first.</b> The 13 August session may already have picked this up.',
+                'Elden Stars sits on a corpse along the roots, near the giant ants.'],
+          bring:'Nothing special. Twenty minutes if the spell is genuinely missing, zero if it is not.'},
+    '4': {warp:'Rampartside Path',
+          alt:'If not lit: warp to <b>Outer Wall Battleground</b> — you passed through it entering Leyndell — and ride north-west.',
+          then:['The grave is <b>west</b> of Rampartside Path, in Altus.',
+                'A <b>Black Knife Assassin</b> guards the entrance. You have killed one before; same rules, it is fast and it backstabs.',
+                'Inside, enemies are shadow-coated and take no damage until they wander into the light circles cast by the statues.',
+                'The boss is the Ancient Hero of Zamor.'],
+          bring:'Two Stonesword Keys to open everything, and patience for the chariot.'},
+    '5': {warp:'Yelough Anix Tunnel',
+          alt:'This is in the Consecrated Snowfield, so you will light it during objective 01. Do that first.',
+          then:['From the tunnel grace, head <b>north-west</b>.',
+                'Look for a <b>large tree on the horizon</b> — that is your landmark.',
+                'A <b>Sanguine Noble</b> NPC will attack you as you approach. Killing it confirms you are in the right place.',
+                'Then look <b>below the cliffs</b> for the teleporter. It is easy to walk straight past.'],
+          bring:'<b>Purifying Crystal Tear</b> in the physick — it cancels Mohg\'s Nihil outright.'},
+    '6': {warp:'Consecrated Snowfield',
+          alt:'Lit during objective 01. If you have skipped 01, do that first — this region has one entrance.',
+          then:['Ride <b>north</b>, past the frozen ravine, and keep going. Ordina is at the far north end of the region.',
+                'Inside, light all four seals while invisible assassins hunt you. Sneak; do not fight.',
+                'Solving it opens a <b>waygate</b> — that waygate is the only door to the Haligtree.'],
+          bring:'<b>Sentry\'s Torch</b> if you have one — it reveals the invisible enemies and turns this from a nightmare into a chore.'},
+    '7': {warp:'The Ordina waygate',
+          alt:'Once through once, Haligtree Town grace becomes a normal fast-travel target.',
+          then:['Step into the waygate the puzzle unlocked.',
+                'Light the first Haligtree grace immediately, then work downward through the branches.',
+                'The branch-walking over open void kills more players than Loretta does. Take it slowly.'],
+          bring:'Nothing special — but this is where the two-hour stretch begins, so start it fresh.'},
+    '8': {warp:'Prayer Room',
+          alt:'Elphael\'s first grace, reached by descending from the Haligtree. There is no shortcut into it.',
+          then:['This is the bottom of the Haligtree and it is soaked in scarlet rot.',
+                'Three things to collect: <b>Marika\'s Soreseal</b>, the <b>Dragoncrest Greatshield Talisman</b>, and <b>Cleanrot Knight Finlay</b>.',
+                'Two collection trophies close the moment you have all three.'],
+          bring:'<b>Preserving Boluses — as many as you can craft.</b> Count them before you warp. Going in short turns two hours into three.'},
+    '9': {warp:'Drainage Channel',
+          alt:'The last grace before her fog gate, at the bottom of Elphael.',
+          then:['Buff first, <em>then</em> summon — your +10 Mimic copies whatever is active.',
+                'Bleed is your win condition. She has low hemorrhage resistance and procs outpace her lifesteal.',
+                'Waterfowl Dance is the exam. The answer is distance, not rolling.'],
+          bring:'Full flasks, a Rune Arc, and the expectation of a long evening. This is not a levelling problem.'},
+    '10':{warp:'Erdtree Sanctuary',
+          alt:'In Leyndell, Ashen Capital. You have been here — it is where you fought the Golden Shade.',
+          then:['Sir Gideon Ofnir stands in the road first. No trophy, but he casts the spells of every boss you have killed.',
+                'Then Godfrey, who becomes Hoarah Loux and starts wrestling.'],
+          bring:'Nothing special. Do this <em>after</em> Malenia — there is no reason to sit closer to the ending than you must.'},
+    '11':{warp:'Fractured Marika',
+          alt:'The final grace, immediately before Radagon.',
+          then:['<b>Before anything:</b> scroll the PS5 trophy list and confirm 39 of 42 have popped.',
+                'Turn PS5 <b>auto-sync OFF</b>, then take a manual cloud backup.',
+                'Frenzied Flame first, restore, Age of the Stars, restore, Age of Fracture.',
+                'Radagon and the Elden Beast are <b>immune to bleed</b> — plan on raw physical for all three runs.'],
+          bring:'A USB stick or PS Plus cloud slot, and two hours you will not be interrupted in.'}
+  };
+
   function line(got, name, where){
     return '<div class="tline '+(got?'got':'left')+'"><span class="mark">'+(got?'✓':'☐')+'</span>' +
            '<span>'+name+'</span>' + (where ? '<span class="where">'+where+'</span>' : '') + '</div>';
@@ -1146,31 +1264,79 @@
     paintDrawers();
   }
 
+  /* ── the planner ───────────────────────────────────────
+     Walks the route in order and fills the time budget greedily: an
+     objective that does not fit is skipped rather than ending the plan,
+     so a short evening still finds the 20-minute errand further down. */
   function plan(){
-    var have = num('s-time');
+    var have = num('s-time'), budget = have;
     document.getElementById('v-time').textContent = have;
     document.getElementById('badge-plan').textContent = have + ' MIN';
-    var fits = [], nextUp = null;
+    document.querySelectorAll('.quickset button').forEach(function(b){
+      b.classList.toggle('on', parseInt(b.dataset.t,10) === have);
+    });
+
+    var picked = [], skipped = [], remaining = 0;
     OBJ.forEach(function(o){
       var el = document.querySelector('.step[data-step="'+o.step+'"]');
       var complete = o.ids.every(done), mins = parseInt(el.dataset.min,10);
       el.classList.remove('fits','toolong');
       if (complete) return;
+      remaining++;
       var title = el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim();
-      if (mins <= have) { el.classList.add('fits'); fits.push({mins:mins,title:title}); }
-      else { el.classList.add('toolong'); if (!nextUp) nextUp = {mins:mins,title:title}; }
+      if (mins <= budget) {
+        budget -= mins; picked.push({o:o, mins:mins, title:title, step:o.step});
+        el.classList.add('fits');
+      } else { skipped.push({mins:mins, title:title}); el.classList.add('toolong'); }
     });
-    var out = document.getElementById('plan-out');
-    if (!fits.length) {
-      out.innerHTML = nextUp ? 'Nothing fits in <b>'+have+' min</b>. Shortest left is <b>'+nextUp.title+'</b> at '+nextUp.mins+' min.'
-                             : 'Everything on the route is complete.';
-      return;
+
+    var sum = document.getElementById('plan-sum'), cards = document.getElementById('plan-cards');
+
+    if (!remaining) {
+      sum.innerHTML = '<b>The route is finished.</b> Nothing left to plan.';
+      cards.innerHTML = ''; return;
     }
-    var total = fits.reduce(function(a,b){ return a+b.mins; },0);
-    out.innerHTML = fits.length + ' fit in <b>'+have+' min</b>: ' +
-      fits.slice(0,3).map(function(f){ return '<b>'+f.title+'</b> ('+f.mins+')'; }).join(', ') +
-      (fits.length>3 ? ' and '+(fits.length-3)+' more' : '') +
-      '. Highlighted below — ' + Math.round(total/60*10)/10 + ' hrs stacked.';
+    if (!picked.length) {
+      var shortest = skipped.reduce(function(a,b){ return b.mins < a.mins ? b : a; }, skipped[0]);
+      sum.innerHTML = '<span class="none">Nothing fits in ' + have + ' minutes.</span> The shortest thing left is <b>' +
+        shortest.title + '</b> at ' + shortest.mins + ' min — drag up to that and it will appear.';
+      cards.innerHTML = ''; return;
+    }
+
+    var used = have - budget;
+    sum.innerHTML = '<b>' + picked.length + (picked.length === 1 ? ' objective' : ' objectives') + '</b> in ' + have +
+      ' minutes — about <b>' + used + ' min</b> of work, ' + (budget > 0 ? budget + ' min spare' : 'tightly packed') + '.' +
+      (skipped.length ? ' <span style="color:var(--parch-dim)">' + skipped.length + ' too long for tonight.</span>' : '');
+
+    cards.innerHTML = picked.map(function(p, i){
+      var w = WARP[p.step] || {};
+      var isDone = p.o.ids.every(done);
+      return '<div class="plancard' + (isDone ? ' isdone' : '') + '">' +
+        '<div class="seq">' + (i+1) + '</div>' +
+        '<div class="meat">' +
+          '<div class="ptitle">' + p.title + '<span class="pm">' + p.mins + ' MIN</span></div>' +
+          (w.warp ? '<div class="warprow"><span class="wk">Fast travel to</span>' + w.warp +
+             (w.alt ? '<br><em>' + w.alt + '</em>' : '') + '</div>' : '') +
+          (w.then || []).map(function(t){ return '<div class="thenrow">' + t + '</div>'; }).join('') +
+          (w.bring ? '<div class="bringrow"><b>Bring:</b> ' + w.bring + '</div>' : '') +
+        '</div>' +
+        '<button type="button" class="donebtn' + (isDone ? ' on' : '') + '" data-obj="' + p.step + '">' +
+          (isDone ? '✓ Done' : 'Mark done') + '</button>' +
+      '</div>';
+    }).join('');
+
+    cards.querySelectorAll('.donebtn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var o = OBJ.filter(function(x){ return x.step === btn.dataset.obj; })[0];
+        if (!o) return;
+        var nowDone = !o.ids.every(done);
+        o.ids.forEach(function(id){
+          var box = document.querySelector('[data-id="'+id+'"]');
+          if (box) box.checked = nowDone;
+        });
+        refresh();
+      });
+    });
   }
 
   /* ── map pins ──────────────────────────────────────────── */
@@ -1277,6 +1443,27 @@
   document.querySelectorAll('.tip').forEach(function(t){ t.addEventListener('click', function(ev){ ev.stopPropagation(); }); });
   document.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeAll(); });
+
+  /* ── inject the warp block into each objective card ────
+     Defined once in WARP and rendered in both places, so the planner and
+     the full route can never disagree about where to start. */
+  Object.keys(WARP).forEach(function(step){
+    var el = document.querySelector('.step[data-step="'+step+'"] .cbody');
+    if (!el) return;
+    var w = WARP[step];
+    var html = '<div class="warprow"><span class="wk">Fast travel to</span>' + w.warp +
+               (w.alt ? '<br><em>' + w.alt + '</em>' : '') + '</div>' +
+               (w.then || []).map(function(t){ return '<div class="thenrow">' + t + '</div>'; }).join('') +
+               (w.bring ? '<div class="bringrow"><b>Bring:</b> ' + w.bring + '</div>' : '');
+    el.insertAdjacentHTML('afterbegin', html);
+  });
+
+  document.querySelectorAll('.quickset button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.getElementById('s-time').value = b.dataset.t;
+      refresh();
+    });
+  });
 
   /* ── wiring ────────────────────────────────────────────── */
   function refresh(){ paintSliders(); paintWeapons(); advise(); paintProgress(); plan(); save(); }
