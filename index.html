@@ -97,6 +97,7 @@
     color:#fdfaf2;font-size:13px;font-weight:700}
   .chk input:checked ~ .ct{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
   .ct b{color:var(--ink);font-weight:600}
+  .ct .src{display:block;font-size:15px;color:var(--ink-3);margin-top:4px;line-height:1.45}
   .ct .for{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--ink-3);margin-top:3px}
 
@@ -336,7 +337,7 @@
            'Walk through the Hidden Path, then head <b>west along the cliffs</b> to the Cave of the Forlorn.'],
       miss:['Light <b>every</b> grace you pass — stops 5 and 6 both warp back here, and this is the trip that unlocks them.',
             '<b>Yelough Anix Tunnel</b> especially. That grace is where Mohgwyn begins.'],
-      prep:['Two Stonesword Keys'],
+      prep:[{t:'Two Stonesword Keys',src:'Twin Maiden Husks at the Roundtable sell them, as do most nomadic merchants.'}],
       out:'<b>Legendary Armaments</b> complete — a trophy from a single pickup.' },
 
     { s:'2', mins:30, type:'item', name:'Stars of Ruin', where:'Sellia Hideaway, Caelid', ids:['r2'],
@@ -345,7 +346,7 @@
       way:['Find the cave mouth in the <b>west</b> of town, behind an illusory wall.',
            'Master Lusat sits behind a sealed door deep inside.'],
       miss:['The hideaway is built on illusory walls throughout. Hit anything that looks wrong.'],
-      prep:['Check Key Items for the <b>Sellian Sealbreaker</b> — without it the door will not open'],
+      prep:[{t:'Check Key Items for the <b>Sellian Sealbreaker</b>',src:'No Sealbreaker, no Stars of Ruin — skip this stop entirely rather than waste the ride. It comes from Sellen’s questline.'}],
       out:'Legendary spells to <b>6 of 7</b>.' },
 
     { s:'3', mins:20, type:'item', name:'Elden Stars', where:'Deeproot Depths', ids:['r3'],
@@ -353,7 +354,7 @@
       startNote:'You cleared Fortissax down here, so several graces are lit.',
       way:['On a corpse along the roots, near the giant ants.'],
       miss:[],
-      prep:['Check your inventory for <b>Elden Stars</b> — the 13 Aug session may already have picked it up'],
+      prep:[{t:'Check your inventory for <b>Elden Stars</b>',src:'The 13 Aug session may already have picked it up. If it is there, drop this stop and save twenty minutes.'}],
       out:'With Stars of Ruin, closes <b>Legendary Sorceries</b>.' },
 
     { s:'4', mins:30, type:'item', name:'Ancient Dragon Knight Kristoff', where:"Sainted Hero's Grave, Altus", ids:['r4'],
@@ -362,7 +363,7 @@
       way:['The grave sits <b>west</b> of the grace, with a Black Knife Assassin on the door.',
            'Inside, enemies take no damage until they wander into the statues’ light circles.'],
       miss:['The boss is the Ancient Hero of Zamor — fast, aggressive, and bleeds well.'],
-      prep:['Two Stonesword Keys'],
+      prep:[{t:'Two Stonesword Keys',src:'Twin Maiden Husks or a nomadic merchant.'}],
       out:'Legendary ashes to <b>5 of 6</b>.' },
 
     { s:'5', mins:75, type:'boss', name:'Mohg, Lord of Blood', where:'Mohgwyn Palace', ids:['r5'],
@@ -373,7 +374,7 @@
       miss:['The sleeping birds here are the best rune farm in the game, if Mind needs funding.'],
       fight:['<b>Nihil</b> is the fight: three scripted near-deaths. The Purifying Tear cancels it outright.',
              'Bleed lands at <b>half rate</b>. He is weak to plain physical, which your katanas already are.'],
-      prep:['Check your physick holds the <b>Purifying Crystal Tear</b>'],
+      prep:[{t:'Check your physick holds the <b>Purifying Crystal Tear</b>',src:'Missing it? It drops from <b>Eleonora, Violet Bloody Finger</b>, who invades at the <b>Second Church of Marika</b> in Altus. You have passed the Rold trigger, so she will come.'}],
       out:'<b>Shardbearer Mohg</b>, his Great Rune, and the Shadow of the Erdtree entry.' },
 
     { s:'6', mins:30, type:'puzzle', name:'Ordina — the four seals', where:'Consecrated Snowfield, north', ids:['r6'],
@@ -382,7 +383,7 @@
       way:['Ride <b>north</b> past the frozen ravine and keep going.',
            'Light all four seals while invisible assassins hunt you. <b>Sneak — do not fight.</b>'],
       miss:['The north-east seal is the one that kills people.'],
-      prep:["Sentry's Torch, if you have one — it reveals the invisible assassins"],
+      prep:[{t:"Sentry's Torch — it reveals the invisible assassins",src:'Missing it? The <b>Hermit Merchant</b> in Altus, near the capital’s first rampart, sells one for 7,000 runes. Worth the detour.'}],
       out:'No trophy, but it opens <b>four hours</b>: the Haligtree, Elphael, Malenia and two collection trophies. The best half hour left.' },
 
     { s:'7', mins:90, type:'boss', name:'Loretta, Knight of the Haligtree', where:"Miquella's Haligtree", ids:['r7'],
@@ -402,7 +403,7 @@
            'Two hours of scarlet rot from end to end.'],
       miss:['Both talismans are easy to walk past on a rot-panicked run.',
             'Short on boluses turns this into a three-hour area.'],
-      prep:['Craft <b>Preserving Boluses</b> — as many as you can carry'],
+      prep:[{t:'Craft <b>Preserving Boluses</b> — as many as you can carry',src:'Two hours of scarlet rot. Short on boluses turns Elphael into a three-hour area.'}],
       out:'Closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b>. Two trophies in one area.' },
 
     { s:'9', mins:180, type:'boss', name:'Malenia, Blade of Miquella', where:'Elphael', ids:['r9'],
@@ -414,7 +415,7 @@
              '<b>Waterfowl Dance</b> wants distance, not rolls. Run from the first flurry, dodge the last two.',
              'She heals on every hit she lands — on you, your Mimic, even your block. Passivity loses.',
              'Not a levelling problem. Every other wall bent to being over-levelled; she will not.'],
-      prep:['Top up flasks','Carry a Rune Arc'],
+      prep:[{t:'Top up flasks and carry a Rune Arc',src:'Also spend your runes before the fog — never carry a fortune through her gate.'}],
       out:'<b>Shardbearer Malenia</b> — the last real difficulty on the run.' },
 
     { s:'10', mins:45, type:'boss', name:'Godfrey, and Hoarah Loux', where:'Leyndell, Ashen Capital', ids:['r10'],
@@ -437,7 +438,7 @@
              'Radagon has no fire resistance. The Elden Beast resists holy heavily.'],
       warn:['Confirm <b>39 of 42</b> have popped before you fight the Elden Beast.',
             'Auto-sync stays <b>off</b> until all three endings pop — it overwrites the backup silently.'],
-      prep:['Turn PS5 <b>auto-sync off</b>','Have a USB stick or PS Plus cloud slot ready'],
+      prep:[{t:'Turn PS5 <b>auto-sync off</b>',src:'It overwrites your backup silently. Off before the first ending, on only after the third.'},{t:'Have a USB stick or PS Plus cloud slot ready',src:'The whole three-ending protocol depends on one restorable save.'}],
       out:'The last <b>four trophies</b>, including the platinum.' }
   ];
   function fin(o){ return o.ids.every(on); }
@@ -495,14 +496,14 @@
     /* prep */
     var need=[];
     picked.forEach(function(o){ (o.prep||[]).forEach(function(p){
-      if(!need.some(function(x){ return x.t===p; })) need.push({t:p,for:o.name}); }); });
+      if(!need.some(function(x){ return x.t===p.t; })) need.push({t:p.t,src:p.src,for:o.name}); }); });
     var pw=document.getElementById('prepwrap');
     if(need.length){
       pw.style.display='';
       document.getElementById('prep').innerHTML=need.map(function(p){
         var id='pf'+p.t.replace(/[^a-z]/gi,'').slice(0,16);
         return '<label class="chk"><input type="checkbox" data-pf="'+id+'"'+(on(id)?' checked':'')+
-               '><span class="ct">'+p.t+'<span class="for">for '+p.for+'</span></span></label>'; }).join('');
+               '><span class="ct">'+p.t+(p.src?'<span class="src">'+p.src+'</span>':'')+'<span class="for">for '+p.for+'</span></span></label>'; }).join('');
       document.querySelectorAll('[data-pf]').forEach(function(c){
         c.addEventListener('change',function(){ set(c.dataset.pf,c.checked); persist(); }); });
     } else pw.style.display='none';
