@@ -20,7 +20,7 @@
     padding:32px 20px 64px; min-height:100vh;
   }
   .wrap{max-width:1180px;margin:0 auto}
-  header{text-align:center;margin-bottom:26px}
+  header{text-align:center;margin-bottom:24px}
   .eyebrow{font-family:'Cinzel',serif;letter-spacing:.42em;text-transform:uppercase;font-size:11px;color:var(--parch-dim);margin-bottom:14px}
   h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,5vw,44px);color:var(--gold-bright);text-shadow:0 0 24px rgba(217,180,90,.35);letter-spacing:.02em;line-height:1.1}
   .sub{color:var(--parch-dim);font-style:italic;font-size:16px;margin-top:10px;max-width:680px;margin-left:auto;margin-right:auto}
@@ -28,12 +28,24 @@
   .ledger span{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--green);border:1px solid #3a5230;border-radius:20px;padding:3px 12px}
   .stamp{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:var(--parch-dim);margin-top:12px;text-transform:uppercase}
 
+  /* ── shared collapse chrome ──────────────────────────── */
+  .chead{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+  .chead .caret{font-size:11px;color:var(--parch-dim);transition:transform .2s ease;flex:0 0 auto;line-height:1}
+  .collapsed .chead .caret{transform:rotate(-90deg)}
+  .cbody{overflow:hidden}
+  .collapsed .cbody{display:none}
+  .chead .badge{margin-left:auto;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;
+    color:var(--parch-dim);border:1px solid var(--line);border-radius:10px;padding:1px 8px;white-space:nowrap}
+  .chead .badge.ok{color:var(--green);border-color:#3a5230}
+
   /* ── console ─────────────────────────────────────────── */
-  .console{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;margin-bottom:22px;box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5)}
-  .console h2{font-family:'Cinzel',serif;color:var(--gold);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-    margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-  .console .note{font-size:13.5px;color:var(--parch-dim);font-style:italic;margin:10px 0 14px}
+  .console,.planner,.section,.mapcard{border-radius:14px}
+  .console{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);
+    padding:20px 22px;margin-bottom:20px;box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5)}
+  .console h2,.planner h2,.section h2{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0}
+  .console h2,.section h2{color:var(--gold)}
+  .console .cbody{padding-top:12px;margin-top:8px;border-top:1px solid var(--line)}
+  .console .note{font-size:13.5px;color:var(--parch-dim);font-style:italic;margin-bottom:14px}
   .sliders{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 22px}
   @media(max-width:900px){.sliders{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:660px){.sliders{grid-template-columns:repeat(2,1fr)}}
@@ -46,13 +58,11 @@
     background:linear-gradient(90deg,#5a4a20,#2a2416);outline:none;margin-top:3px}
   .sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;
     background:var(--gold-bright);border:2px solid #7a5c1c;cursor:pointer;box-shadow:0 0 8px rgba(242,220,148,.5)}
-  .sl input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold-bright);
-    border:2px solid #7a5c1c;cursor:pointer}
+  .sl input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold-bright);border:2px solid #7a5c1c;cursor:pointer}
   .sl.capped .lab b{color:var(--green)}
   .sl.unverified .lab{color:var(--danger)}
   .sl.unverified .lab::after{content:" ?";color:var(--danger);font-weight:700}
   .sl.floor .lab b{color:var(--parch-dim)}
-
   .derived{display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
   .derived .d{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;color:var(--parch-dim);text-transform:uppercase}
   .derived .d b{display:block;font-size:21px;color:var(--gold-bright);font-weight:700;letter-spacing:0}
@@ -62,14 +72,12 @@
     width:14px;height:14px;padding:0;margin-left:5px;border-radius:50%;vertical-align:baseline;
     background:none;color:var(--parch-dim);border:1px solid #5a4a20;transition:all .15s ease}
   .info:hover,.sl.pinned .info{background:var(--gold-bright);color:var(--ink);border-color:var(--gold-bright)}
-  .info:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .tip{position:absolute;z-index:30;top:100%;left:0;right:0;min-width:230px;margin-top:9px;
     background:linear-gradient(160deg,#241c0e,#120d06);border:1px solid var(--gold);border-radius:10px;
-    padding:11px 13px;font-size:13.5px;line-height:1.5;color:#c9b98e;
-    box-shadow:0 14px 40px rgba(0,0,0,.75);opacity:0;visibility:hidden;transform:translateY(-4px);
-    transition:opacity .15s ease,transform .15s ease,visibility .15s}
-  .tip::before{content:"";position:absolute;top:-5px;left:15px;width:8px;height:8px;
-    background:#241c0e;border-left:1px solid var(--gold);border-top:1px solid var(--gold);transform:rotate(45deg)}
+    padding:11px 13px;font-size:13.5px;line-height:1.5;color:#c9b98e;box-shadow:0 14px 40px rgba(0,0,0,.75);
+    opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s ease,transform .15s ease,visibility .15s}
+  .tip::before{content:"";position:absolute;top:-5px;left:15px;width:8px;height:8px;background:#241c0e;
+    border-left:1px solid var(--gold);border-top:1px solid var(--gold);transform:rotate(45deg)}
   .tip b{color:var(--gold-bright);font-weight:600}
   .tip .when{display:block;margin-top:7px;padding-top:7px;border-top:1px solid #3a3120;
     font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
@@ -85,39 +93,83 @@
   .advice .aline.good::before{content:"✓";color:var(--green)}
 
   /* ── planner ─────────────────────────────────────────── */
-  .planner{background:linear-gradient(160deg,#141b16,#0a0d0b);border:1px solid #3a5230;border-radius:14px;
-    padding:18px 22px;margin-bottom:22px}
-  .planner h2{font-family:'Cinzel',serif;color:var(--green);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .planner{background:linear-gradient(160deg,#141b16,#0a0d0b);border:1px solid #3a5230;padding:18px 22px;margin-bottom:20px}
+  .planner h2{color:var(--green)}
+  .planner .cbody{padding-top:12px}
   .planner .prow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
   .planner .prow .sl{flex:1;min-width:200px}
   .planner .out{font-size:14.5px;color:#c9d8c0;flex:2;min-width:240px}
   .planner .out b{color:var(--green)}
 
-  /* ── progress ────────────────────────────────────────── */
-  .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-  @media(max-width:640px){.progress{grid-template-columns:1fr}}
-  .pcard{background:rgba(217,180,90,.06);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center}
+  /* ── progress cards ──────────────────────────────────── */
+  .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px}
+  @media(max-width:700px){.progress{grid-template-columns:1fr}}
+  .pcard{background:rgba(217,180,90,.06);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    text-align:center;cursor:pointer;transition:border-color .15s ease}
+  .pcard:hover{border-color:var(--gold)}
+  .pcard.open{border-color:var(--gold)}
   .pcard .k{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:var(--parch-dim);text-transform:uppercase}
+  .pcard .k::after{content:" ▾";font-size:9px}
+  .pcard.open .k::after{content:" ▴"}
   .pcard .v{font-family:'Cinzel',serif;font-size:26px;color:var(--gold-bright);font-weight:700;line-height:1.3}
   .bar{height:6px;border-radius:4px;background:#2a2416;overflow:hidden;margin-top:8px}
   .bar i{display:block;height:100%;background:linear-gradient(90deg,#c79a3a,#f2dc94);width:0;transition:width .3s ease}
+  .drawer{display:none;background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--gold);
+    border-radius:12px;padding:18px 20px;margin-bottom:22px}
+  .drawer.open{display:block}
+  .drawer h3{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--gold-bright);
+    text-transform:uppercase;margin:14px 0 6px;border-bottom:1px solid var(--line);padding-bottom:5px}
+  .drawer h3:first-child{margin-top:0}
+  .tlist{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px}
+  @media(max-width:720px){.tlist{grid-template-columns:1fr}}
+  .tline{font-size:14px;color:#b7a982;display:flex;gap:8px;align-items:baseline;padding:3px 0}
+  .tline .mark{flex:0 0 auto;font-size:12px}
+  .tline.got{color:var(--parch-dim)}
+  .tline.got .mark{color:var(--green)}
+  .tline.left .mark{color:var(--danger)}
+  .tline .where{margin-left:auto;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.08em;
+    color:var(--rune);white-space:nowrap;padding-left:10px}
+
+  /* ── map ─────────────────────────────────────────────── */
+  .mapcard{background:linear-gradient(160deg,#181209,#0d0a05);border:1px solid var(--line);padding:16px;margin-bottom:22px;
+    box-shadow:0 0 0 1px rgba(217,180,90,.07) inset, 0 24px 60px rgba(0,0,0,.5)}
+  .maplayout{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;align-items:start}
+  @media(max-width:860px){.maplayout{grid-template-columns:1fr}}
+  svg.map{width:100%;height:auto;display:block;border-radius:10px}
+  .rlabel{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;fill:#e8d9ae;text-transform:uppercase;
+    paint-order:stroke;stroke:#0c0904;stroke-width:3px;stroke-linejoin:round}
+  .rlabel.sm{font-size:9px;letter-spacing:.12em;fill:#a2946e}
+  .pin{cursor:pointer}
+  .pin circle{transition:r .15s ease}
+  .pin:hover circle.dot{r:15}
+  .pin.lit circle.dot{stroke:#fff;stroke-width:2.5}
+  .pin.doneP circle.dot{fill:#4a5a3a;stroke:#3a5230}
+  .pin text{font-family:'Cinzel',serif;font-weight:700;font-size:11px;fill:#0c0904;pointer-events:none}
+  .maplegend{font-size:13.5px;color:var(--parch-dim)}
+  .maplegend h3{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--gold);
+    text-transform:uppercase;margin-bottom:8px}
+  .lkey{display:flex;gap:9px;align-items:center;margin:5px 0;font-size:13.5px}
+  .lkey i{width:11px;height:11px;border-radius:50%;flex:0 0 auto;display:block}
+  .mapsel{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:#c9b98e;min-height:74px}
+  .mapsel b{color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;display:block;margin-bottom:4px}
 
   /* ── route ───────────────────────────────────────────── */
-  .panel h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+  .panel > h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;
     margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
   .panel .lede{font-size:14.5px;color:var(--parch-dim);font-style:italic;margin:10px 0 16px}
-  .step{border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin-bottom:13px;
+  .step{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;
     background:linear-gradient(160deg,rgba(24,18,9,.6),rgba(13,10,5,.6));transition:border-color .2s ease,opacity .2s ease}
   .step.next{border-color:var(--green)}
-  .step.next .t::after{content:"  ◄ NEXT";font-size:11px;letter-spacing:.14em;color:var(--green)}
-  .step.complete{border-color:#3a5230;opacity:.55}
-  .step.complete .t::after{content:"  ✓ DONE";font-size:11px;letter-spacing:.14em;color:var(--green)}
+  .step.complete{border-color:#3a5230;opacity:.6}
   .step.toolong{opacity:.34}
   .step.fits{border-color:var(--green);box-shadow:0 0 0 1px rgba(159,201,143,.25)}
   .step .n{font-family:'Cinzel',serif;color:var(--gold-bright);font-weight:700;font-size:11.5px;letter-spacing:.12em;
-    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-  .step .n .mins{color:var(--rune)}
-  .step .t{font-family:'Cinzel',serif;color:var(--parch);font-size:17px;margin:3px 0 8px}
+    display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;flex:1}
+  .step .n .mins{color:var(--rune);margin-left:auto}
+  .step .t{font-family:'Cinzel',serif;color:var(--parch);font-size:17px;margin:3px 0 0}
+  .step.next .t::after{content:"  ◄ NEXT";font-size:11px;letter-spacing:.14em;color:var(--green)}
+  .step.complete .t::after{content:"  ✓ DONE";font-size:11px;letter-spacing:.14em;color:var(--green)}
+  .step .cbody{padding-top:9px}
   .row{font-size:14.5px;color:#b7a982;margin:4px 0;padding-left:22px;position:relative}
   .row::before{position:absolute;left:0;top:1px;font-size:13px}
   .row.item::before{content:"◆";color:var(--green)}
@@ -125,9 +177,10 @@
   .row.ash::before{content:"❖";color:var(--violet)}
   .row.gate::before{content:"⚿";color:var(--amber)}
   .row.unlock::before{content:"➔";color:var(--rune)}
-  .row.grace::before{content:"⚑";color:var(--gold-bright)}
+  .row.blade::before{content:"⚔";color:var(--gold-bright)}
   .row b{color:var(--parch);font-weight:500}
   .row.unlock{color:#a8cdc7}
+  .row.blade{color:#d8c79a}
 
   /* ── tasks ───────────────────────────────────────────── */
   .task{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#b7a982;margin:6px 0;cursor:pointer;
@@ -145,8 +198,8 @@
   .task .tro.q{color:var(--danger);border-color:#6a3020}
   .task input:checked ~ span .tro{color:var(--parch-dim);border-color:#3a3120}
 
-  .section{margin-top:26px;border-radius:14px;padding:22px 24px;background:linear-gradient(160deg,#161006,#0c0904);border:1px solid var(--line)}
-  .section h2{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+  .section{margin-top:22px;padding:20px 24px;background:linear-gradient(160deg,#161006,#0c0904);border:1px solid var(--line)}
+  .section .cbody{padding-top:12px}
   .section .lede{font-size:14.5px;color:var(--parch-dim);font-style:italic;margin-bottom:14px}
   .section ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px 30px}
   @media(max-width:720px){.section ul{grid-template-columns:1fr}}
@@ -157,17 +210,40 @@
   .section.danger h2{color:var(--danger)}
   .section.verify{border-color:#4a5a2a;background:linear-gradient(160deg,#141a0c,#0a0c06)}
   .section.verify h2{color:var(--green)}
+  .section.forge{border-color:#5a4a20;background:linear-gradient(160deg,#1a1408,#0c0904)}
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
   @media(max-width:720px){.cols{grid-template-columns:1fr}}
   .grp{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--gold-bright);text-transform:uppercase;
     margin:15px 0 3px;grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:5px}
   .grp span{color:var(--parch-dim);letter-spacing:.06em}
-  details.earned{margin-top:14px}
-  details.earned summary{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--parch-dim);
-    text-transform:uppercase;cursor:pointer;padding:8px 0}
-  details.earned summary:hover{color:var(--gold)}
 
-  .exportbar{position:sticky;bottom:0;margin-top:28px;background:linear-gradient(160deg,#1c1509,#0d0a05);
+  /* ── armoury ─────────────────────────────────────────── */
+  .wtable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  .wtable th{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.12em;color:var(--parch-dim);
+    text-transform:uppercase;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-weight:500}
+  .wtable td{padding:7px 8px;border-bottom:1px solid #251f12;color:#b7a982;vertical-align:top}
+  .wtable td b{color:var(--parch);font-weight:500}
+  .wtable tr.ok td:first-child{border-left:2px solid var(--green)}
+  .wtable tr.near td:first-child{border-left:2px solid var(--amber)}
+  .wtable tr.no td:first-child{border-left:2px solid #4a3020}
+  .wtable .req{font-family:ui-monospace,Menlo,monospace;font-size:12px;white-space:nowrap}
+  .wtable .verdict{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.08em;white-space:nowrap}
+  .wtable .verdict.y{color:var(--green)}
+  .wtable .verdict.m{color:var(--amber)}
+  .wtable .verdict.n{color:var(--parch-dim)}
+  .tblwrap{overflow-x:auto}
+  .bossgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:760px){.bossgrid{grid-template-columns:1fr}}
+  .bosscard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(0,0,0,.25)}
+  .bosscard h4{font-family:'Cinzel',serif;font-size:13px;color:var(--gold-bright);margin-bottom:2px}
+  .bosscard .bleed{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .bosscard .bleed.good{color:var(--green)}
+  .bosscard .bleed.half{color:var(--amber)}
+  .bosscard .bleed.none{color:var(--danger)}
+  .bosscard p{font-size:14px;color:#b7a982;margin-bottom:5px}
+  .bosscard p b{color:var(--parch);font-weight:500}
+
+  .exportbar{position:sticky;bottom:0;margin-top:26px;background:linear-gradient(160deg,#1c1509,#0d0a05);
     border:1px solid var(--gold);border-radius:14px;padding:15px 20px;display:flex;gap:12px;align-items:center;
     flex-wrap:wrap;justify-content:space-between;box-shadow:0 -8px 40px rgba(0,0,0,.7)}
   .exportbar .txt{font-size:14px;color:var(--parch-dim);flex:1;min-width:200px}
@@ -202,302 +278,493 @@
   </header>
 
   <!-- ══ CONSOLE ══ -->
-  <div class="console">
-    <h2>The Runebook</h2>
-    <div class="note">Level is <em>derived</em> from the eight stats, not stored — so it can never drift out of sync again. Red labels are values the sync could not confirm; correct them and they turn gold.</div>
-    <div class="sliders">
-
-      <div class="sl">
-        <div class="lab"><span>Vigor <button type="button" class="info" aria-label="About Vigor">i</button></span> <b id="v-vig">60</b></div>
-        <input type="range" id="s-vig" min="10" max="99" value="60" aria-label="Vigor">
-        <div class="tip" role="tooltip"><b>Hit points.</b> Soft caps at 40 and again at 60 — you are exactly on the second cap, where each further point is worth roughly 6 HP.
-          <span class="when">Hard stop. Do not spend here again.</span></div>
+  <div class="console" data-col="console">
+    <div class="chead"><span class="caret">▼</span><h2>The Runebook</h2><span class="badge" id="badge-console">LVL 129</span></div>
+    <div class="cbody">
+      <div class="note">Level is <em>derived</em> from the eight stats, not stored — so it can never drift out of sync again. Red labels are values the sync could not confirm.</div>
+      <div class="sliders">
+        <div class="sl">
+          <div class="lab"><span>Vigor <button type="button" class="info" aria-label="About Vigor">i</button></span> <b id="v-vig">60</b></div>
+          <input type="range" id="s-vig" min="10" max="99" value="60" aria-label="Vigor">
+          <div class="tip"><b>Hit points.</b> Soft caps at 40 and again at 60 — you sit exactly on the second, where each point is worth roughly 6 HP.<span class="when">Hard stop</span></div>
+        </div>
+        <div class="sl">
+          <div class="lab"><span>Mind <button type="button" class="info" aria-label="About Mind">i</button></span> <b id="v-mind">11</b></div>
+          <input type="range" id="s-mind" min="10" max="99" value="11" aria-label="Mind">
+          <div class="tip"><b>FP — the build's actual constraint.</b> Unsheathe costs FP every use, and 11 Mind buys very few casts per blue flask.<span class="when">Priority 1 · take it to 25</span></div>
+        </div>
+        <div class="sl">
+          <div class="lab"><span>Endurance <button type="button" class="info" aria-label="About Endurance">i</button></span> <b id="v-end">40</b></div>
+          <input type="range" id="s-end" min="10" max="99" value="40" aria-label="Endurance">
+          <div class="tip"><b>Stamina and equip load.</b> Decides whether you can finish an L1 chain and still dodge out of it.<span class="when">Priority 2 · 40 → 50</span></div>
+        </div>
+        <div class="sl">
+          <div class="lab"><span>Dexterity <button type="button" class="info" aria-label="About Dexterity">i</button></span> <b id="v-dex">60</b></div>
+          <input type="range" id="s-dex" min="10" max="99" value="60" aria-label="Dexterity">
+          <div class="tip"><b>Scales Keen weapons.</b> The old plan stopped at 40; you pushed past. Next real breakpoint is 80.<span class="when">Priority 3 · 60 → 80</span></div>
+        </div>
+        <div class="sl floor">
+          <div class="lab"><span>Strength <button type="button" class="info" aria-label="About Strength">i</button></span> <b id="v-str">12</b></div>
+          <input type="range" id="s-str" min="8" max="99" value="12" aria-label="Strength">
+          <div class="tip"><b>Samurai floor — and now worth reconsidering.</b> Keen scales Strength at near zero, but <b>Hand of Malenia needs 16</b>. Four points is the whole gap.<span class="when">See the Armoury below</span></div>
+        </div>
+        <div class="sl floor">
+          <div class="lab"><span>Intelligence <button type="button" class="info" aria-label="About Intelligence">i</button></span> <b id="v-int">9</b></div>
+          <input type="range" id="s-int" min="8" max="99" value="9" aria-label="Intelligence">
+          <div class="tip"><b>Class floor.</b> Legendary sorceries only need acquiring, never casting — the trophy costs you nothing here.<span class="when">Never spend</span></div>
+        </div>
+        <div class="sl floor">
+          <div class="lab"><span>Faith <button type="button" class="info" aria-label="About Faith">i</button></span> <b id="v-fai">8</b></div>
+          <input type="range" id="s-fai" min="8" max="99" value="8" aria-label="Faith">
+          <div class="tip"><b>Class floor</b> — but <b>Eclipse Shotel needs 10</b>, and you already own it. Two points unlocks a legendary you are carrying dead weight.<span class="when">Cheap unlock · +2</span></div>
+        </div>
+        <div class="sl floor">
+          <div class="lab"><span>Arcane <button type="button" class="info" aria-label="About Arcane">i</button></span> <b id="v-arc">8</b></div>
+          <input type="range" id="s-arc" min="8" max="99" value="8" aria-label="Arcane">
+          <div class="tip"><b>Raises bleed build-up</b> and gates Rivers of Blood at 20. Reaching it means a Larval Tear respec, not a few levels.<span class="when">Respec territory</span></div>
+        </div>
+        <div class="sl capped">
+          <div class="lab"><span>Main hand <button type="button" class="info" aria-label="About main hand">i</button></span> <b id="v-main">+25</b></div>
+          <input type="range" id="s-main" min="0" max="25" value="25" aria-label="Main hand upgrade level">
+          <div class="tip"><b>Maxed.</b> Keen Uchigatana +25 with Unsheathe. Both katanas are regular-path, so the banked Ancient Dragon <em>Somber</em> stone cannot touch them.<span class="when">Finished</span></div>
+        </div>
+        <div class="sl capped">
+          <div class="lab"><span>Offhand <button type="button" class="info" aria-label="About offhand">i</button></span> <b id="v-off">+25</b></div>
+          <input type="range" id="s-off" min="0" max="25" value="25" aria-label="Offhand upgrade level">
+          <div class="tip"><b>Also maxed</b>, carrying Bloody Slash to hold the Keen affinity. Powerstance damage comes off both blades.<span class="when">Finished</span></div>
+        </div>
+        <div class="sl capped">
+          <div class="lab"><span>Mimic Tear <button type="button" class="info" aria-label="About the Mimic">i</button></span> <b id="v-mimic">+10</b></div>
+          <input type="range" id="s-mimic" min="0" max="10" value="10" aria-label="Mimic Tear upgrade level">
+          <div class="tip"><b>Maximum.</b> It copies your gear and stats on summon — a level-129 samurai with two +25 katanas. Buff first, summon second.<span class="when">Finished</span></div>
+        </div>
+        <div class="sl unverified">
+          <div class="lab"><span>Flask charges <button type="button" class="info" aria-label="About flasks">i</button></span> <b id="v-flask">10</b></div>
+          <input type="range" id="s-flask" min="4" max="14" value="10" aria-label="Flask charges">
+          <div class="tip"><b>Not confirmed</b> — last recorded ~10 in July, and you have crossed two regions of Golden Seeds since. The largest lever left for Malenia.<span class="when">Count at a grace · 12–14</span></div>
+        </div>
       </div>
-
-      <div class="sl">
-        <div class="lab"><span>Mind <button type="button" class="info" aria-label="About Mind">i</button></span> <b id="v-mind">11</b></div>
-        <input type="range" id="s-mind" min="10" max="99" value="11" aria-label="Mind">
-        <div class="tip" role="tooltip"><b>FP — and your build's actual constraint.</b> Unsheathe costs FP every use, and 11 Mind buys very few casts per blue flask. This is now the top of the spending queue, above Endurance and Dex.
-          <span class="when">Priority 1 · take it to 25</span></div>
+      <div class="derived">
+        <div class="d">Derived level<b id="d-lvl">129</b></div>
+        <div class="d">Points spent<b id="d-pts">120</b></div>
+        <div class="d">Next level costs<b id="d-cost">~108k</b></div>
+        <div class="d" id="d-check">Formula check<b>✓ matches 129</b></div>
       </div>
-
-      <div class="sl">
-        <div class="lab"><span>Endurance <button type="button" class="info" aria-label="About Endurance">i</button></span> <b id="v-end">40</b></div>
-        <input type="range" id="s-end" min="10" max="99" value="40" aria-label="Endurance">
-        <div class="tip" role="tooltip"><b>Stamina and equip load.</b> Governs how long an L1 chain can run before you are stranded mid-combo, and whether you still medium-roll in your current armour.
-          <span class="when">Priority 2 · 40 → 50</span></div>
-      </div>
-
-      <div class="sl">
-        <div class="lab"><span>Dexterity <button type="button" class="info" aria-label="About Dexterity">i</button></span> <b id="v-dex">60</b></div>
-        <input type="range" id="s-dex" min="10" max="99" value="60" aria-label="Dexterity">
-        <div class="tip" role="tooltip"><b>Scales Keen weapons.</b> The old plan stopped at 40; you have since pushed past it. The next meaningful breakpoint is 80, after which it is genuinely finished.
-          <span class="when">Priority 3 · 60 → 80</span></div>
-      </div>
-
-      <div class="sl floor">
-        <div class="lab"><span>Strength <button type="button" class="info" aria-label="About Strength">i</button></span> <b id="v-str">12</b></div>
-        <input type="range" id="s-str" min="8" max="99" value="12" aria-label="Strength">
-        <div class="tip" role="tooltip"><b>Samurai class floor, and correctly untouched.</b> Keen affinity scales Strength at close to zero. An earlier note claimed the Samurai floor was 15 — that was wrong; it is 12 STR and 15 DEX.
-          <span class="when">Never spend here</span></div>
-      </div>
-
-      <div class="sl floor">
-        <div class="lab"><span>Intelligence <button type="button" class="info" aria-label="About Intelligence">i</button></span> <b id="v-int">9</b></div>
-        <input type="range" id="s-int" min="8" max="99" value="9" aria-label="Intelligence">
-        <div class="tip" role="tooltip"><b>Class floor.</b> The legendary sorceries only need to be <em>acquired</em>, never cast, so the collection trophy costs you nothing here.
-          <span class="when">Never spend here</span></div>
-      </div>
-
-      <div class="sl floor">
-        <div class="lab"><span>Faith <button type="button" class="info" aria-label="About Faith">i</button></span> <b id="v-fai">8</b></div>
-        <input type="range" id="s-fai" min="8" max="99" value="8" aria-label="Faith">
-        <div class="tip" role="tooltip"><b>Class floor.</b> Same logic as Intelligence — the legendary incantations count as owned the moment they enter your inventory.
-          <span class="when">Never spend here</span></div>
-      </div>
-
-      <div class="sl floor">
-        <div class="lab"><span>Arcane <button type="button" class="info" aria-label="About Arcane">i</button></span> <b id="v-arc">8</b></div>
-        <input type="range" id="s-arc" min="8" max="99" value="8" aria-label="Arcane">
-        <div class="tip" role="tooltip"><b>Class floor.</b> Arcane raises bleed build-up, which is tempting on a dual-katana build — but Keen scaling is Dex-driven and a respec toward Arcane would cost more than it returns this late.
-          <span class="when">Not worth switching to now</span></div>
-      </div>
-
-      <div class="sl capped">
-        <div class="lab"><span>Main hand <button type="button" class="info" aria-label="About main hand upgrade">i</button></span> <b id="v-main">+25</b></div>
-        <input type="range" id="s-main" min="0" max="25" value="25" aria-label="Main hand upgrade level">
-        <div class="tip" role="tooltip"><b>Maxed.</b> Keen Uchigatana +25, carrying Unsheathe. God-Slaying Armament already popped. Note both katanas are regular-path weapons — the banked Ancient Dragon <em>Somber</em> stone cannot touch them.
-          <span class="when">Finished · save the Somber stone for Hand of Malenia</span></div>
-      </div>
-
-      <div class="sl capped">
-        <div class="lab"><span>Offhand <button type="button" class="info" aria-label="About offhand upgrade">i</button></span> <b id="v-off">+25</b></div>
-        <input type="range" id="s-off" min="0" max="25" value="25" aria-label="Offhand upgrade level">
-        <div class="tip" role="tooltip"><b>Also maxed</b>, carrying Bloody Slash mostly to hold the Keen affinity. Powerstance damage comes off both blades, so having them level is the whole point.
-          <span class="when">Finished</span></div>
-      </div>
-
-      <div class="sl capped">
-        <div class="lab"><span>Mimic Tear <button type="button" class="info" aria-label="About the Mimic Tear">i</button></span> <b id="v-mimic">+10</b></div>
-        <input type="range" id="s-mimic" min="0" max="10" value="10" aria-label="Mimic Tear upgrade level">
-        <div class="tip" role="tooltip"><b>Maximum.</b> It copies your gear and stats at the moment of summoning, so it is now a level-129 samurai with two +25 katanas. Buff first, summon second — it copies active buffs too.
-          <span class="when">Finished · matters most against Malenia</span></div>
-      </div>
-
-      <div class="sl unverified">
-        <div class="lab"><span>Flask charges <button type="button" class="info" aria-label="About flask charges">i</button></span> <b id="v-flask">10</b></div>
-        <input type="range" id="s-flask" min="4" max="14" value="10" aria-label="Flask charges">
-        <div class="tip" role="tooltip"><b>Not confirmed by the sync</b> — last recorded as ~10 back in July, and you have crossed two regions of Golden Seeds since. Flask count is the single largest lever still available for Malenia.
-          <span class="when">Check at a grace · 12–14 before Elphael</span></div>
-      </div>
-
+      <div class="advice" id="advice"></div>
     </div>
-
-    <div class="derived">
-      <div class="d">Derived level<b id="d-lvl">129</b></div>
-      <div class="d">Points spent<b id="d-pts">120</b></div>
-      <div class="d">Next level costs<b id="d-cost">~108k</b></div>
-      <div class="d" id="d-check">Formula check<b>✓ matches 129</b></div>
-    </div>
-
-    <div class="advice" id="advice"></div>
   </div>
 
   <!-- ══ PLANNER ══ -->
-  <div class="planner">
-    <h2>Session planner — how long have you got?</h2>
-    <div class="prow">
-      <div class="sl">
-        <div class="lab"><span>Minutes available</span> <b id="v-time">90</b></div>
-        <input type="range" id="s-time" min="15" max="300" step="15" value="90" aria-label="Minutes available this session">
+  <div class="planner" data-col="planner">
+    <div class="chead"><span class="caret">▼</span><h2>Session planner</h2><span class="badge" id="badge-plan">90 MIN</span></div>
+    <div class="cbody">
+      <div class="prow">
+        <div class="sl">
+          <div class="lab"><span>Minutes available</span> <b id="v-time">90</b></div>
+          <input type="range" id="s-time" min="15" max="300" step="15" value="90" aria-label="Minutes available">
+        </div>
+        <div class="out" id="plan-out"></div>
       </div>
-      <div class="out" id="plan-out"></div>
     </div>
   </div>
 
   <!-- ══ PROGRESS ══ -->
   <div class="progress">
-    <div class="pcard"><div class="k">Trophies</div><div class="v"><span id="p-tro">30</span> / 42</div><div class="bar"><i id="b-tro"></i></div></div>
-    <div class="pcard"><div class="k">Route objectives</div><div class="v"><span id="p-obj">0</span> / <span id="p-objtot">11</span></div><div class="bar"><i id="b-obj"></i></div></div>
-    <div class="pcard"><div class="k">Time remaining</div><div class="v" id="p-time">~8.5 hrs</div><div class="bar"><i id="b-time"></i></div></div>
+    <div class="pcard" data-drawer="d-trophies"><div class="k">Trophies</div><div class="v"><span id="p-tro">30</span> / 42</div><div class="bar"><i id="b-tro"></i></div></div>
+    <div class="pcard" data-drawer="d-bosses"><div class="k">Bosses left</div><div class="v"><span id="p-boss">6</span> to kill</div><div class="bar"><i id="b-boss"></i></div></div>
+    <div class="pcard" data-drawer="d-time"><div class="k">Time remaining</div><div class="v" id="p-time">~10 hrs</div><div class="bar"><i id="b-time"></i></div></div>
+  </div>
+
+  <div class="drawer" id="d-trophies">
+    <h3>Still to earn — <span id="tro-left">12</span></h3>
+    <div class="tlist" id="tro-remaining"></div>
+    <h3>Already earned — <span id="tro-got">30</span></h3>
+    <div class="tlist" id="tro-earned"></div>
+  </div>
+
+  <div class="drawer" id="d-bosses">
+    <h3>Named bosses between you and the platinum</h3>
+    <div class="tlist" id="boss-list"></div>
+    <p style="font-size:14px;color:var(--parch-dim);margin-top:12px;font-style:italic">
+      Gideon and Radagon carry no trophy of their own, but both stand in the road. The Elden Beast is fought three times — once per ending.</p>
+  </div>
+
+  <div class="drawer" id="d-time">
+    <h3>Where the hours go</h3>
+    <div class="tlist" id="time-list"></div>
+  </div>
+
+  <!-- ══ MAP ══ -->
+  <div class="mapcard" data-col="map">
+    <div class="chead"><span class="caret">▼</span><h2 style="font-family:'Cinzel',serif;color:var(--gold);font-size:13px;letter-spacing:.14em;text-transform:uppercase">The Lands Between — what's left</h2><span class="badge" id="badge-map">11 PINS</span></div>
+    <div class="cbody" style="padding-top:14px">
+    <div class="maplayout">
+      <svg class="map" viewBox="0 0 620 800" role="img" aria-label="Map of the Lands Between with remaining objectives">
+        <defs>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="erd" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ffe9a8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <rect x="0" y="0" width="620" height="800" fill="#0a0806" rx="10"/>
+
+        <!-- MOUNTAINTOPS OF THE GIANTS : north-east -->
+        <path d="M372 196 Q420 120 500 96 Q574 74 600 118 Q614 172 596 232 Q570 288 496 300 Q416 306 384 264 Q362 232 372 196 Z"
+              fill="#2b3742" stroke="#46596b" stroke-width="1.4"/>
+        <text class="rlabel" x="500" y="180" text-anchor="middle">Mountaintops</text>
+        <text class="rlabel sm" x="500" y="197" text-anchor="middle">of the Giants</text>
+
+        <!-- CONSECRATED SNOWFIELD : north, west of mountaintops -->
+        <path d="M214 148 Q252 78 330 62 Q404 50 424 100 Q436 152 404 196 Q356 232 288 224 Q222 212 214 148 Z"
+              fill="#39424c" stroke="#5d6b78" stroke-width="1.4"/>
+        <text class="rlabel" x="320" y="132" text-anchor="middle">Consecrated</text>
+        <text class="rlabel sm" x="320" y="149" text-anchor="middle">Snowfield</text>
+
+        <!-- MIQUELLA'S HALIGTREE : far north-west, above the snowfield -->
+        <path d="M124 90 Q158 40 208 44 Q246 52 244 96 Q238 140 196 152 Q142 156 124 90 Z"
+              fill="#2e3a2a" stroke="#5e7a52" stroke-width="1.4"/>
+        <circle cx="184" cy="98" r="34" fill="url(#erd)"/>
+        <text class="rlabel sm" x="184" y="96" text-anchor="middle" style="fill:#cfe0b8">Miquella's</text>
+        <text class="rlabel sm" x="184" y="112" text-anchor="middle" style="fill:#cfe0b8">Haligtree</text>
+
+        <!-- MT GELMIR : west of altus -->
+        <path d="M126 300 Q160 250 214 254 Q254 262 250 306 Q244 352 200 364 Q146 362 126 300 Z"
+              fill="#3a2620" stroke="#5e4038" stroke-width="1.3"/>
+        <text class="rlabel sm" x="188" y="312" text-anchor="middle">Mt. Gelmir</text>
+
+        <!-- ALTUS PLATEAU : centre -->
+        <path d="M244 296 Q302 258 372 268 Q436 278 452 328 Q460 388 420 424 Q352 452 292 434 Q246 412 240 358 Q236 320 244 296 Z"
+              fill="#463618" stroke="#6f5a2a" stroke-width="1.4"/>
+        <text class="rlabel" x="326" y="330" text-anchor="middle">Altus Plateau</text>
+
+        <!-- FORBIDDEN LANDS : link altus -> mountaintops -->
+        <path d="M424 268 Q470 250 488 274 Q498 300 470 316 Q440 322 424 300 Z"
+              fill="#2a2620" stroke="#4a4238" stroke-width="1.2"/>
+        <text class="rlabel sm" x="458" y="294" text-anchor="middle">Forbidden</text>
+
+        <!-- LEYNDELL inside altus -->
+        <circle cx="404" cy="386" r="30" fill="url(#erd)"/>
+        <path d="M382 404 Q404 392 426 404 Q430 422 414 430 Q396 434 382 424 Z" fill="rgba(217,180,90,.22)" stroke="#8a6f2e" stroke-width="1.2"/>
+        <text class="rlabel sm" x="404" y="446" text-anchor="middle" style="fill:#e8d9ae">Leyndell</text>
+
+        <!-- LIURNIA OF THE LAKES : west, elongated -->
+        <path d="M96 380 Q142 350 196 366 Q244 384 250 442 Q256 512 218 556 Q166 590 116 566 Q78 532 78 462 Q80 408 96 380 Z"
+              fill="#1c303c" stroke="#3a5f72" stroke-width="1.4"/>
+        <text class="rlabel" x="166" y="466" text-anchor="middle">Liurnia</text>
+        <text class="rlabel sm" x="166" y="483" text-anchor="middle">of the Lakes</text>
+
+        <!-- CAELID : east -->
+        <path d="M380 480 Q450 452 522 470 Q580 488 578 546 Q572 606 508 626 Q436 640 392 610 Q358 578 360 528 Q364 496 380 480 Z"
+              fill="#4a2018" stroke="#7a3628" stroke-width="1.4"/>
+        <text class="rlabel" x="470" y="552" text-anchor="middle">Caelid</text>
+
+        <!-- DRAGONBARROW : ne of caelid -->
+        <path d="M486 440 Q536 420 574 438 Q596 460 580 486 Q536 500 496 486 Q474 466 486 440 Z"
+              fill="#3c1c18" stroke="#6a3026" stroke-width="1.2"/>
+        <text class="rlabel sm" x="534" y="468" text-anchor="middle">Dragonbarrow</text>
+
+        <!-- LIMGRAVE : south centre -->
+        <path d="M224 566 Q288 540 348 566 Q382 592 374 646 Q360 700 300 714 Q238 720 206 682 Q188 636 200 596 Q210 574 224 566 Z"
+              fill="#25381f" stroke="#456b39" stroke-width="1.4"/>
+        <text class="rlabel" x="288" y="632" text-anchor="middle">Limgrave</text>
+
+        <!-- WEEPING PENINSULA : far south -->
+        <path d="M240 712 Q288 700 322 720 Q342 748 326 774 Q288 792 252 776 Q226 750 240 712 Z"
+              fill="#20321c" stroke="#3d6034" stroke-width="1.3"/>
+        <text class="rlabel sm" x="284" y="748" text-anchor="middle">Weeping Pen.</text>
+
+        <!-- underground marker band -->
+        <path d="M96 630 Q170 616 236 640" fill="none" stroke="#6a5a92" stroke-width="1.5" stroke-dasharray="4 6" opacity=".8"/>
+        <text class="rlabel sm" x="130" y="662" text-anchor="middle" style="fill:#b8a1e3">Deeproot ▼</text>
+
+        <!-- ═══ PINS ═══ -->
+        <g class="pin" data-step="1"><circle class="dot" cx="300" cy="118" r="12" fill="#f2dc94" stroke="#7a5c1c" stroke-width="2"/><text x="300" y="122" text-anchor="middle">1</text></g>
+        <g class="pin" data-step="2"><circle class="dot" cx="470" cy="580" r="12" fill="#f2dc94" stroke="#7a5c1c" stroke-width="2"/><text x="470" y="584" text-anchor="middle">2</text></g>
+        <g class="pin" data-step="3"><circle class="dot" cx="128" cy="636" r="12" fill="#b8a1e3" stroke="#4a3a68" stroke-width="2"/><text x="128" y="640" text-anchor="middle">3</text></g>
+        <g class="pin" data-step="4"><circle class="dot" cx="318" cy="388" r="12" fill="#f2dc94" stroke="#7a5c1c" stroke-width="2"/><text x="318" y="392" text-anchor="middle">4</text></g>
+        <g class="pin" data-step="5"><circle class="dot" cx="392" cy="150" r="12" fill="#b8a1e3" stroke="#4a3a68" stroke-width="2"/><text x="392" y="154" text-anchor="middle">5</text></g>
+        <g class="pin" data-step="6"><circle class="dot" cx="252" cy="176" r="12" fill="#8fd0c8" stroke="#2f5a54" stroke-width="2"/><text x="252" y="180" text-anchor="middle">6</text></g>
+        <g class="pin" data-step="7"><circle class="dot" cx="196" cy="70" r="12" fill="#f2dc94" stroke="#7a5c1c" stroke-width="2"/><text x="196" y="74" text-anchor="middle">7</text></g>
+        <g class="pin" data-step="8"><circle class="dot" cx="152" cy="112" r="12" fill="#f2dc94" stroke="#7a5c1c" stroke-width="2"/><text x="152" y="116" text-anchor="middle">8</text></g>
+        <g class="pin" data-step="9"><circle class="dot" cx="176" cy="140" r="12" fill="#d98a68" stroke="#6a3020" stroke-width="2"/><text x="176" y="144" text-anchor="middle">9</text></g>
+        <g class="pin" data-step="10"><circle class="dot" cx="404" cy="414" r="12" fill="#d98a68" stroke="#6a3020" stroke-width="2"/><text x="404" y="418" text-anchor="middle">10</text></g>
+        <g class="pin" data-step="11"><circle class="dot" cx="440" cy="386" r="12" fill="#d98a68" stroke="#6a3020" stroke-width="2"/><text x="440" y="390" text-anchor="middle">11</text></g>
+      </svg>
+
+      <div class="maplegend">
+        <h3>Legend</h3>
+        <div class="lkey"><i style="background:#f2dc94"></i> Collection pickup — an item, not a fight</div>
+        <div class="lkey"><i style="background:#8fd0c8"></i> Ordina — the puzzle that opens the north</div>
+        <div class="lkey"><i style="background:#b8a1e3"></i> Underground — entrance shown, area is below</div>
+        <div class="lkey"><i style="background:#d98a68"></i> Boss fight</div>
+        <div class="lkey"><i style="background:#4a5a3a"></i> Done</div>
+        <p style="margin-top:12px;font-size:13px;line-height:1.5">Regions are drawn to their real positions: Limgrave south of centre, Caelid east, Liurnia west, Altus above them, and the Mountaintops and Snowfield across the north. Everything you have left is in the top third of the map — except two errands.</p>
+        <div class="mapsel" id="mapsel"><b>Tap a pin</b>Select any numbered pin to read its objective here.</div>
+      </div>
+    </div>
+    </div>
   </div>
 
   <!-- ══ ROUTE ══ -->
   <div class="panel">
     <h2>The Remaining Route</h2>
-    <div class="lede">Ordered so the cheap collection-closers come first and the skill wall comes last. Every objective shows what it costs in minutes and what finishing it unlocks — because a thirty-minute puzzle that opens four hours of content should not sort next to a thirty-minute errand that opens nothing.</div>
+    <div class="lede">Tap any objective's title bar to fold it away. Finished ones collapse themselves. Each shows what it costs in minutes and what it unlocks — because a thirty-minute puzzle that opens four hours should not sort next to a thirty-minute errand that opens nothing.</div>
 
-    <div class="step" data-step="1" data-min="60">
-      <div class="n"><span>01 · CONSECRATED SNOWFIELD</span><span class="mins">~60 min</span></div>
-      <div class="t">The Golden Order Greatsword</div>
-      <label class="task"><input type="checkbox" data-id="r1"><span>Ride the Snowfield to the <b>Cave of the Forlorn</b> and take the <b>Golden Order Greatsword</b>.</span></label>
-      <div class="row gate"><b>Gate:</b> already open — both Haligtree Medallion halves are held. Hold the medallion at the Grand Lift of Rold rather than pressing the obvious prompt.</div>
-      <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Armaments</b> outright — 9 of 9. One trophy from one pickup.</div>
-      <div class="row item">The snowstorm kills navigation. Ride the left-hand cliff edge and you cannot get lost.</div>
+    <div class="step" data-step="1" data-min="60" data-col="s1">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>01 · CONSECRATED SNOWFIELD</span><span class="mins">~60 min</span></div><div class="t">The Golden Order Greatsword</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r1"><span>Ride to the <b>Cave of the Forlorn</b> and take the <b>Golden Order Greatsword</b>.</span></label>
+        <div class="row gate"><b>Gate:</b> open — both medallion halves are held. Hold the medallion at the Grand Lift of Rold rather than pressing the obvious prompt.</div>
+        <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Armaments</b>, 9 of 9. One trophy from one pickup.</div>
+        <div class="row blade"><b>Wieldable?</b> No — 16 STR / 21 DEX / 28 FAI. Collect it for the trophy; it will never leave your box.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="2" data-min="30">
-      <div class="n"><span>02 · SELLIA HIDEAWAY, CAELID</span><span class="mins">~30 min</span></div>
-      <div class="t">Stars of Ruin</div>
-      <label class="task"><input type="checkbox" data-id="r2"><span>Reach <b>Master Lusat</b> in his sealed cell and take <b>Stars of Ruin</b>.</span></label>
-      <div class="row gate"><b>Gate:</b> needs the <b>Sellian Sealbreaker</b> from Sellen's questline. Check your Key Items tab before travelling — without it the cell will not open and the trip is wasted.</div>
-      <div class="row unlock"><b>Unlocks:</b> one of the two remaining legendary spells.</div>
-      <div class="row item">The hideaway is the illusory-wall cave behind Sellia. Hit walls that look wrong.</div>
+    <div class="step" data-step="2" data-min="30" data-col="s2">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>02 · SELLIA HIDEAWAY, CAELID</span><span class="mins">~30 min</span></div><div class="t">Stars of Ruin</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r2"><span>Reach <b>Master Lusat</b> in his sealed cell and take <b>Stars of Ruin</b>.</span></label>
+        <div class="row gate"><b>Gate:</b> needs the <b>Sellian Sealbreaker</b> from Sellen's questline. Check Key Items before travelling — without it the cell will not open.</div>
+        <div class="row unlock"><b>Unlocks:</b> one of the two remaining legendary spells.</div>
+        <div class="row item">The hideaway is the illusory-wall cave behind Sellia. Hit walls that look wrong.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="3" data-min="20">
-      <div class="n"><span>03 · DEEPROOT DEPTHS</span><span class="mins">~20 min</span></div>
-      <div class="t">Elden Stars — verify first</div>
-      <label class="task"><input type="checkbox" data-id="r3"><span>Confirm whether you already hold <b>Elden Stars</b>. If not, the ant cave along the roots has it.</span></label>
-      <div class="row enemy"><b>Conflict in the record:</b> the ledger lists this as missing, but the 13 August session logged picking it up in Deeproot. <b>Check your inventory before you travel</b> — if it is held, this objective vanishes and the spell category becomes 6 of 7.</div>
-      <div class="row unlock"><b>Unlocks:</b> with Stars of Ruin, closes <b>Legendary Sorceries and Incantations</b>.</div>
+    <div class="step" data-step="3" data-min="20" data-col="s3">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>03 · DEEPROOT DEPTHS</span><span class="mins">~20 min</span></div><div class="t">Elden Stars — verify first</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r3"><span>Confirm whether you already hold <b>Elden Stars</b>. If not, the ant cave along the roots has it.</span></label>
+        <div class="row enemy"><b>Conflict in the record:</b> the ledger says missing, the 13 August session says collected. <b>Check inventory before travelling</b> — if held, this objective disappears.</div>
+        <div class="row unlock"><b>Unlocks:</b> with Stars of Ruin, closes <b>Legendary Sorceries and Incantations</b>.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="4" data-min="30">
-      <div class="n"><span>04 · SAINTED HERO'S GRAVE, ALTUS</span><span class="mins">~30 min</span></div>
-      <div class="t">Ancient Dragon Knight Kristoff</div>
-      <label class="task"><input type="checkbox" data-id="r4"><span>Clear the grave and take the <b>Ancient Dragon Knight Kristoff</b> ashes.</span></label>
-      <div class="row unlock"><b>Unlocks:</b> the fifth of six legendary ashes. Only Cleanrot Knight Finlay in Elphael remains after this.</div>
-      <div class="row enemy">Chariot dungeon. The trick is the side alcoves and the two braziers, not out-running anything.</div>
+    <div class="step" data-step="4" data-min="30" data-col="s4">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>04 · SAINTED HERO'S GRAVE, ALTUS</span><span class="mins">~30 min</span></div><div class="t">Ancient Dragon Knight Kristoff</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r4"><span>Clear the grave and take the <b>Ancient Dragon Knight Kristoff</b> ashes.</span></label>
+        <div class="row unlock"><b>Unlocks:</b> fifth of six legendary ashes. Only Cleanrot Knight Finlay remains after this.</div>
+        <div class="row enemy">Chariot dungeon — the answer is the side alcoves and the two braziers, not out-running anything.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="5" data-min="75">
-      <div class="n"><span>05 · MOHGWYN PALACE</span><span class="mins">~75 min</span></div>
-      <div class="t">Mohg, Lord of Blood</div>
-      <label class="task"><input type="checkbox" data-id="r5"><span><b>MOHG, LORD OF BLOOD</b> — the blood swamp via the Snowfield portal. <span class="tro">SHARDBEARER</span></span></label>
-      <div class="row gate"><b>Gate:</b> the <b>Purifying Crystal Tear</b>. In your physick it cancels the Nihil ritual outright; without it, Nihil is three near-death events you must heal through. <span style="color:var(--danger)">Sync could not confirm you have it.</span></div>
-      <div class="row unlock"><b>Unlocks:</b> Shardbearer Mohg, plus his Great Rune. Also the entry requirement for Shadow of the Erdtree, alongside Radahn.</div>
-      <div class="row item">The swamp's sleeping birds are the best rune farm in the game if Mind and Endurance need funding.</div>
+    <div class="step" data-step="5" data-min="75" data-col="s5">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>05 · MOHGWYN PALACE</span><span class="mins">~75 min</span></div><div class="t">Mohg, Lord of Blood</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r5"><span><b>MOHG, LORD OF BLOOD</b> — the blood swamp via the Snowfield portal. <span class="tro">SHARDBEARER</span></span></label>
+        <div class="row gate"><b>Gate:</b> the <b>Purifying Crystal Tear</b> cancels his Nihil ritual outright. Without it, Nihil is three near-death events you must heal through. <span style="color:var(--danger)">Not confirmed in your physick.</span></div>
+        <div class="row blade"><b>Weapons:</b> he takes <b>half</b> bleed damage — still worth it, just slower than you are used to. He is weak to plain physical, which your katanas already are.</div>
+        <div class="row unlock"><b>Unlocks:</b> Shardbearer Mohg, his Great Rune, and the Shadow of the Erdtree entry requirement alongside Radahn.</div>
+        <div class="row item">The sleeping birds here are the best rune farm in the game — useful if Mind and Endurance need funding.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="6" data-min="30">
-      <div class="n"><span>06 · ORDINA, LITURGICAL TOWN</span><span class="mins">~30 min</span></div>
-      <div class="t">The Evergaol Puzzle</div>
-      <label class="task"><input type="checkbox" data-id="r6"><span>Light all four seals while invisible assassins hunt you.</span></label>
-      <div class="row unlock"><b>Unlocks: roughly four hours of content.</b> This is the highest-leverage half hour left on the board — it is the only door to the Haligtree, Elphael, Loretta, Malenia, Finlay, Marika's Soreseal and the Dragoncrest Greatshield.</div>
-      <div class="row item">Sneak, do not fight. Use Sentry's Torch or throw pots to reveal them; the northeast seal is the one that kills people.</div>
+    <div class="step" data-step="6" data-min="30" data-col="s6">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>06 · ORDINA, LITURGICAL TOWN</span><span class="mins">~30 min</span></div><div class="t">The Evergaol Puzzle</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r6"><span>Light all four seals while invisible assassins hunt you.</span></label>
+        <div class="row unlock"><b>Unlocks roughly four hours of content.</b> The highest-leverage half hour left — the only door to the Haligtree, Elphael, Loretta, Malenia, Finlay, Marika's Soreseal and the Dragoncrest Greatshield.</div>
+        <div class="row item">Sneak, do not fight. Sentry's Torch or thrown pots reveal them; the northeast seal is the one that kills people.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="7" data-min="90">
-      <div class="n"><span>07 · MIQUELLA'S HALIGTREE</span><span class="mins">~90 min</span></div>
-      <div class="t">Loretta, Knight of the Haligtree</div>
-      <label class="task"><input type="checkbox" data-id="r7"><span><b>Loretta, Knight of the Haligtree</b> — the same moveset you beat at Caria Manor, with more damage. <span class="tro">TROPHY</span></span></label>
-      <div class="row enemy">The branch-walking above the void is more dangerous than anything in the area. The Erdtree Avatar on the approach is optional.</div>
+    <div class="step" data-step="7" data-min="90" data-col="s7">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>07 · MIQUELLA'S HALIGTREE</span><span class="mins">~90 min</span></div><div class="t">Loretta, Knight of the Haligtree</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r7"><span><b>Loretta, Knight of the Haligtree</b> — the same moveset you beat at Caria Manor, with more damage. <span class="tro">TROPHY</span></span></label>
+        <div class="row blade"><b>Weapons:</b> bleeds normally. Standard Uchigatana rotation; she is a horseback caster, so close distance and stay there.</div>
+        <div class="row enemy">The branch-walking above the void kills more players than she does.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="8" data-min="120">
-      <div class="n"><span>08 · ELPHAEL, BRACE OF THE HALIGTREE</span><span class="mins">~2 hrs</span></div>
-      <div class="t">Two Categories Close Here</div>
-      <label class="task"><input type="checkbox" data-id="r8a"><span><b>Marika's Soreseal</b> <span class="tro">TALISMAN 7/8</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r8b"><span><b>Dragoncrest Greatshield Talisman</b> <span class="tro">TALISMAN 8/8</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r8c"><span><b>Cleanrot Knight Finlay</b> ashes <span class="tro">ASHES 6/6</span></span></label>
-      <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b> in a single area. Two trophies.</div>
-      <div class="row enemy"><b>Two hours of scarlet rot.</b> Boluses are effectively craft-only — count them before you go in. Going in short turns this into a three-hour area.</div>
+    <div class="step" data-step="8" data-min="120" data-col="s8">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>08 · ELPHAEL, BRACE OF THE HALIGTREE</span><span class="mins">~2 hrs</span></div><div class="t">Two Categories Close Here</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r8a"><span><b>Marika's Soreseal</b> <span class="tro">TALISMAN 7/8</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r8b"><span><b>Dragoncrest Greatshield Talisman</b> <span class="tro">TALISMAN 8/8</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r8c"><span><b>Cleanrot Knight Finlay</b> ashes <span class="tro">ASHES 6/6</span></span></label>
+        <div class="row unlock"><b>Unlocks:</b> closes <b>Legendary Talismans</b> and <b>Legendary Ashen Remains</b> in one area. Two trophies.</div>
+        <div class="row enemy"><b>Two hours of scarlet rot.</b> Boluses are effectively craft-only — count them first. Going in short turns this into three hours.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="9" data-min="180">
-      <div class="n"><span>09 · MALENIA, BLADE OF MIQUELLA</span><span class="mins">open-ended</span></div>
-      <div class="t">The Only Genuine Wall</div>
-      <label class="task"><input type="checkbox" data-id="r9"><span><b>MALENIA, BLADE OF MIQUELLA</b> <span class="tro">SHARDBEARER</span></span></label>
-      <div class="row enemy"><b>Not solvable by level.</b> Everything else on this list bends to being over-levelled; she does not. Waterfowl Dance is the exam and the answer is spacing, not rolling.</div>
-      <div class="row enemy">She heals on <em>every</em> hit she lands, including hits on your Mimic. A blocked hit still heals her. This is why the fight punishes passivity.</div>
-      <div class="row ash">Pre-buff, then summon: your +10 Mimic arrives as a level-129 samurai with two +25 katanas and takes roughly half her attention.</div>
-      <div class="row item">Bleed procs are your best damage. Powerstance L1 chains build it fastest — the same rotation that has worked all game.</div>
+    <div class="step" data-step="9" data-min="180" data-col="s9">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>09 · MALENIA, BLADE OF MIQUELLA</span><span class="mins">open-ended</span></div><div class="t">The Only Genuine Wall</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r9"><span><b>MALENIA, BLADE OF MIQUELLA</b> <span class="tro">SHARDBEARER</span></span></label>
+        <div class="row blade"><b>Your best matchup in the game.</b> She has <b>low</b> bleed resistance — dual katanas proc it fast enough to outpace her self-healing. Everything about this build was accidentally aimed at her.</div>
+        <div class="row enemy"><b>Not solvable by level.</b> Every other wall bent to being over-levelled; she will not. Waterfowl Dance is the exam and the answer is spacing, not rolling.</div>
+        <div class="row enemy">She heals on <em>every</em> hit she lands, including on your Mimic, and including blocked hits. Passivity loses.</div>
+        <div class="row ash">Pre-buff, then summon: your +10 Mimic arrives as a level-129 samurai with two +25 katanas and takes about half her attention.</div>
+        <div class="row item"><b>Her drop:</b> Hand of Malenia — 16 STR / 48 DEX. You have the Dex; you are four points of Strength short. This is what the banked Ancient Dragon Somber stone was for.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="10" data-min="45">
-      <div class="n"><span>10 · LEYNDELL, ASHEN CAPITAL</span><span class="mins">~45 min</span></div>
-      <div class="t">Hoarah Loux, Warrior</div>
-      <label class="task"><input type="checkbox" data-id="r10"><span><b>Godfrey / Hoarah Loux</b> — he throws off the armour and starts wrestling. <span class="tro">TROPHY</span></span></label>
-      <div class="row enemy">Sir Gideon Ofnir stands before him and carries no trophy — he casts the spells of every boss you have killed, which by now is a long list.</div>
-      <div class="row item">Do this <b>after</b> Malenia. Nothing here is missable and there is no reason to be closer to the ending than you must be.</div>
+    <div class="step" data-step="10" data-min="45" data-col="s10">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>10 · LEYNDELL, ASHEN CAPITAL</span><span class="mins">~45 min</span></div><div class="t">Hoarah Loux, Warrior</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r10"><span><b>Godfrey / Hoarah Loux</b> — he throws off the armour and starts wrestling. <span class="tro">TROPHY</span></span></label>
+        <div class="row blade"><b>Weapons:</b> bleeds normally, and his grabs punish greed rather than aggression. Standard rotation.</div>
+        <div class="row enemy">Sir Gideon Ofnir stands before him carrying no trophy — he casts the spells of every boss you have killed, which is now a long list.</div>
+        <div class="row item">Do this <b>after</b> Malenia. Nothing here is missable and there is no reason to sit closer to the ending than you must.</div>
+      </div>
     </div>
 
-    <div class="step" data-step="11" data-min="120">
-      <div class="n"><span>11 · THE ENDINGS</span><span class="mins">~2 hrs</span></div>
-      <div class="t">The Save-File Protocol</div>
-      <label class="task"><input type="checkbox" data-id="r11a"><span><b>Confirm all 39 non-ending trophies have popped</b> before you fight the Elden Beast. <span class="tro q">DO NOT SKIP</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r11b"><span><b>Radagon → Elden Beast.</b> Rest at Fractured Marika and <b>do not touch the remains.</b></span></label>
-      <label class="task"><input type="checkbox" data-id="r11c"><span>Turn <b>auto-sync OFF</b>, then take a manual PS Plus cloud backup.</span></label>
-      <label class="task"><input type="checkbox" data-id="r11d"><span><b>Lord of Frenzied Flame</b> first — Cathedral of the Forsaken detour, strip armour after the boss. <span class="tro">GOLD</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r11e"><span>Restore backup → <b>Age of the Stars</b>, summoning Ranni. <span class="tro">GOLD</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r11f"><span>Restore backup → <b>Age of Fracture</b> for Elden Lord. <span class="tro">GOLD</span></span></label>
-      <label class="task"><input type="checkbox" data-id="r11g"><span><b>ELDEN RING</b> — platinum. <span class="tro">PLATINUM</span></span></label>
-      <div class="row enemy"><b>Auto-sync stays off until all three have popped.</b> It will silently overwrite the backup you are depending on, and that is the single most common way this protocol fails.</div>
-      <div class="row item">Frenzied Flame goes first deliberately: it is the ending that locks the others, so it is taken when a restore is guaranteed to follow. New Game Plus has no bearing on the platinum.</div>
+    <div class="step" data-step="11" data-min="120" data-col="s11">
+      <div class="chead"><span class="caret">▼</span><div><div class="n"><span>11 · THE ENDINGS</span><span class="mins">~2 hrs</span></div><div class="t">The Save-File Protocol</div></div></div>
+      <div class="cbody">
+        <label class="task"><input type="checkbox" data-id="r11a"><span><b>Confirm all 39 non-ending trophies have popped</b> before the Elden Beast. <span class="tro q">DO NOT SKIP</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r11b"><span><b>Radagon → Elden Beast.</b> Rest at Fractured Marika and <b>do not touch the remains.</b></span></label>
+        <label class="task"><input type="checkbox" data-id="r11c"><span>Turn <b>auto-sync OFF</b>, then take a manual PS Plus cloud backup.</span></label>
+        <label class="task"><input type="checkbox" data-id="r11d"><span><b>Lord of Frenzied Flame</b> first — Cathedral of the Forsaken detour, strip armour after the boss. <span class="tro">GOLD</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r11e"><span>Restore backup → <b>Age of the Stars</b>, summoning Ranni. <span class="tro">GOLD</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r11f"><span>Restore backup → <b>Age of Fracture</b> for Elden Lord. <span class="tro">GOLD</span></span></label>
+        <label class="task"><input type="checkbox" data-id="r11g"><span><b>ELDEN RING</b> — platinum. <span class="tro">PLATINUM</span></span></label>
+        <div class="row blade"><b>Read this before you go in:</b> <span style="color:var(--danger)">Radagon and the Elden Beast are immune to bleed</span> — and to every other status effect. Your entire damage model switches off for the last fight, and you will fight it <b>three times</b>. Plan on raw physical damage, Unsheathe burst, and patience.</div>
+        <div class="row enemy"><b>Auto-sync stays off until all three pop.</b> It overwrites the backup silently, and that is the usual way this protocol fails.</div>
+        <div class="row item">Frenzied Flame goes first deliberately: it is the ending that locks the others, so take it when a restore is guaranteed to follow. New Game Plus has no bearing on the platinum.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ARMOURY ══ -->
+  <div class="section forge" data-col="armoury">
+    <div class="chead"><span class="caret">▼</span><h2>The Armoury — what you can actually swing</h2><span class="badge" id="badge-arm">STR 12 · DEX 60</span></div>
+    <div class="cbody">
+      <div class="lede">Requirements checked live against your sliders. Move Strength or Faith above and the verdicts change.</div>
+
+      <div class="grp">The uncomfortable finding</div>
+      <p style="font-size:15px;color:#b7a982;margin-bottom:10px;grid-column:1/-1">
+        You are collecting nine legendary armaments for a trophy and, at <b>STR 12 / FAI 8 / INT 9 / ARC 8</b>, you cannot currently wield a single one of them.
+        That is fine — the trophy only requires acquiring them. But two are within a handful of points, and one of those is the weapon the sync already earmarked your banked Ancient Dragon stone for.</p>
+
+      <div class="tblwrap">
+        <table class="wtable" id="legend-table">
+          <thead><tr><th>Legendary armament</th><th>Requires</th><th>Verdict</th><th>Gap</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="grp">Alternatives you can pick up and use today</div>
+      <div class="tblwrap">
+        <table class="wtable" id="alt-table">
+          <thead><tr><th>Weapon</th><th>Requires</th><th>Why bother</th><th>Verdict</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="grp">Three cheap unlocks, ranked</div>
+      <ul style="grid-column:1/-1">
+        <li><b>+2 Faith → Eclipse Shotel.</b> Two levels. You already own it, and it is currently dead weight in your box. The cheapest new toy available.</li>
+        <li><b>+4 Strength → Hand of Malenia.</b> Needs 16 STR / 48 DEX; your Dex is already 60. It drops from the boss you are building toward, and the Ancient Dragon Somber stone you banked exists precisely to max it. <b>This contradicts the standing "never spend on Strength" rule</b> — the rule was written when nothing you wanted needed Strength. Four points is not a build change, it is a key.</li>
+        <li><b>+12 Arcane → Rivers of Blood.</b> 12 STR / 18 DEX / 20 ARC. This one is a Larval Tear respec rather than a few levels, and Arcane also raises your bleed build-up across the board. The most powerful option and the most disruptive.</li>
+      </ul>
+
+      <div class="grp">Bleed, boss by boss</div>
+      <div class="bossgrid">
+        <div class="bosscard">
+          <h4>Mohg, Lord of Blood</h4>
+          <div class="bleed half">Bleed at 50%</div>
+          <p>Takes half the usual hemorrhage damage — thematically fair for the blood lord. Still worth proccing, just slower.</p>
+          <p><b>Use:</b> your current katanas. He is weak to plain physical. Purifying Tear for Nihil.</p>
+        </div>
+        <div class="bosscard">
+          <h4>Loretta, Knight of the Haligtree</h4>
+          <div class="bleed good">Bleeds normally</div>
+          <p>No resistance worth planning around. A mounted caster who wants distance.</p>
+          <p><b>Use:</b> standard powerstance rotation, closed distance.</p>
+        </div>
+        <div class="bosscard">
+          <h4>Malenia, Blade of Miquella</h4>
+          <div class="bleed good">Low resistance — your best matchup</div>
+          <p>One of the easiest bosses in the game to bleed. Procs land fast enough to outpace her lifesteal, which is the whole problem with her otherwise.</p>
+          <p><b>Use:</b> dual Uchigatana L1 chains. This is the fight your build was accidentally designed for.</p>
+        </div>
+        <div class="bosscard">
+          <h4>Radagon &amp; the Elden Beast</h4>
+          <div class="bleed none">Immune — to bleed and every status</div>
+          <p>The final fight switches your damage model off entirely, and you will run it three times for three endings.</p>
+          <p><b>Use:</b> raw physical and Unsheathe burst. Radagon has no fire resistance if you fancy a Physick tear. The Elden Beast resists holy heavily.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- ══ CHECK AT A GRACE ══ -->
-  <div class="section verify">
-    <h2>Five Minutes at a Grace — Settle These First</h2>
-    <div class="lede">Eight things the sync could not confirm. Each one either wastes a trip or changes a fight if it turns out wrong, and all of them are readable from a menu.</div>
-    <div class="cols">
-      <label class="task"><input type="checkbox" data-id="v1"><span><b>Stat screen.</b> Settles level 126 vs 129 and locks the derived-level formula above.</span></label>
-      <label class="task"><input type="checkbox" data-id="v2"><span><b>Elden Stars.</b> Ledger says missing; the 13 Aug session says collected. Removes a whole trip if held.</span></label>
-      <label class="task"><input type="checkbox" data-id="v3"><span><b>Purifying Crystal Tear.</b> Decides whether Mohg's Nihil is a mechanic or a formality.</span></label>
-      <label class="task"><input type="checkbox" data-id="v4"><span><b>Sellian Sealbreaker</b> in Key Items. Without it, Stars of Ruin is unreachable.</span></label>
-      <label class="task"><input type="checkbox" data-id="v5"><span><b>Preserving Bolus count.</b> Elphael is two hours of rot and boluses are craft-only.</span></label>
-      <label class="task"><input type="checkbox" data-id="v6"><span><b>Scroll the PS5 trophy list once.</b> Confirms Margit, Roundtable Hold and Shardbearer Rykard — all three inferred, never recorded.</span></label>
-      <label class="task"><input type="checkbox" data-id="v7"><span><b>Flask charges and Sacred Tears.</b> The largest remaining lever for Malenia.</span></label>
-      <label class="task"><input type="checkbox" data-id="v8"><span><b>Equip load and roll type.</b> Endurance moved to 40 and nothing in the record reflects what that did.</span></label>
+  <div class="section verify" data-col="verify">
+    <div class="chead"><span class="caret">▼</span><h2>Five minutes at a grace</h2><span class="badge" id="badge-verify">0 / 8</span></div>
+    <div class="cbody">
+      <div class="lede">Eight things the sync could not confirm. Each either wastes a trip or changes a fight if it is wrong, and all are readable from a menu.</div>
+      <div class="cols">
+        <label class="task"><input type="checkbox" data-id="v1"><span><b>Stat screen.</b> Settles level 126 vs 129 and locks the derived formula.</span></label>
+        <label class="task"><input type="checkbox" data-id="v2"><span><b>Elden Stars.</b> Ledger says missing; 13 Aug session says collected. Removes a trip if held.</span></label>
+        <label class="task"><input type="checkbox" data-id="v3"><span><b>Purifying Crystal Tear.</b> Decides whether Mohg's Nihil is a mechanic or a formality.</span></label>
+        <label class="task"><input type="checkbox" data-id="v4"><span><b>Sellian Sealbreaker</b> in Key Items. Without it Stars of Ruin is unreachable.</span></label>
+        <label class="task"><input type="checkbox" data-id="v5"><span><b>Preserving Bolus count.</b> Elphael is two hours of rot and boluses are craft-only.</span></label>
+        <label class="task"><input type="checkbox" data-id="v6"><span><b>Scroll the PS5 trophy list once.</b> Confirms Margit, Roundtable Hold and Shardbearer Rykard — all inferred.</span></label>
+        <label class="task"><input type="checkbox" data-id="v7"><span><b>Flask charges and Sacred Tears.</b> The largest remaining lever for Malenia.</span></label>
+        <label class="task"><input type="checkbox" data-id="v8"><span><b>Equip load and roll type.</b> Endurance moved to 40 and nothing reflects what that did.</span></label>
+      </div>
     </div>
   </div>
 
   <!-- ══ COLLECTIONS ══ -->
-  <div class="section">
-    <h2>The Four Collection Trophies</h2>
-    <div class="lede">Nothing here needs to be equipped or cast — only acquired. Ticked boxes reflect the 14 August sync.</div>
-    <div class="cols">
+  <div class="section" data-col="collections">
+    <div class="chead"><span class="caret">▼</span><h2>The four collection trophies</h2><span class="badge" id="badge-coll">23 / 30</span></div>
+    <div class="cbody">
+      <div class="lede">Nothing here needs equipping or casting — only acquiring. Ticks reflect the 14 August sync.</div>
+      <div class="cols">
+        <div class="grp">Legendary Armaments <span id="c-arms">— 8 of 9</span></div>
+        <label class="task"><input type="checkbox" data-id="l-gransax" data-seed="1"><span>Bolt of Gransax</span></label>
+        <label class="task"><input type="checkbox" data-id="l-marais" data-seed="1"><span>Marais Executioner's Sword</span></label>
+        <label class="task"><input type="checkbox" data-id="l-grafted" data-seed="1"><span>Grafted Blade Greatsword</span></label>
+        <label class="task"><input type="checkbox" data-id="l-ruins" data-seed="1"><span>Ruins Greatsword</span></label>
+        <label class="task"><input type="checkbox" data-id="l-sonf" data-seed="1"><span>Sword of Night and Flame</span></label>
+        <label class="task"><input type="checkbox" data-id="l-darkmoon" data-seed="1"><span>Dark Moon Greatsword</span></label>
+        <label class="task"><input type="checkbox" data-id="l-eclipse" data-seed="1"><span>Eclipse Shotel</span></label>
+        <label class="task"><input type="checkbox" data-id="l-devourer" data-seed="1"><span>Devourer's Scepter</span></label>
+        <label class="task"><input type="checkbox" data-id="l-golden"><span><b>Golden Order Greatsword</b> — Cave of the Forlorn <em>(01)</em></span></label>
 
-      <div class="grp">Legendary Armaments <span>— 8 of 9</span></div>
-      <label class="task"><input type="checkbox" data-id="l-gransax" data-seed="1"><span>Bolt of Gransax</span></label>
-      <label class="task"><input type="checkbox" data-id="l-marais" data-seed="1"><span>Marais Executioner's Sword</span></label>
-      <label class="task"><input type="checkbox" data-id="l-grafted" data-seed="1"><span>Grafted Blade Greatsword</span></label>
-      <label class="task"><input type="checkbox" data-id="l-ruins" data-seed="1"><span>Ruins Greatsword</span></label>
-      <label class="task"><input type="checkbox" data-id="l-sonf" data-seed="1"><span>Sword of Night and Flame</span></label>
-      <label class="task"><input type="checkbox" data-id="l-darkmoon" data-seed="1"><span>Dark Moon Greatsword</span></label>
-      <label class="task"><input type="checkbox" data-id="l-eclipse" data-seed="1"><span>Eclipse Shotel</span></label>
-      <label class="task"><input type="checkbox" data-id="l-devourer" data-seed="1"><span>Devourer's Scepter</span></label>
-      <label class="task"><input type="checkbox" data-id="l-golden"><span><b>Golden Order Greatsword</b> — Cave of the Forlorn <em>(objective 01)</em></span></label>
+        <div class="grp">Legendary Ashen Remains <span id="c-ashes">— 4 of 6</span></div>
+        <label class="task"><input type="checkbox" data-id="s-mimic" data-seed="1"><span>Mimic Tear</span></label>
+        <label class="task"><input type="checkbox" data-id="s-lhutel" data-seed="1"><span>Lhutel the Headless</span></label>
+        <label class="task"><input type="checkbox" data-id="s-ogha" data-seed="1"><span>Redmane Knight Ogha</span></label>
+        <label class="task"><input type="checkbox" data-id="s-tiche" data-seed="1"><span>Black Knife Tiche</span></label>
+        <label class="task"><input type="checkbox" data-id="s-kristoff"><span><b>Ancient Dragon Knight Kristoff</b> — Sainted Hero's Grave <em>(04)</em></span></label>
+        <label class="task"><input type="checkbox" data-id="s-finlay"><span><b>Cleanrot Knight Finlay</b> — Elphael <em>(08)</em></span></label>
 
-      <div class="grp">Legendary Ashen Remains <span>— 4 of 6</span></div>
-      <label class="task"><input type="checkbox" data-id="s-mimic" data-seed="1"><span>Mimic Tear</span></label>
-      <label class="task"><input type="checkbox" data-id="s-lhutel" data-seed="1"><span>Lhutel the Headless</span></label>
-      <label class="task"><input type="checkbox" data-id="s-ogha" data-seed="1"><span>Redmane Knight Ogha</span></label>
-      <label class="task"><input type="checkbox" data-id="s-tiche" data-seed="1"><span>Black Knife Tiche</span></label>
-      <label class="task"><input type="checkbox" data-id="s-kristoff"><span><b>Ancient Dragon Knight Kristoff</b> — Sainted Hero's Grave <em>(04)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="s-finlay"><span><b>Cleanrot Knight Finlay</b> — Elphael <em>(08)</em></span></label>
+        <div class="grp">Legendary Talismans <span id="c-tals">— 6 of 8</span></div>
+        <label class="task"><input type="checkbox" data-id="t-soreseal" data-seed="1"><span>Radagon's Soreseal <em>(retired from the build, still counts)</em></span></label>
+        <label class="task"><input type="checkbox" data-id="t-nokstella" data-seed="1"><span>Moon of Nokstella</span></label>
+        <label class="task"><input type="checkbox" data-id="t-oldlord" data-seed="1"><span>Old Lord's Talisman</span></label>
+        <label class="task"><input type="checkbox" data-id="t-radagon" data-seed="1"><span>Radagon Icon</span></label>
+        <label class="task"><input type="checkbox" data-id="t-godfrey" data-seed="1"><span>Godfrey Icon</span></label>
+        <label class="task"><input type="checkbox" data-id="t-erdtree" data-seed="1"><span>Erdtree's Favor +2</span></label>
+        <label class="task"><input type="checkbox" data-id="t-marika"><span><b>Marika's Soreseal</b> — Elphael <em>(08)</em></span></label>
+        <label class="task"><input type="checkbox" data-id="t-dragoncrest"><span><b>Dragoncrest Greatshield Talisman</b> — Elphael <em>(08)</em></span></label>
 
-      <div class="grp">Legendary Talismans <span>— 6 of 8</span></div>
-      <label class="task"><input type="checkbox" data-id="t-soreseal" data-seed="1"><span>Radagon's Soreseal <em>(retired from the build, still counts)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-nokstella" data-seed="1"><span>Moon of Nokstella</span></label>
-      <label class="task"><input type="checkbox" data-id="t-oldlord" data-seed="1"><span>Old Lord's Talisman</span></label>
-      <label class="task"><input type="checkbox" data-id="t-radagon" data-seed="1"><span>Radagon Icon</span></label>
-      <label class="task"><input type="checkbox" data-id="t-godfrey" data-seed="1"><span>Godfrey Icon</span></label>
-      <label class="task"><input type="checkbox" data-id="t-erdtree" data-seed="1"><span>Erdtree's Favor +2</span></label>
-      <label class="task"><input type="checkbox" data-id="t-marika"><span><b>Marika's Soreseal</b> — Elphael <em>(08)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="t-dragoncrest"><span><b>Dragoncrest Greatshield Talisman</b> — Elphael <em>(08)</em></span></label>
-
-      <div class="grp">Legendary Sorceries &amp; Incantations <span>— 5 of 7</span></div>
-      <label class="task"><input type="checkbox" data-id="m-rain" data-seed="1"><span>Founding Rain of Stars</span></label>
-      <label class="task"><input type="checkbox" data-id="m-azur" data-seed="1"><span>Comet Azur</span></label>
-      <label class="task"><input type="checkbox" data-id="m-greyoll" data-seed="1"><span>Greyoll's Roar</span></label>
-      <label class="task"><input type="checkbox" data-id="m-fell" data-seed="1"><span>Flame of the Fell God</span></label>
-      <label class="task"><input type="checkbox" data-id="m-darkmoon" data-seed="1"><span>Ranni's Dark Moon</span></label>
-      <label class="task"><input type="checkbox" data-id="m-stars"><span><b>Stars of Ruin</b> — Sellia Hideaway <em>(02)</em></span></label>
-      <label class="task"><input type="checkbox" data-id="m-elden"><span><b>Elden Stars</b> — Deeproot Depths <em>(03, verify first)</em></span></label>
+        <div class="grp">Legendary Sorceries &amp; Incantations <span id="c-spell">— 5 of 7</span></div>
+        <label class="task"><input type="checkbox" data-id="m-rain" data-seed="1"><span>Founding Rain of Stars</span></label>
+        <label class="task"><input type="checkbox" data-id="m-azur" data-seed="1"><span>Comet Azur</span></label>
+        <label class="task"><input type="checkbox" data-id="m-greyoll" data-seed="1"><span>Greyoll's Roar</span></label>
+        <label class="task"><input type="checkbox" data-id="m-fell" data-seed="1"><span>Flame of the Fell God</span></label>
+        <label class="task"><input type="checkbox" data-id="m-darkmoon" data-seed="1"><span>Ranni's Dark Moon</span></label>
+        <label class="task"><input type="checkbox" data-id="m-stars"><span><b>Stars of Ruin</b> — Sellia Hideaway <em>(02)</em></span></label>
+        <label class="task"><input type="checkbox" data-id="m-elden"><span><b>Elden Stars</b> — Deeproot Depths <em>(03, verify)</em></span></label>
+      </div>
     </div>
   </div>
 
   <!-- ══ EARNED ══ -->
-  <div class="section">
-    <h2>Thirty on the Shelf</h2>
-    <div class="lede">From the 14 August sync, by elimination — the arithmetic closes exactly against the 12 remaining. Untick anything the PS5 list contradicts.</div>
-    <details class="earned">
-      <summary>▸ Show all thirty earned trophies</summary>
+  <div class="section collapsed" data-col="earned">
+    <div class="chead"><span class="caret">▼</span><h2>Thirty on the shelf</h2><span class="badge ok" id="badge-earned">30 EARNED</span></div>
+    <div class="cbody">
+      <div class="lede">From the 14 August sync, by elimination — the arithmetic closes exactly against the 12 remaining. Untick anything the PS5 list contradicts.</div>
       <div class="cols">
-        <label class="task"><input type="checkbox" data-id="e-margit" data-seed="1"><span>Margit, the Fell Omen <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-margit" data-seed="1"><span>Margit, the Fell Omen <em>— inferred</em></span></label>
         <label class="task"><input type="checkbox" data-id="e-godrick" data-seed="1"><span>Shardbearer Godrick</span></label>
         <label class="task"><input type="checkbox" data-id="e-redwolf" data-seed="1"><span>Red Wolf of Radagon</span></label>
         <label class="task"><input type="checkbox" data-id="e-rennala" data-seed="1"><span>Rennala, Queen of the Full Moon</span></label>
@@ -510,7 +777,7 @@
         <label class="task"><input type="checkbox" data-id="e-radahn" data-seed="1"><span>Shardbearer Radahn <em>— first attempt</em></span></label>
         <label class="task"><input type="checkbox" data-id="e-elemer" data-seed="1"><span>Elemer of the Briar</span></label>
         <label class="task"><input type="checkbox" data-id="e-noble" data-seed="1"><span>Godskin Noble</span></label>
-        <label class="task"><input type="checkbox" data-id="e-rykard" data-seed="1"><span>Shardbearer Rykard <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-rykard" data-seed="1"><span>Shardbearer Rykard <em>— inferred</em></span></label>
         <label class="task"><input type="checkbox" data-id="e-godfrey" data-seed="1"><span>Godfrey, First Elden Lord</span></label>
         <label class="task"><input type="checkbox" data-id="e-morgott" data-seed="1"><span>Shardbearer Morgott</span></label>
         <label class="task"><input type="checkbox" data-id="e-mohgomen" data-seed="1"><span>Mohg, the Omen</span></label>
@@ -524,52 +791,55 @@
         <label class="task"><input type="checkbox" data-id="e-astel" data-seed="1"><span>Astel, Naturalborn of the Void</span></label>
         <label class="task"><input type="checkbox" data-id="e-fortissax" data-seed="1"><span>Lichdragon Fortissax</span></label>
         <label class="task"><input type="checkbox" data-id="e-godslay" data-seed="1"><span>God-Slaying Armament <em>— +25</em></span></label>
-        <label class="task"><input type="checkbox" data-id="e-roundtable" data-seed="1"><span>Roundtable Hold <em>— inferred, worth confirming</em></span></label>
+        <label class="task"><input type="checkbox" data-id="e-roundtable" data-seed="1"><span>Roundtable Hold <em>— inferred</em></span></label>
         <label class="task"><input type="checkbox" data-id="e-greatrune" data-seed="1"><span>Great Rune</span></label>
         <label class="task"><input type="checkbox" data-id="e-aflame" data-seed="1"><span>Erdtree Aflame</span></label>
       </div>
-    </details>
+    </div>
   </div>
 
   <!-- ══ DANGER ══ -->
-  <div class="section danger">
-    <h2>What Can Still Go Wrong</h2>
-    <ul>
-      <li><b>Fighting the Elden Beast before the other 39 have popped.</b> The endings protocol assumes everything else is banked. Check the trophy list, not your memory.</li>
-      <li><b>PS5 auto-sync during the ending juggle.</b> It overwrites the backup silently. Off before the first ending, on only after the third.</li>
-      <li><b>Travelling to Sellia without the Sealbreaker</b>, or to Deeproot for a spell you already own. Both are in the five-minute check above.</li>
-      <li><b>Mohg without the Purifying Tear.</b> Not fatal, but it converts a formality into three near-death events mid-fight.</li>
-      <li><b>Elphael on a short bolus count.</b> Two hours of scarlet rot with nothing to cure it becomes three hours and a lot of running back.</li>
-      <li><b>Trophies failing to pop offline.</b> Some players report this. If you play disconnected, connect once before the ending sequence.</li>
-    </ul>
+  <div class="section danger" data-col="danger">
+    <div class="chead"><span class="caret">▼</span><h2>What can still go wrong</h2><span class="badge">6</span></div>
+    <div class="cbody">
+      <ul>
+        <li><b>Fighting the Elden Beast before the other 39 have popped.</b> The protocol assumes everything else is banked. Check the list, not your memory.</li>
+        <li><b>PS5 auto-sync during the ending juggle.</b> It overwrites the backup silently. Off before the first ending, on after the third.</li>
+        <li><b>Travelling to Sellia without the Sealbreaker</b>, or to Deeproot for a spell you already own.</li>
+        <li><b>Mohg without the Purifying Tear.</b> Not fatal, but it turns a formality into three near-death events.</li>
+        <li><b>Elphael on a short bolus count.</b> Two hours of scarlet rot with no cure becomes three hours and a lot of running back.</li>
+        <li><b>Bringing a bleed mindset to Radagon.</b> He and the Elden Beast are immune to every status in the game.</li>
+      </ul>
+    </div>
   </div>
 
   <!-- ══ DOCTRINE ══ -->
-  <div class="section">
-    <h2>Doctrine, Final Revision</h2>
-    <ul>
-      <li><b>Mind is now the build's constraint.</b> "Mind untouched by design" was right at Mind 11 with no FP costs. Unsheathe is your punish and it is FP-gated — 25 Mind is the highest-value spend left.</li>
-      <li><b>Vigor is finished at 60.</b> Roughly 6 HP per level past the cap. Nothing to gain.</li>
-      <li><b>Never store what you can derive.</b> Level drifted from 126 to 129 across two documents because it was recorded rather than calculated. It is computed here.</li>
-      <li><b>Unlocks matter more than duration.</b> Ordina is thirty minutes and opens four hours. Sort by what a task frees, not what it costs.</li>
-      <li><b>Malenia is not a levelling problem.</b> Every other wall in this game bent to being over-levelled. She will not. Go in expecting to learn her.</li>
-      <li><b>Rule 1 survives to the end.</b> Never farm as a standalone activity — and Mohgwyn's birds are on ground you are crossing anyway, so they do not count.</li>
-      <li><b>Verify before travelling.</b> Rule 8 has now caught a wrong Samurai stat floor, a drifted level, and two collection lists I had wrong. Keep doing it.</li>
-    </ul>
+  <div class="section" data-col="doctrine">
+    <div class="chead"><span class="caret">▼</span><h2>Doctrine, final revision</h2><span class="badge">7</span></div>
+    <div class="cbody">
+      <ul>
+        <li><b>Mind is now the constraint.</b> "Mind untouched by design" was right at zero FP costs. Unsheathe is your punish and it is FP-gated — 25 Mind is the best spend left.</li>
+        <li><b>Vigor is finished at 60.</b> Roughly 6 HP per level past the cap.</li>
+        <li><b>Never store what you can derive.</b> Level drifted 126 vs 129 across two documents because it was recorded rather than calculated.</li>
+        <li><b>Unlocks matter more than duration.</b> Ordina is thirty minutes and opens four hours.</li>
+        <li><b>Malenia is not a levelling problem</b> — but she is a <em>bleed</em> problem, and you are holding the answer.</li>
+        <li><b>The Strength rule has an exception now.</b> It existed because nothing you wanted needed Strength. Hand of Malenia needs four points. Rules serve the build, not the reverse.</li>
+        <li><b>Verify before travelling.</b> Rule 8 has now caught a wrong Samurai stat floor, a drifted level, and two collection lists I had wrong.</li>
+      </ul>
+    </div>
   </div>
 
   <!-- ══ EXPORT ══ -->
   <div class="exportbar">
-    <div class="txt">Everything saves to this device as you tick. Copy your state whenever you want to talk it through.</div>
+    <div class="txt">Everything saves to this device as you tick, including which sections are folded.</div>
     <button class="btn" id="copy">Copy my status</button>
     <button class="btn ghost" id="show">Show text</button>
+    <button class="btn ghost" id="collapseAll">Fold all</button>
     <button class="btn ghost" id="reset">Reset</button>
     <textarea class="dump" id="dump" readonly></textarea>
   </div>
 
-  <footer>
-    Earlier campaigns: <a href="capital.html">The Capital Campaign</a> — Altus and the road to Morgott, kept for the record.
-  </footer>
+  <footer>Earlier campaigns: <a href="capital.html">The Capital Campaign</a> — Altus and the road to Morgott.</footer>
 </div>
 
 <div class="toast" id="toast">Copied</div>
@@ -578,14 +848,13 @@
 (function(){
   "use strict";
   var KEY = 'er-platinum-v2';
-
   var state = {};
   try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ state = {}; }
 
   var boxes  = Array.prototype.slice.call(document.querySelectorAll('.task input'));
   var slides = Array.prototype.slice.call(document.querySelectorAll('input[type=range]'));
-
   var firstRun = !localStorage.getItem(KEY);
+
   boxes.forEach(function(b){
     var id = b.dataset.id;
     if (id in state) b.checked = !!state[id];
@@ -597,6 +866,8 @@
     var o = {};
     boxes.forEach(function(b){ o[b.dataset.id] = b.checked; });
     slides.forEach(function(s){ o['sl-'+s.id] = s.value; });
+    Object.keys(state).forEach(function(k){ if (k.indexOf('col-') === 0) o[k] = state[k]; });
+    state = o;
     try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
   }
 
@@ -604,30 +875,103 @@
   function done(id){ var b = document.querySelector('[data-id="'+id+'"]'); return !!(b && b.checked); }
   var SIGNED = {'s-main':1,'s-off':1,'s-mimic':1};
 
+  /* ── collapsing ────────────────────────────────────────
+     state['col-x'] === true  → explicitly folded
+     state['col-x'] === false → explicitly open
+     absent                   → automatic (folded once complete) */
+  function isExplicit(k){ return ('col-'+k) in state; }
+  function setCol(k, v){ state['col-'+k] = v; save(); }
+
+  document.querySelectorAll('[data-col]').forEach(function(el){
+    var k = el.dataset.col;
+    var head = el.querySelector('.chead');
+    if (!head) return;
+    head.addEventListener('click', function(ev){
+      if (ev.target.closest('input,label,button')) return;
+      var folded = el.classList.toggle('collapsed');
+      setCol(k, folded);
+    });
+    if (isExplicit(k)) el.classList.toggle('collapsed', !!state['col-'+k]);
+  });
+
+  document.getElementById('collapseAll').addEventListener('click', function(){
+    var anyOpen = !!document.querySelector('[data-col]:not(.collapsed)');
+    document.querySelectorAll('[data-col]').forEach(function(el){
+      el.classList.toggle('collapsed', anyOpen);
+      setCol(el.dataset.col, anyOpen);
+    });
+    this.textContent = anyOpen ? 'Unfold all' : 'Fold all';
+  });
+
   /* ── derived level ─────────────────────────────────────
-     Samurai starts at level 9 with 88 points across the eight stats.
-     level = 9 + (sum - 88). Storing level separately is what let it
-     drift 126 vs 129 across two documents, so it is computed here. */
+     Samurai starts at level 9 with 88 points. level = 9 + (sum - 88). */
   var STATS = ['s-vig','s-mind','s-end','s-str','s-dex','s-int','s-fai','s-arc'];
-  var SAMURAI_START_LEVEL = 9, SAMURAI_START_POINTS = 88;
+  function derived(){
+    var sum = 0; STATS.forEach(function(id){ sum += num(id); });
+    return { sum: sum, spent: sum - 88, level: 9 + (sum - 88) };
+  }
+  function runeCost(t){ return t < 12 ? 0 : Math.round(0.02*t*t*t + 3.06*t*t + 105.6*t - 895); }
+  function short(n){ return n >= 1000 ? '~' + Math.round(n/1000) + 'k' : '' + n; }
 
-  function derivedLevel(){
-    var sum = 0;
-    STATS.forEach(function(id){ sum += num(id); });
-    return { sum: sum, spent: sum - SAMURAI_START_POINTS,
-             level: SAMURAI_START_LEVEL + (sum - SAMURAI_START_POINTS) };
+  /* ── weapon tables ─────────────────────────────────────
+     Requirements verified against the wiki; scaling omitted deliberately —
+     what matters here is only "can he pick it up". */
+  var LEGENDS = [
+    {n:'Bolt of Gransax',            r:{str:20,dex:40}},
+    {n:'Marais Executioner\'s Sword',r:{str:24,dex:14,arc:23}},
+    {n:'Grafted Blade Greatsword',   r:{str:40,dex:14}},
+    {n:'Ruins Greatsword',           r:{str:50,dex:16}},
+    {n:'Sword of Night and Flame',   r:{str:12,dex:12,int:24,fai:24}},
+    {n:'Dark Moon Greatsword',       r:{str:16,dex:11,int:38}},
+    {n:'Eclipse Shotel',             r:{str:12,dex:16,fai:10}},
+    {n:'Devourer\'s Scepter',        r:{str:34,dex:19,fai:29}},
+    {n:'Golden Order Greatsword',    r:{str:16,dex:21,fai:28}}
+  ];
+  var ALTS = [
+    {n:'Uchigatana ×2',        r:{str:11,dex:15}, why:'What you are already swinging. Keen +25, Unsheathe, and the best bleed rotation you know.'},
+    {n:'Godskin Peeler',       r:{str:9,dex:17},  why:'Twinblade. Keen-able, heavy bleed build-up, and a genuinely different rhythm from katanas.'},
+    {n:'Twinblade',            r:{str:10,dex:19}, why:'The cheap classic. Sweeping L1s that hit crowds — a change of pace for corridors.'},
+    {n:'Scavenger\'s Curved Sword', r:{str:10,dex:14}, why:'Powerstanced, the fastest bleed build-up in the game per swing.'},
+    {n:'Hookclaws',            r:{str:8,dex:16},  why:'Fast, bleeds, and jump attacks hit twice. Silly and effective.'},
+    {n:'Hand of Malenia',      r:{str:16,dex:48}, why:'Malenia\'s own katana, and the intended home for your banked Ancient Dragon stone. Four points of Strength away.'},
+    {n:'Rivers of Blood',      r:{str:12,dex:18,arc:20}, why:'The famous bleed katana. Needs a Larval Tear respec into Arcane, which also boosts bleed everywhere.'}
+  ];
+
+  function gapFor(req){
+    var cur = {str:num('s-str'),dex:num('s-dex'),int:num('s-int'),fai:num('s-fai'),arc:num('s-arc')};
+    var gaps = [];
+    Object.keys(req).forEach(function(k){
+      var short_ = req[k] - cur[k];
+      if (short_ > 0) gaps.push({stat:k.toUpperCase(), by:short_});
+    });
+    return gaps;
+  }
+  function reqText(r){
+    return Object.keys(r).map(function(k){ return k.toUpperCase() + ' ' + r[k]; }).join(' · ');
   }
 
-  /* standard community rune-cost curve for the next level */
-  function runeCost(target){
-    if (target < 12) return 0;
-    var x = target;
-    return Math.round(0.02*x*x*x + 3.06*x*x + 105.6*x - 895);
-  }
-  function short(n){
-    if (n >= 1000000) return '~' + (n/1000000).toFixed(2) + 'm';
-    if (n >= 1000)    return '~' + Math.round(n/1000) + 'k';
-    return '' + n;
+  function paintWeapons(){
+    var lt = document.querySelector('#legend-table tbody'); lt.innerHTML = '';
+    LEGENDS.forEach(function(w){
+      var gaps = gapFor(w.r), total = gaps.reduce(function(a,g){ return a + g.by; }, 0);
+      var cls = !gaps.length ? 'ok' : (total <= 4 ? 'near' : 'no');
+      var verdict = !gaps.length ? '<span class="verdict y">WIELDABLE</span>'
+                  : (total <= 4 ? '<span class="verdict m">CLOSE</span>' : '<span class="verdict n">NO</span>');
+      var gapTxt = !gaps.length ? '—' : gaps.map(function(g){ return '+' + g.by + ' ' + g.stat; }).join(', ');
+      lt.insertAdjacentHTML('beforeend',
+        '<tr class="'+cls+'"><td><b>'+w.n+'</b></td><td class="req">'+reqText(w.r)+'</td><td>'+verdict+'</td><td>'+gapTxt+'</td></tr>');
+    });
+
+    var at = document.querySelector('#alt-table tbody'); at.innerHTML = '';
+    ALTS.forEach(function(w){
+      var gaps = gapFor(w.r), total = gaps.reduce(function(a,g){ return a + g.by; }, 0);
+      var cls = !gaps.length ? 'ok' : (total <= 12 ? 'near' : 'no');
+      var verdict = !gaps.length ? '<span class="verdict y">YES</span>'
+                  : '<span class="verdict m">' + gaps.map(function(g){ return '+'+g.by+' '+g.stat; }).join(', ') + '</span>';
+      at.insertAdjacentHTML('beforeend',
+        '<tr class="'+cls+'"><td><b>'+w.n+'</b></td><td class="req">'+reqText(w.r)+'</td><td>'+w.why+'</td><td>'+verdict+'</td></tr>');
+    });
+    document.getElementById('badge-arm').textContent = 'STR ' + num('s-str') + ' · DEX ' + num('s-dex');
   }
 
   function paintSliders(){
@@ -635,182 +979,274 @@
       var out = document.getElementById('v-' + s.id.slice(2));
       if (out) out.textContent = (SIGNED[s.id] ? '+' : '') + s.value;
     });
-    var d = derivedLevel();
+    var d = derived();
     document.getElementById('d-lvl').textContent  = d.level;
     document.getElementById('d-pts').textContent  = d.spent;
     document.getElementById('d-cost').textContent = short(runeCost(d.level + 1));
-
-    var chk = document.getElementById('d-check');
-    var synced = (d.level === 129);
+    var chk = document.getElementById('d-check'), synced = (d.level === 129);
     chk.classList.toggle('warn', !synced);
     chk.querySelector('b').textContent = synced ? '✓ matches 129' : d.level + ' — re-check screen';
-
+    document.getElementById('badge-console').textContent = 'LVL ' + d.level;
     document.getElementById('s-vig').parentNode.classList.toggle('capped', num('s-vig') >= 60);
     document.getElementById('s-dex').parentNode.classList.toggle('capped', num('s-dex') >= 80);
   }
 
-  /* ── advisor ───────────────────────────────────────────── */
   function advise(){
     var mind=num('s-mind'), end=num('s-end'), dex=num('s-dex'), vig=num('s-vig'),
-        flask=num('s-flask'), d=derivedLevel();
-    var out = [];
+        str=num('s-str'), fai=num('s-fai'), flask=num('s-flask'), d=derived(), out=[];
 
-    if (mind < 20)      out.push(['warn','<b>Mind '+mind+' is the build\'s real constraint.</b> Unsheathe costs FP every use. This is priority one now — 25 is the target, ahead of everything else.']);
-    else if (mind < 25) out.push(['','Mind '+mind+' — nearly there. 25 is the number, then move to Endurance.']);
-    else                out.push(['good','Mind '+mind+' — Unsheathe is no longer rationed. Endurance next, then Dex to 80.']);
+    if (mind < 20)      out.push(['warn','<b>Mind '+mind+' is the build\'s real constraint.</b> Unsheathe costs FP every use — priority one, target 25.']);
+    else if (mind < 25) out.push(['','Mind '+mind+' — nearly there. 25, then Endurance.']);
+    else                out.push(['good','Mind '+mind+' — Unsheathe is no longer rationed.']);
 
-    if (mind >= 25 && end < 50) out.push(['','Endurance '+end+' → 50 is priority two. More stamina means longer L1 chains before you are stranded mid-combo.']);
-    if (mind >= 25 && end >= 50 && dex < 80) out.push(['','Dexterity '+dex+' → 80 is the last meaningful breakpoint on Keen scaling.']);
-    if (vig > 60) out.push(['warn','Vigor '+vig+' is past the cap — roughly 6 HP per point. Those runes belong in Mind.']);
-    if (flask < 12) out.push(['warn','Flasks recorded at '+flask+', and unverified since July. This is the largest single lever left for Malenia — count them at a grace.']);
-    if (d.level !== 129) out.push(['','Stats now derive to <b>level '+d.level+'</b>, costing '+short(runeCost(d.level+1))+' for the next. If the game disagrees, the game is right.']);
-
-    /* route gating */
-    if (!done('v3'))       out.push(['warn','<b>Check the physick for the Purifying Crystal Tear</b> before going anywhere near Mohg.']);
-    if (!done('r6') && (done('r1')||done('r2')||done('r4'))) out.push(['','<b>Ordina is the leverage play.</b> Thirty minutes, and it opens the Haligtree, Elphael, two collection trophies and Malenia.']);
-    if (done('r8a')&&done('r8b')&&done('r8c')) out.push(['good','Elphael is cleared — Talismans and Ashen Remains both closed.']);
+    if (mind >= 25 && end < 50) out.push(['','Endurance '+end+' → 50 next. Longer L1 chains before you are stranded mid-combo.']);
+    if (mind >= 25 && end >= 50 && dex < 80) out.push(['','Dexterity '+dex+' → 80, the last real Keen breakpoint.']);
+    if (vig > 60) out.push(['warn','Vigor '+vig+' is past the cap — roughly 6 HP a point. Those runes belong in Mind.']);
+    if (fai < 10) out.push(['','<b>Two points of Faith</b> unlocks the Eclipse Shotel you already own. Cheapest new weapon available.']);
+    if (str < 16) out.push(['','<b>Four points of Strength</b> unlocks Hand of Malenia (16 STR / 48 DEX — your Dex is already there). It is what the banked Ancient Dragon stone was for.']);
+    else          out.push(['good','Strength '+str+' — Hand of Malenia is wieldable the moment she drops it.']);
+    if (flask < 12) out.push(['warn','Flasks recorded at '+flask+' and unverified since July. The largest single lever left for Malenia.']);
+    if (d.level !== 129) out.push(['','Stats derive to <b>level '+d.level+'</b>, next costing '+short(runeCost(d.level+1))+'. If the game disagrees, the game is right.']);
+    if (!done('v3')) out.push(['warn','<b>Check the physick for the Purifying Crystal Tear</b> before going near Mohg.']);
+    if (!done('r6') && (done('r1')||done('r2')||done('r4'))) out.push(['','<b>Ordina is the leverage play</b> — thirty minutes opens the Haligtree, Elphael, two collection trophies and Malenia.']);
     if (done('r9')) out.push(['good','<b>Malenia is down.</b> Everything after her is procedure, not difficulty.']);
-    if (done('r10') && !done('r11a')) out.push(['warn','<b>Before the Elden Beast:</b> scroll the PS5 trophy list and confirm 39 of 42 have popped. The ending protocol assumes it.']);
+    if (done('r10') && !done('r11a')) out.push(['warn','<b>Before the Elden Beast:</b> confirm 39 of 42 have popped. And remember he is immune to bleed.']);
 
     document.getElementById('advice').innerHTML = out.map(function(a){
-      return '<div class="aline '+a[0]+'">'+a[1]+'</div>';
-    }).join('');
+      return '<div class="aline '+a[0]+'">'+a[1]+'</div>'; }).join('');
   }
 
-  /* ── trophies: 30 earned + 8 remaining + 4 computed = 42 ── */
+  /* ── trophy model: 30 earned + 8 remaining + 4 sets = 42 ── */
   var EARNED_IDS = ['e-margit','e-godrick','e-redwolf','e-rennala','e-leonine','e-ancestor','e-regal','e-makar',
     'e-mimicboss','e-loretta','e-radahn','e-elemer','e-noble','e-rykard','e-godfrey','e-morgott','e-mohgomen',
     'e-niall','e-firegiant','e-duo','e-placidusax','e-maliketh','e-dragonkin','e-gargoyles','e-astel','e-fortissax',
     'e-godslay','e-roundtable','e-greatrune','e-aflame'];
-  var REMAIN_IDS = ['r5','r7','r9','r10','r11d','r11e','r11f','r11g'];
-
-  var SETS = {
-    arms:  ['l-gransax','l-marais','l-grafted','l-ruins','l-sonf','l-darkmoon','l-eclipse','l-devourer','l-golden'],
-    ashes: ['s-mimic','s-lhutel','s-ogha','s-tiche','s-kristoff','s-finlay'],
-    tals:  ['t-soreseal','t-nokstella','t-oldlord','t-radagon','t-godfrey','t-erdtree','t-marika','t-dragoncrest'],
-    spell: ['m-rain','m-azur','m-greyoll','m-fell','m-darkmoon','m-stars','m-elden']
-  };
-  function setDone(k){ return SETS[k].every(done); }
-
-  var OBJECTIVES = [
-    {step:'1',  ids:['r1']},                            {step:'2',  ids:['r2']},
-    {step:'3',  ids:['r3']},                            {step:'4',  ids:['r4']},
-    {step:'5',  ids:['r5']},                            {step:'6',  ids:['r6']},
-    {step:'7',  ids:['r7']},                            {step:'8',  ids:['r8a','r8b','r8c']},
-    {step:'9',  ids:['r9']},                            {step:'10', ids:['r10']},
-    {step:'11', ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g']}
+  var REMAIN = [
+    {id:'r5',   name:'Shardbearer Mohg',                where:'05 · Mohgwyn'},
+    {id:'r7',   name:'Loretta, Knight of the Haligtree', where:'07 · Haligtree'},
+    {id:'r9',   name:'Shardbearer Malenia',              where:'09 · Elphael'},
+    {id:'r10',  name:'Hoarah Loux, Warrior',             where:'10 · Ashen Capital'},
+    {id:'r11d', name:'Lord of Frenzied Flame',           where:'11 · Endings'},
+    {id:'r11e', name:'Age of the Stars',                 where:'11 · Endings'},
+    {id:'r11f', name:'Elden Lord',                       where:'11 · Endings'},
+    {id:'r11g', name:'ELDEN RING (platinum)',            where:'11 · Endings'}
   ];
+  var SETS = {
+    arms:  {label:'Legendary Armaments', where:'01 · Snowfield',
+            ids:['l-gransax','l-marais','l-grafted','l-ruins','l-sonf','l-darkmoon','l-eclipse','l-devourer','l-golden']},
+    ashes: {label:'Legendary Ashen Remains', where:'04 & 08',
+            ids:['s-mimic','s-lhutel','s-ogha','s-tiche','s-kristoff','s-finlay']},
+    tals:  {label:'Legendary Talismans', where:'08 · Elphael',
+            ids:['t-soreseal','t-nokstella','t-oldlord','t-radagon','t-godfrey','t-erdtree','t-marika','t-dragoncrest']},
+    spell: {label:'Legendary Sorceries & Incantations', where:'02 & 03',
+            ids:['m-rain','m-azur','m-greyoll','m-fell','m-darkmoon','m-stars','m-elden']}
+  };
+  function setDone(k){ return SETS[k].ids.every(done); }
+
+  var BOSSES = [
+    {id:'r5',  name:'Mohg, Lord of Blood',            where:'05', tro:true},
+    {id:'r6',  name:'Ordina — puzzle, not a boss',    where:'06', tro:false},
+    {id:'r7',  name:'Loretta, Knight of the Haligtree',where:'07', tro:true},
+    {id:'r9',  name:'Malenia, Blade of Miquella',     where:'09', tro:true},
+    {id:'r10', name:'Sir Gideon Ofnir',               where:'10', tro:false},
+    {id:'r10', name:'Godfrey / Hoarah Loux',          where:'10', tro:true},
+    {id:'r11b',name:'Radagon & the Elden Beast ×3',   where:'11', tro:false}
+  ];
+
+  var OBJ = [
+    {step:'1',ids:['r1']},{step:'2',ids:['r2']},{step:'3',ids:['r3']},{step:'4',ids:['r4']},
+    {step:'5',ids:['r5']},{step:'6',ids:['r6']},{step:'7',ids:['r7']},{step:'8',ids:['r8a','r8b','r8c']},
+    {step:'9',ids:['r9']},{step:'10',ids:['r10']},
+    {step:'11',ids:['r11a','r11b','r11c','r11d','r11e','r11f','r11g']}
+  ];
+
+  function line(got, name, where){
+    return '<div class="tline '+(got?'got':'left')+'"><span class="mark">'+(got?'✓':'☐')+'</span>' +
+           '<span>'+name+'</span>' + (where ? '<span class="where">'+where+'</span>' : '') + '</div>';
+  }
+
+  function paintDrawers(){
+    var rem = '', got = '', nLeft = 0, nGot = 0;
+    REMAIN.forEach(function(t){
+      var d = done(t.id);
+      (d ? (nGot++, got += line(true, t.name, t.where)) : (nLeft++, rem += line(false, t.name, t.where)));
+    });
+    Object.keys(SETS).forEach(function(k){
+      var s = SETS[k], d = setDone(k);
+      var have = s.ids.filter(done).length;
+      var label = s.label + ' <span style="color:var(--parch-dim)">(' + have + '/' + s.ids.length + ')</span>';
+      (d ? (nGot++, got += line(true, label, s.where)) : (nLeft++, rem += line(false, label, s.where)));
+    });
+    EARNED_IDS.forEach(function(id){
+      var el = document.querySelector('[data-id="'+id+'"]');
+      var nm = el.parentNode.querySelector('span').textContent.replace(/—.*$/,'').trim();
+      if (done(id)) { nGot++; got += line(true, nm, ''); } else { nLeft++; rem += line(false, nm, 'unticked'); }
+    });
+    document.getElementById('tro-remaining').innerHTML = rem || '<div class="tline got"><span class="mark">✓</span><span>Nothing left.</span></div>';
+    document.getElementById('tro-earned').innerHTML = got;
+    document.getElementById('tro-left').textContent = nLeft;
+    document.getElementById('tro-got').textContent  = nGot;
+
+    var bl = '', bLeft = 0;
+    BOSSES.forEach(function(b){
+      var d = done(b.id); if (!d) bLeft++;
+      bl += line(d, b.name + (b.tro ? '' : ' <span style="color:var(--parch-dim)">— no trophy</span>'), b.where);
+    });
+    document.getElementById('boss-list').innerHTML = bl;
+    document.getElementById('p-boss').textContent = bLeft + ' to kill';
+    document.getElementById('b-boss').style.width = ((BOSSES.length-bLeft)/BOSSES.length*100) + '%';
+
+    var tl = '';
+    OBJ.forEach(function(o){
+      var el = document.querySelector('.step[data-step="'+o.step+'"]');
+      var mins = parseInt(el.dataset.min,10), d = o.ids.every(done);
+      tl += line(d, el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim(), mins + ' min');
+    });
+    document.getElementById('time-list').innerHTML = tl;
+  }
 
   function paintProgress(){
     var tro = 0;
     EARNED_IDS.forEach(function(id){ if (done(id)) tro++; });
-    REMAIN_IDS.forEach(function(id){ if (done(id)) tro++; });
-    ['arms','ashes','tals','spell'].forEach(function(k){ if (setDone(k)) tro++; });
+    REMAIN.forEach(function(t){ if (done(t.id)) tro++; });
+    Object.keys(SETS).forEach(function(k){ if (setDone(k)) tro++; });
     if (tro > 42) tro = 42;
-
     document.getElementById('p-tro').textContent = tro;
     document.getElementById('b-tro').style.width = (tro/42*100) + '%';
 
-    var objDone = 0, minsLeft = 0, totalMins = 0;
-    OBJECTIVES.forEach(function(o){
+    var minsLeft = 0, totalMins = 0, marked = false;
+    OBJ.forEach(function(o){
       var el = document.querySelector('.step[data-step="'+o.step+'"]');
-      var complete = o.ids.every(done);
-      var mins = parseInt(el.dataset.min, 10);
-      totalMins += mins;
-      if (complete) objDone++; else minsLeft += mins;
+      var complete = o.ids.every(done), mins = parseInt(el.dataset.min,10);
+      totalMins += mins; if (!complete) minsLeft += mins;
       el.classList.toggle('complete', complete);
+      var isNext = !marked && !complete;
+      el.classList.toggle('next', isNext); if (isNext) marked = true;
+      /* auto-fold finished objectives unless the reader has said otherwise */
+      if (!isExplicit('s' + o.step)) el.classList.toggle('collapsed', complete);
+      var pin = document.querySelector('.pin[data-step="'+o.step+'"]');
+      if (pin) pin.classList.toggle('doneP', complete);
     });
-
-    document.getElementById('p-obj').textContent = objDone;
-    document.getElementById('p-objtot').textContent = OBJECTIVES.length;
-    document.getElementById('b-obj').style.width = (objDone/OBJECTIVES.length*100) + '%';
-    document.getElementById('p-time').textContent = minsLeft ? '~' + (minsLeft/60).toFixed(1) + ' hrs' : 'done';
+    document.getElementById('p-time').textContent = minsLeft ? '~' + Math.round(minsLeft/60*10)/10 + ' hrs' : 'done';
     document.getElementById('b-time').style.width = ((totalMins-minsLeft)/totalMins*100) + '%';
 
-    /* first incomplete objective is "next" */
-    var marked = false;
-    OBJECTIVES.forEach(function(o){
-      var el = document.querySelector('.step[data-step="'+o.step+'"]');
-      var isNext = !marked && !o.ids.every(done);
-      el.classList.toggle('next', isNext);
-      if (isNext) marked = true;
+    /* section badges */
+    var vDone = ['v1','v2','v3','v4','v5','v6','v7','v8'].filter(done).length;
+    var vb = document.getElementById('badge-verify');
+    vb.textContent = vDone + ' / 8'; vb.classList.toggle('ok', vDone === 8);
+    var collIds = [].concat(SETS.arms.ids, SETS.ashes.ids, SETS.tals.ids, SETS.spell.ids);
+    var cDone = collIds.filter(done).length;
+    var cb = document.getElementById('badge-coll');
+    cb.textContent = cDone + ' / ' + collIds.length; cb.classList.toggle('ok', cDone === collIds.length);
+    document.getElementById('badge-earned').textContent = EARNED_IDS.filter(done).length + ' EARNED';
+    ['arms','ashes','tals','spell'].forEach(function(k){
+      var el = document.getElementById('c-' + k);
+      if (el) el.textContent = '— ' + SETS[k].ids.filter(done).length + ' of ' + SETS[k].ids.length;
     });
+    paintDrawers();
   }
 
-  /* ── session planner ───────────────────────────────────── */
   function plan(){
     var have = num('s-time');
     document.getElementById('v-time').textContent = have;
-
+    document.getElementById('badge-plan').textContent = have + ' MIN';
     var fits = [], nextUp = null;
-    OBJECTIVES.forEach(function(o){
+    OBJ.forEach(function(o){
       var el = document.querySelector('.step[data-step="'+o.step+'"]');
-      var complete = o.ids.every(done);
-      var mins = parseInt(el.dataset.min, 10);
+      var complete = o.ids.every(done), mins = parseInt(el.dataset.min,10);
       el.classList.remove('fits','toolong');
       if (complete) return;
-      if (mins <= have) { el.classList.add('fits'); fits.push({el:el, mins:mins, title:el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim()}); }
-      else { el.classList.add('toolong'); if (!nextUp) nextUp = {mins:mins, title:el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim()}; }
+      var title = el.querySelector('.t').textContent.replace(/\s*◄.*|\s*✓.*/,'').trim();
+      if (mins <= have) { el.classList.add('fits'); fits.push({mins:mins,title:title}); }
+      else { el.classList.add('toolong'); if (!nextUp) nextUp = {mins:mins,title:title}; }
     });
-
     var out = document.getElementById('plan-out');
     if (!fits.length) {
-      out.innerHTML = nextUp
-        ? 'Nothing fits in <b>' + have + ' min</b>. The shortest thing left is <b>' + nextUp.title + '</b> at ' + nextUp.mins + ' min.'
-        : 'Everything on the route is complete.';
+      out.innerHTML = nextUp ? 'Nothing fits in <b>'+have+' min</b>. Shortest left is <b>'+nextUp.title+'</b> at '+nextUp.mins+' min.'
+                             : 'Everything on the route is complete.';
       return;
     }
-    var total = fits.reduce(function(a,b){ return a + b.mins; }, 0);
-    var names = fits.slice(0,3).map(function(f){ return '<b>' + f.title + '</b> (' + f.mins + ')'; }).join(', ');
-    out.innerHTML = fits.length + ' objective' + (fits.length>1?'s':'') + ' fit in <b>' + have + ' min</b>: ' + names +
-      (fits.length > 3 ? ' and ' + (fits.length-3) + ' more' : '') +
-      '. Stacked back to back that is ' + Math.round(total/60*10)/10 + ' hrs of work highlighted below.';
+    var total = fits.reduce(function(a,b){ return a+b.mins; },0);
+    out.innerHTML = fits.length + ' fit in <b>'+have+' min</b>: ' +
+      fits.slice(0,3).map(function(f){ return '<b>'+f.title+'</b> ('+f.mins+')'; }).join(', ') +
+      (fits.length>3 ? ' and '+(fits.length-3)+' more' : '') +
+      '. Highlighted below — ' + Math.round(total/60*10)/10 + ' hrs stacked.';
   }
+
+  /* ── map pins ──────────────────────────────────────────── */
+  var MAPTEXT = {
+    '1':['Consecrated Snowfield','Cave of the Forlorn — the Golden Order Greatsword. Closes Legendary Armaments.'],
+    '2':['Sellia Hideaway, Caelid','Master Lusat holds Stars of Ruin. Needs the Sellian Sealbreaker in Key Items.'],
+    '3':['Deeproot Depths','Underground. Elden Stars — but verify your inventory first; you may already hold it.'],
+    '4':['Sainted Hero\'s Grave','Altus. Ancient Dragon Knight Kristoff ashes, fifth of the six legendary spirits.'],
+    '5':['Mohgwyn Palace','Underground, via the Snowfield portal. Mohg, Lord of Blood — bleed works at half rate.'],
+    '6':['Ordina, Liturgical Town','The four-seal puzzle. Thirty minutes that opens roughly four hours of content.'],
+    '7':['Miquella\'s Haligtree','Loretta, Knight of the Haligtree. The branch-walking is worse than the boss.'],
+    '8':['Elphael, Brace of the Haligtree','Marika\'s Soreseal, Dragoncrest Greatshield, Cleanrot Knight Finlay. Two trophies close here.'],
+    '9':['Malenia, Blade of Miquella','The only genuine wall — and your best matchup. She has low bleed resistance.'],
+    '10':['Leyndell, Ashen Capital','Gideon, then Godfrey and Hoarah Loux.'],
+    '11':['The Erdtree','Radagon and the Elden Beast, three times over. Both immune to bleed.']
+  };
+  var pins = document.querySelectorAll('.pin');
+  pins.forEach(function(p){
+    p.addEventListener('click', function(){
+      var n = p.dataset.step;
+      pins.forEach(function(q){ q.classList.toggle('lit', q === p); });
+      var t = MAPTEXT[n];
+      document.getElementById('mapsel').innerHTML = '<b>' + n + ' · ' + t[0] + '</b>' + t[1];
+      var el = document.querySelector('.step[data-step="'+n+'"]');
+      if (el) { el.classList.remove('collapsed'); setCol('s'+n, false); el.scrollIntoView({behavior:'smooth', block:'center'}); }
+    });
+  });
+
+  /* ── drawers ───────────────────────────────────────────── */
+  document.querySelectorAll('.pcard').forEach(function(card){
+    card.addEventListener('click', function(){
+      var d = document.getElementById(card.dataset.drawer);
+      var open = d.classList.contains('open');
+      document.querySelectorAll('.drawer').forEach(function(x){ x.classList.remove('open'); });
+      document.querySelectorAll('.pcard').forEach(function(x){ x.classList.remove('open'); });
+      if (!open) { d.classList.add('open'); card.classList.add('open'); }
+    });
+  });
 
   /* ── export ────────────────────────────────────────────── */
   function summary(){
-    var d = derivedLevel(), L = [];
+    var d = derived(), L = [];
     L.push('ELDEN RING — PLATINUM RUN STATUS');
-    L.push('Level ' + d.level + ' (derived from stats)  |  Uchigatana +' + num('s-main') + ' / +' + num('s-off') +
+    L.push('Level ' + d.level + ' (derived)  |  Uchigatana +' + num('s-main') + ' / +' + num('s-off') +
            '  |  Mimic +' + num('s-mimic') + '  |  ' + num('s-flask') + ' flasks');
     L.push('VIG ' + num('s-vig') + '  MND ' + num('s-mind') + '  END ' + num('s-end') + '  STR ' + num('s-str') +
            '  DEX ' + num('s-dex') + '  INT ' + num('s-int') + '  FAI ' + num('s-fai') + '  ARC ' + num('s-arc'));
-    L.push('Trophies: ' + document.getElementById('p-tro').textContent + '/42   ·   Route: ' +
-           document.getElementById('p-obj').textContent + '/' + OBJECTIVES.length +
-           ' objectives, ' + document.getElementById('p-time').textContent + ' left');
+    L.push('Trophies ' + document.getElementById('p-tro').textContent + '/42  ·  ' +
+           document.getElementById('p-boss').textContent + '  ·  ' + document.getElementById('p-time').textContent + ' of route left');
     L.push('');
-    L.push('REMAINING ROUTE');
-    OBJECTIVES.forEach(function(o){
+    L.push('REMAINING TROPHIES');
+    REMAIN.forEach(function(t){ if (!done(t.id)) L.push('  ☐ ' + t.name + '  [' + t.where + ']'); });
+    Object.keys(SETS).forEach(function(k){
+      if (setDone(k)) return;
+      var s = SETS[k], miss = s.ids.filter(function(i){ return !done(i); })
+        .map(function(i){ return document.querySelector('[data-id="'+i+'"]').parentNode.querySelector('span').textContent.split('—')[0].trim(); });
+      L.push('  ☐ ' + s.label + ' (' + s.ids.filter(done).length + '/' + s.ids.length + ') — need ' + miss.join(', '));
+    });
+    L.push('');
+    L.push('NEXT OBJECTIVES');
+    OBJ.forEach(function(o){
       if (o.ids.every(done)) return;
       var el = document.querySelector('.step[data-step="'+o.step+'"]');
       L.push('  ☐ ' + el.querySelector('.n').textContent.replace(/\s+/g,' ').trim());
     });
-    L.push('');
-    L.push('COLLECTIONS');
-    [['Armaments','arms',9],['Ashen Remains','ashes',6],['Talismans','tals',8],['Sorceries/Incants','spell',7]]
-      .forEach(function(c){
-        var have = SETS[c[1]].filter(done).length;
-        var missing = SETS[c[1]].filter(function(i){ return !done(i); })
-          .map(function(i){ return document.querySelector('[data-id="'+i+'"]').parentNode.querySelector('span').textContent.split('—')[0].trim(); });
-        L.push('  ' + c[0] + ': ' + have + '/' + c[2] + (missing.length ? '  — missing ' + missing.join(', ') : '  ✓'));
-      });
-    var unchecked = ['v1','v2','v3','v4','v5','v6','v7','v8'].filter(function(i){ return !done(i); });
-    if (unchecked.length) { L.push(''); L.push('STILL UNVERIFIED: ' + unchecked.length + ' of 8 grace-checks outstanding'); }
+    var un = ['v1','v2','v3','v4','v5','v6','v7','v8'].filter(function(i){ return !done(i); });
+    if (un.length) { L.push(''); L.push('UNVERIFIED: ' + un.length + ' of 8 grace-checks outstanding'); }
     return L.join('\n');
   }
-
-  function toast(msg){
-    var t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); }, 1800);
-  }
+  function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },1800); }
 
   document.getElementById('copy').addEventListener('click', function(){
-    var text = summary(), ta = document.getElementById('dump');
-    ta.value = text;
+    var text = summary(), ta = document.getElementById('dump'); ta.value = text;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(
-        function(){ toast('Copied — paste it into the chat'); },
+      navigator.clipboard.writeText(text).then(function(){ toast('Copied — paste into the chat'); },
         function(){ ta.classList.add('show'); ta.select(); toast('Select and copy'); });
     } else { ta.classList.add('show'); ta.select();
       try { document.execCommand('copy'); toast('Copied'); } catch(e){ toast('Select and copy'); } }
@@ -819,36 +1255,31 @@
     var ta = document.getElementById('dump'); ta.value = summary(); ta.classList.toggle('show');
   });
   document.getElementById('reset').addEventListener('click', function(){
-    if (!confirm('Clear every tick and slider on this device?')) return;
+    if (!confirm('Clear every tick, slider and fold on this device?')) return;
     try { localStorage.removeItem(KEY); } catch(e){}
     location.reload();
   });
 
   /* ── tooltips ──────────────────────────────────────────── */
   var canHover = window.matchMedia && window.matchMedia('(hover:hover)').matches;
-  function closeAll(){
-    document.querySelectorAll('.sl.pinned,.sl.hovered').forEach(function(el){ el.classList.remove('pinned','hovered'); });
-  }
+  function closeAll(){ document.querySelectorAll('.sl.pinned,.sl.hovered').forEach(function(el){ el.classList.remove('pinned','hovered'); }); }
   document.querySelectorAll('.info').forEach(function(btn){
     var cell = btn.closest('.sl');
     btn.addEventListener('click', function(ev){
       ev.stopPropagation();
-      var open = cell.classList.contains('pinned');
-      closeAll(); if (!open) cell.classList.add('pinned');
+      var open = cell.classList.contains('pinned'); closeAll(); if (!open) cell.classList.add('pinned');
     });
     if (canHover) {
       btn.addEventListener('mouseenter', function(){ cell.classList.add('hovered'); });
       cell.addEventListener('mouseleave', function(){ cell.classList.remove('hovered'); });
     }
   });
-  document.querySelectorAll('.tip').forEach(function(t){
-    t.addEventListener('click', function(ev){ ev.stopPropagation(); });
-  });
+  document.querySelectorAll('.tip').forEach(function(t){ t.addEventListener('click', function(ev){ ev.stopPropagation(); }); });
   document.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeAll(); });
 
   /* ── wiring ────────────────────────────────────────────── */
-  function refresh(){ paintSliders(); advise(); paintProgress(); plan(); save(); }
+  function refresh(){ paintSliders(); paintWeapons(); advise(); paintProgress(); plan(); save(); }
   boxes.forEach(function(b){ b.addEventListener('change', refresh); });
   slides.forEach(function(s){ s.addEventListener('input', refresh); });
   refresh();
